@@ -1,0 +1,36 @@
+# =========================
+# Godot 4+
+# =========================
+.godot/
+export/
+exports/
+
+# Si usaras Godot 3 en algún momento, ignora estas también:
+.import/
+export.cfg
+
+# Nota: export_presets.cfg no se ignora por defecto para que todo tu equipo 
+# tenga las mismas configuraciones de exportación. ¡Solo asegúrate de no 
+# guardar contraseñas de Android Keystore directamente ahí!
+
+# =========================
+# Archivos del Sistema Operativo
+# =========================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux / Ubuntu
+*~
+.directory
