@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://8xpcmyaxp028"]
+
+[ext_resource type="Texture2D" uid="uid://dplae3afdiom8" path="res://sprites/Dimensional_Portal.png" id="1_lqbf1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jv4ie"]
+atlas = ExtResource("1_lqbf1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qae01"]
+atlas = ExtResource("1_lqbf1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usrwx"]
+atlas = ExtResource("1_lqbf1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqosm"]
+atlas = ExtResource("1_lqbf1")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l234d"]
+atlas = ExtResource("1_lqbf1")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_163oe"]
+atlas = ExtResource("1_lqbf1")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_40eqf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jv4ie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qae01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usrwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqosm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l234d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_163oe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqbf1"]
+size = Vector2(63.417377, 59.81971)
+
+[node name="Portal2" type="Area2D" unique_id=749887293]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=366981712]
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_40eqf")
+autoplay = "default"
+frame_progress = 0.16960235
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1931517953]
+position = Vector2(19.364199, -7.0089226)
+scale = Vector2(0.74980253, 2.3740978)
+shape = SubResource("RectangleShape2D_lqbf1")
+
+[node name="Destino2" type="Marker2D" parent="." unique_id=1104868128]
+position = Vector2(-105, 0)
+scale = Vector2(-254.1321, 0.80504566)

@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cgb6shlp7poli"]
+
+[ext_resource type="Script" uid="uid://bctrqekcyaumh" path="res://scenes/test_scene_4_portals.gd" id="1_3cogg"]
+[ext_resource type="PackedScene" uid="uid://b6ithssut5hp0" path="res://portals/portal.tscn" id="2_fnnns"]
+[ext_resource type="PackedScene" uid="uid://bfotyicask2r2" path="res://player/player.tscn" id="3_no0fe"]
+
+[node name="TestScene4Portals" type="Node2D" unique_id=1163914882]
+script = ExtResource("1_3cogg")
+metadata/_edit_horizontal_guides_ = [2.0]
+
+[node name="Portal" parent="." unique_id=1852935855 instance=ExtResource("2_fnnns")]
+position = Vector2(267, -24)
+scale = Vector2(0.99999994, 1)
+
+[node name="AnimatedSprite2D" parent="Portal" index="0" unique_id=114374483]
+position = Vector2(-15.000002, 44)
+frame_progress = 0.5428239
+
+[node name="CollisionShape2D" parent="Portal" index="1" unique_id=459251297]
+position = Vector2(-3.0000038, 36)
+
+[node name="Destino" parent="Portal" index="2" unique_id=130784570]
+position = Vector2(-51.000008, -512)
+
+[node name="Portal2" parent="." unique_id=1090891306 instance=ExtResource("2_fnnns")]
+position = Vector2(522, -548)
+
+[node name="AnimatedSprite2D" parent="Portal2" index="0" unique_id=114374483]
+frame_progress = 0.0
+
+[node name="CollisionShape2D" parent="Portal2" index="1" unique_id=459251297]
+position = Vector2(16, 2)
+
+[node name="Destino" parent="Portal2" index="2" unique_id=130784570]
+position = Vector2(348, 540)
+
+[node name="Player" parent="." unique_id=223502509 instance=ExtResource("3_no0fe")]
+position = Vector2(4.0000005, -10.999998)
+scale = Vector2(5, 5)
+
+[editable path="Portal"]
+[editable path="Portal2"]
