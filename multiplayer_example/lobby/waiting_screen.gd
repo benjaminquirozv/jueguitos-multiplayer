@@ -128,7 +128,7 @@ func _stop_timer() -> void:
 @rpc("reliable", "call_local")
 func _start_game() -> void:
 	Game.set_current_player_vote(false)
-	get_tree().change_scene_to_packed(Game.main_scene)
+	get_tree().change_scene_to_file("res://level1/level1.tscn")
 
 
 func _can_start_game() -> bool:
