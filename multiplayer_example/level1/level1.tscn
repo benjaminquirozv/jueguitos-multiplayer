@@ -1,7 +1,9 @@
-[gd_scene format=4 uid="uid://jje738yq6xcx"]
+[gd_scene format=4 uid="uid://hw4e73sx6odh"]
 
 [ext_resource type="Texture2D" uid="uid://to4b4vdrpi4p" path="res://textures/Textures-16.png" id="1_lklfg"]
 [ext_resource type="Script" uid="uid://r3r863v6x1x0" path="res://level1/level_1.gd" id="1_ol5kc"]
+[ext_resource type="PackedScene" uid="uid://8xpcmyaxp028" path="res://portals/portal_2.tscn" id="3_ol5kc"]
+[ext_resource type="Script" uid="uid://dr6jjvgfl1on0" path="res://portals/portal_rec.gd" id="4_ctxqh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq2b3"]
 texture = ExtResource("1_lklfg")
@@ -469,3 +471,25 @@ position = Vector2(161, -113)
 
 [node name="spawn4" type="Marker2D" parent="spawnpoints" unique_id=1860255870]
 position = Vector2(177, -286)
+
+[node name="Portal2" parent="spawnpoints" unique_id=749887293 instance=ExtResource("3_ol5kc")]
+position = Vector2(161, -109.99999)
+scale = Vector2(0.18, 0.18)
+
+[node name="Destino" parent="spawnpoints/Portal2" index="2" unique_id=1648487353]
+position = Vector2(-5.5555315, -1077.7777)
+
+[node name="Portal_recep" parent="." unique_id=122591662 instance=ExtResource("3_ol5kc")]
+position = Vector2(178, -287)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+
+[node name="CollisionShape2D" parent="Portal_recep" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="Portal_recep" index="2" unique_id=1648487353]
+position = Vector2(-692.30774, 207.69234)
+
+[editable path="spawnpoints/Portal2"]
+[editable path="Portal_recep"]
