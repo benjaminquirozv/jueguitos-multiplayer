@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://buxla4a3c3k2"]
+[gd_scene format=3 uid="uid://buxla4a3c3k2"]
 
 [ext_resource type="Theme" path="res://ui/main_menu_theme.tres" id="1_theme"]
 [ext_resource type="Script" uid="uid://cnbk17iq1x68f" path="res://ui/main_menu.gd" id="2_script"]
-[ext_resource type="Texture2D" path="res://ui/backgrounds/space_bg.png" id="3_bg"]
+[ext_resource type="Texture2D" uid="uid://38m5pqgo4c01" path="res://ui/backgrounds/space_bg.jpg" id="3_bg"]
+[ext_resource type="Texture2D" path="res://ui/backgrounds/title_logo.png" id="4_logo"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=171015534]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +15,7 @@ grow_vertical = 2
 theme = ExtResource("1_theme")
 script = ExtResource("2_script")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=636697756]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +27,7 @@ texture = ExtResource("3_bg")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Vignette" type="ColorRect" parent="."]
+[node name="Vignette" type="ColorRect" parent="." unique_id=1209112826]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,69 +37,54 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.02, 0.01, 0.08, 0.35)
 
-[node name="TitleMargin" type="MarginContainer" parent="."]
+[node name="TitleLogo" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(380, 380)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 80.0
-offset_bottom = 220.0
+offset_top = 10.0
+offset_bottom = 390.0
 grow_horizontal = 2
-theme_type_variation = &"Zero"
+mouse_filter = 2
+texture = ExtResource("4_logo")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Title" type="Label" parent="TitleMargin"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"Title"
-text = "STELLAR ARENA"
-horizontal_alignment = 1
-
-[node name="Subtitle" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 200.0
-offset_bottom = 240.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0.78, 0.69, 1.0, 0.85)
-theme_override_colors/font_outline_color = Color(0.05, 0.02, 0.14, 0.8)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 22
-text = "M U L T I P L A Y E R"
-horizontal_alignment = 1
-
-[node name="ButtonsCenter" type="CenterContainer" parent="."]
+[node name="ButtonsCenter" type="CenterContainer" parent="." unique_id=151698454]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 380.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Buttons" type="VBoxContainer" parent="ButtonsCenter"]
+[node name="Buttons" type="VBoxContainer" parent="ButtonsCenter" unique_id=1975785965]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 
-[node name="Host" type="Button" parent="ButtonsCenter/Buttons"]
+[node name="Host" type="Button" parent="ButtonsCenter/Buttons" unique_id=965975809]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Host"
 
-[node name="Join" type="Button" parent="ButtonsCenter/Buttons"]
+[node name="Join" type="Button" parent="ButtonsCenter/Buttons" unique_id=1583350770]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Join"
 
-[node name="Credits" type="Button" parent="ButtonsCenter/Buttons"]
+[node name="Credits" type="Button" parent="ButtonsCenter/Buttons" unique_id=375073590]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Credits"
 
-[node name="Quit" type="Button" parent="ButtonsCenter/Buttons"]
+[node name="Quit" type="Button" parent="ButtonsCenter/Buttons" unique_id=911078647]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
 
-[node name="Footer" type="Label" parent="."]
+[node name="Footer" type="Label" parent="." unique_id=1770381118]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -110,5 +96,5 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.7, 0.6, 0.95, 0.7)
 theme_override_font_sizes/font_size = 16
-text = "v0.1 · godot 4.6"
+text = "Twin Dimension · v0.1"
 horizontal_alignment = 1

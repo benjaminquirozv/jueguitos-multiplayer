@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4on172p50ioo"
-valid=false
+uid="uid://38m5pqgo4c01"
+path="res://.godot/imported/space_bg.jpg-bb7876e05da8f7b0c1d7675341b21ccb.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://ui/backgrounds/space_bg.png"
+source_file="res://ui/backgrounds/space_bg.jpg"
+dest_files=["res://.godot/imported/space_bg.jpg-bb7876e05da8f7b0c1d7675341b21ccb.ctex"]
 
 [params]
 
