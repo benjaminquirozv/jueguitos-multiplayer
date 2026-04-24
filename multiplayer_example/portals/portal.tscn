@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://b6ithssut5hp0"]
+
+[ext_resource type="Texture2D" uid="uid://bahfpdlal6l5t" path="res://sprites/portal-Sheet (1).png" id="1_4ud3v"]
+[ext_resource type="Script" uid="uid://cdgied004ccn2" path="res://portals/destino.gd" id="2_jnenf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnenf"]
+atlas = ExtResource("1_4ud3v")
+region = Rect2(0, 0, 63, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0q6we"]
+atlas = ExtResource("1_4ud3v")
+region = Rect2(63, 0, 63, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swugm"]
+atlas = ExtResource("1_4ud3v")
+region = Rect2(126, 0, 63, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pigr"]
+atlas = ExtResource("1_4ud3v")
+region = Rect2(189, 0, 63, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12rmo"]
+atlas = ExtResource("1_4ud3v")
+region = Rect2(252, 0, 63, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coaet"]
+atlas = ExtResource("1_4ud3v")
+region = Rect2(315, 0, 63, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xykh"]
+atlas = ExtResource("1_4ud3v")
+region = Rect2(378, 0, 63, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcbhl"]
+atlas = ExtResource("1_4ud3v")
+region = Rect2(441, 0, 63, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_awxq2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnenf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0q6we")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swugm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pigr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12rmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coaet")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xykh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcbhl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ud3v"]
+size = Vector2(94, 247)
+
+[node name="Portal" type="Area2D" unique_id=1852935855]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=114374483]
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_awxq2")
+autoplay = "default"
+frame_progress = 0.03714779
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=459251297]
+position = Vector2(31, 2)
+shape = SubResource("RectangleShape2D_4ud3v")
+
+[node name="Destino" type="Marker2D" parent="." unique_id=130784570]
+position = Vector2(-169, -2)
+script = ExtResource("2_jnenf")
+
+[connection signal="body_entered" from="." to="Destino" method="_on_portal_body_entered"]

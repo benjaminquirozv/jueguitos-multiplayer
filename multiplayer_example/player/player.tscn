@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bfotyicask2r2"]
+
+[ext_resource type="Texture2D" uid="uid://j8bss1pb8kkt" path="res://sprites/AnimationSheet.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://yrlv2ewrlx4o" path="res://scripts/player_controller.gd" id="1_onrkg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+radius = 4.0
+height = 16.0
+
+[node name="Player" type="CharacterBody2D" unique_id=223502509 groups=["Player"]]
+script = ExtResource("1_onrkg")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1087916182]
+
+[node name="Animation" type="Node2D" parent="." unique_id=576199695]
+
+[node name="Sprite2D" type="Sprite2D" parent="Animation" unique_id=1423332174]
+texture = ExtResource("1_4flbx")
+region_enabled = true
+region_rect = Rect2(0, 0, 24, 24)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animation" unique_id=1971572447]
+root_node = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1659492040]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_onrkg")
+debug_color = Color(0.8196092, 0.2003218, 0.8566097, 0.41960785)
