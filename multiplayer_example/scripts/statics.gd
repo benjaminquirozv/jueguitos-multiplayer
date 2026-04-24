@@ -2,7 +2,7 @@ class_name Statics
 extends Node
 
 
-const MAX_CLIENTS = 3
+const MAX_CLIENTS = 4
 const PORT = 5409 # Number between 1024 and 65535.
 
 
@@ -11,6 +11,7 @@ enum Role {
 	ROLE_A,
 	ROLE_B,
 	ROLE_C,
+	ROLE_D
 }
 
 
@@ -24,6 +25,8 @@ static func get_role_name(role: Role) -> String:
 			return "Role B"
 		Role.ROLE_C:
 			return "Role C"
+		Role.ROLE_D:
+			return "Role D"
 	return "Unknown"
 
 
