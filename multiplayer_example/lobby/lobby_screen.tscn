@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cgsspji18smle"]
+[gd_scene format=3 uid="uid://cgsspji18smle"]
 
 [ext_resource type="Theme" uid="uid://bwgdrcgopd0s1" path="res://lobby/lobby_theme.tres" id="1_0ce57"]
+[ext_resource type="Texture2D" uid="uid://38m5pqgo4c01" path="res://ui/backgrounds/space_bg.jpg" id="2_684nl"]
 
-[node name="LobbyScreen" type="Control"]
+[node name="LobbyScreen" type="Control" unique_id=2131345797]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +12,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_0ce57")
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=472175214]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_684nl")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1705287837]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,16 +33,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"Zero"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2" unique_id=845784523]
 layout_mode = 2
 theme_type_variation = &"Zero"
 
-[node name="Panel" type="Panel" parent="MarginContainer2/VBoxContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer2/VBoxContainer" unique_id=165634389]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer/Panel"]
+[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer/Panel" unique_id=1123161778]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -48,7 +61,7 @@ theme_type_variation = &"Title"
 text = "Screen"
 horizontal_alignment = 1
 
-[node name="BackButton" type="Button" parent="MarginContainer2/VBoxContainer/Panel"]
+[node name="BackButton" type="Button" parent="MarginContainer2/VBoxContainer/Panel" unique_id=492544767]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -62,16 +75,16 @@ offset_right = -250.0
 offset_bottom = -4.0
 text = "く"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/VBoxContainer" unique_id=484785557]
 layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"Zero"
 
-[node name="Control" type="Control" parent="MarginContainer2/VBoxContainer/MarginContainer"]
+[node name="Control" type="Control" parent="MarginContainer2/VBoxContainer/MarginContainer" unique_id=268787292]
 layout_mode = 2
 theme_type_variation = &"Zero"
 
-[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" type="PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control"]
+[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" type="PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" unique_id=316652335]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5

@@ -3,15 +3,57 @@
 [ext_resource type="PackedScene" uid="uid://cgsspji18smle" path="res://lobby/lobby_screen.tscn" id="1_1g6tu"]
 [ext_resource type="Script" uid="uid://d1urh7pr0l6lh" path="res://lobby/waiting_screen.gd" id="2_a2sqk"]
 [ext_resource type="PackedScene" uid="uid://iobnvr8f3tkm" path="res://lobby/lobby_player.tscn" id="2_wjc1o"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="3_0nkhr"]
+[ext_resource type="Texture2D" uid="uid://bpyy1burr1wtm" path="res://sprites/The Female Adventurer - Free/Idle/Idle.png" id="4_5sytt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssaso"]
+atlas = ExtResource("4_5sytt")
+region = Rect2(-2.5, 2.75, 53, 57.5)
 
 [node name="WaitingScreen" unique_id=989092073 instance=ExtResource("1_1g6tu")]
 script = ExtResource("2_a2sqk")
 
-[node name="Label" parent="MarginContainer2/VBoxContainer/Panel" index="0"]
+[node name="GameStartContainer" type="PanelContainer" parent="." index="1" unique_id=1190621676]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.5
+offset_top = -115.0
+offset_right = 125.5
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"Darker"
+
+[node name="MarginContainer" type="MarginContainer" parent="GameStartContainer" index="0" unique_id=1747823244]
+layout_mode = 2
+theme_type_variation = &"Tight"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameStartContainer/MarginContainer" index="0" unique_id=1336360133]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GameStartContainer/MarginContainer/VBoxContainer" index="0" unique_id=517457234]
+layout_mode = 2
+text = "Game starting"
+horizontal_alignment = 1
+
+[node name="GameStartCounter" type="Label" parent="GameStartContainer/MarginContainer/VBoxContainer" index="1" unique_id=1836707864]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+horizontal_alignment = 1
+
+[node name="StartTimer" type="Timer" parent="." index="2" unique_id=826333208]
+wait_time = 3.0
+
+[node name="Label" parent="MarginContainer2/VBoxContainer/Panel" parent_id_path=PackedInt32Array(165634389) index="0" unique_id=1123161778]
 text = "Lobby"
 
-[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="0"]
+[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" parent_id_path=PackedInt32Array(268787292) index="0" unique_id=316652335]
 clip_contents = true
 custom_minimum_size = Vector2(629, 375)
 offset_left = -110.0
@@ -59,7 +101,7 @@ size_flags_horizontal = 3
 text = "Wating for players ..."
 horizontal_alignment = 1
 
-[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2" type="PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="1" unique_id=525239354]
+[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2" type="PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" parent_id_path=PackedInt32Array(268787292) index="1" unique_id=525239354]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -85,10 +127,11 @@ theme_type_variation = &"Zero"
 
 [node name="PlayerTexture" type="TextureRect" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="0" unique_id=227556987]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("3_0nkhr")
-stretch_mode = 2
+texture = SubResource("AtlasTexture_ssaso")
+expand_mode = 3
 
 [node name="PlayerName" type="Label" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="1" unique_id=605093980]
 unique_name_in_owner = true
@@ -140,41 +183,3 @@ unique_name_in_owner = true
 layout_mode = 2
 disabled = true
 text = "Ready"
-
-[node name="GameStartContainer" type="PanelContainer" parent="." index="1" unique_id=1190621676]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -125.5
-offset_top = -115.0
-offset_right = 125.5
-offset_bottom = 31.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_type_variation = &"Darker"
-
-[node name="MarginContainer" type="MarginContainer" parent="GameStartContainer" index="0" unique_id=1747823244]
-layout_mode = 2
-theme_type_variation = &"Tight"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GameStartContainer/MarginContainer" index="0" unique_id=1336360133]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="GameStartContainer/MarginContainer/VBoxContainer" index="0" unique_id=517457234]
-layout_mode = 2
-text = "Game starting"
-horizontal_alignment = 1
-
-[node name="GameStartCounter" type="Label" parent="GameStartContainer/MarginContainer/VBoxContainer" index="1" unique_id=1836707864]
-unique_name_in_owner = true
-layout_mode = 2
-text = "X"
-horizontal_alignment = 1
-
-[node name="StartTimer" type="Timer" parent="." index="2" unique_id=826333208]
-wait_time = 3.0

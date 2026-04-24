@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://buxla4a3c3k2"]
 
-[ext_resource type="Theme" path="res://ui/main_menu_theme.tres" id="1_theme"]
+[ext_resource type="Theme" uid="uid://bq71ube2tqy4e" path="res://ui/main_menu_theme.tres" id="1_theme"]
 [ext_resource type="Script" uid="uid://cnbk17iq1x68f" path="res://ui/main_menu.gd" id="2_script"]
 [ext_resource type="Texture2D" uid="uid://38m5pqgo4c01" path="res://ui/backgrounds/space_bg.jpg" id="3_bg"]
-[ext_resource type="Texture2D" path="res://ui/backgrounds/title_logo.png" id="4_logo"]
+[ext_resource type="Texture2D" uid="uid://d2gj8lrw0jhe5" path="res://ui/backgrounds/title_logo.png" id="4_logo"]
 
 [node name="MainMenu" type="Control" unique_id=171015534]
 layout_mode = 3
@@ -37,7 +37,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.02, 0.01, 0.08, 0.35)
 
-[node name="TitleLogo" type="TextureRect" parent="."]
+[node name="TitleLogo" type="TextureRect" parent="." unique_id=461554061]
 custom_minimum_size = Vector2(380, 380)
 layout_mode = 1
 anchors_preset = 10

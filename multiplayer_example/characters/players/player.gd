@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var velocidad = 200.0
+@onready var anim = $AnimatedSprite2D
 
 func _ready():
 	# Si este personaje es el mío, enciendo la cámara. Si es de otro, la apago.
@@ -15,6 +16,10 @@ func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direccion = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	if direccion != Vector2.ZERO:
+		anim.play("walk")
+	else:
+		anim.play("idle")
 
 	velocity = direccion * velocidad
 	
