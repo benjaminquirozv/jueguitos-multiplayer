@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://cfakba78q4fci"]
+
+[ext_resource type="Script" uid="uid://ctt8o10k4rdhc" path="res://ui/final_cachipun.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bq71ube2tqy4e" path="res://ui/main_menu_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://cmei0xf2uvxxr" path="res://sprites/hand_rock.png" id="3_hand"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="4_eq14l"]
+
+[node name="FinalCachipun" type="Control" unique_id=398009615]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1556046697]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.1, 0.15, 1)
+
+[node name="HandSprite" type="TextureRect" parent="." unique_id=500180258]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -910.0
+offset_top = 666.0
+offset_right = 290.0
+offset_bottom = 1466.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = -1.5708
+texture = ExtResource("3_hand")
+expand_mode = 1
+stretch_mode = 5
+flip_h = true
+
+[node name="PlayersContainer" type="Control" parent="." unique_id=1057373881]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1270.0
+offset_top = -400.0
+offset_right = -870.0
+offset_bottom = -11.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SelectionMenu" type="Control" parent="." unique_id=839419275]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 73.0
+offset_top = 61.0
+offset_right = -189.0
+offset_bottom = -113.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="SelectionMenu" unique_id=446371200]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 173.0
+offset_top = 92.0
+offset_right = -143.0
+offset_bottom = -135.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SelectionMenu/CenterContainer" unique_id=235829732]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="SelectionMenu/CenterContainer/VBoxContainer" unique_id=2069255416]
+layout_mode = 2
+text = "C A C H I P U N   E N D G A M E"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SelectionMenu/CenterContainer/VBoxContainer" unique_id=1889505081]
+layout_mode = 2
+
+[node name="RockButton" type="Button" parent="SelectionMenu/CenterContainer/VBoxContainer/HBoxContainer" unique_id=68382953]
+unique_name_in_owner = true
+layout_mode = 2
+text = "PIEDRA"
+
+[node name="PaperButton" type="Button" parent="SelectionMenu/CenterContainer/VBoxContainer/HBoxContainer" unique_id=90034474]
+unique_name_in_owner = true
+layout_mode = 2
+text = "PAPEL"
+
+[node name="ScissorsButton" type="Button" parent="SelectionMenu/CenterContainer/VBoxContainer/HBoxContainer" unique_id=349201006]
+unique_name_in_owner = true
+layout_mode = 2
+text = " TIJERA"
+
+[node name="CountdownLabel" type="Label" parent="." unique_id=2089097245]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45400003
+anchor_top = 0.29900002
+anchor_right = 0.45400003
+anchor_bottom = 0.29900002
+offset_left = -63.120056
+offset_top = -19.280014
+offset_right = 62.879944
+offset_bottom = 19.719986
+grow_horizontal = 2
+grow_vertical = 2
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResultLabel" type="Label" parent="." unique_id=55641056]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RESULTADO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=500508890]
+position = Vector2(235, 562)
+texture = ExtResource("4_eq14l")
