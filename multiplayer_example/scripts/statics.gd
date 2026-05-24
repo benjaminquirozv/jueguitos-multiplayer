@@ -55,6 +55,22 @@ static func get_role_name(role: Role) -> String:
 		Role.ROLE_D:
 			return "Role D"
 	return "Unknown"
+static func can_see_role(viewer_role: Role, target_role: Role) -> bool:
+		match viewer_role:
+			Role.ROLE_A:
+				return target_role != Role.ROLE_D
+			Role.ROLE_B:
+				return target_role != Role.ROLE_C
+			Role.ROLE_C:
+				return target_role != Role.ROLE_B
+			Role.ROLE_D:
+				return target_role != Role.ROLE_A
+			_:
+				return true
+static func are_teammates(role_1: Role, role_2: Role) -> bool:
+		var team_1 =  Statics.get_team_from_role(role_1)
+		var team_2 = Statics.get_team_from_role(role_2)
+		return team_1 != Team.NONE and team_1 == team_2
 
 
 class PlayerData:
