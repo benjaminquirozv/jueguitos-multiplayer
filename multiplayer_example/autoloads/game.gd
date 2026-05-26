@@ -104,8 +104,9 @@ func update_indices(player_indices: Dictionary) -> void:
 func set_player_role(id: int, role: Statics.Role) -> void:
 	var player = get_player(id)
 	player.role = role
+	player.team = Statics.get_team_from_role(role)
+	print(player.name, "es del equipo", Statics.get_team_name(player.team))
 	player_updated.emit(id)
-
 
 func set_current_player_role(role: Statics.Role) -> void:
 	set_player_role.rpc(multiplayer.get_unique_id(), role)

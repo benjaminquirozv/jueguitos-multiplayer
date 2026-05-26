@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://r3r863v6x1x0" path="res://level1/level_1.gd" id="1_ol5kc"]
 [ext_resource type="PackedScene" uid="uid://8xpcmyaxp028" path="res://portals/portal_2.tscn" id="3_ol5kc"]
 [ext_resource type="Script" uid="uid://dr6jjvgfl1on0" path="res://portals/portal_rec.gd" id="4_ctxqh"]
+[ext_resource type="Texture2D" uid="uid://soh1ifon3xa4" path="res://level1/n8CNl_.png" id="5_871ru"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq2b3"]
 texture = ExtResource("1_lklfg")
@@ -490,6 +491,43 @@ scale = Vector2(0.7498025, 2.3740978)
 
 [node name="Destino" parent="Portal_recep" index="2" unique_id=1648487353]
 position = Vector2(-692.30774, 207.69234)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=269410076]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=699236172]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FiltroDimension" type="ColorRect" parent="CanvasLayer/Control" unique_id=631333037]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.49803922, 0.105882354, 0.7607843, 0.34117648)
+
+[node name="Niebla" type="TextureRect" parent="CanvasLayer/Control" unique_id=1207083040]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1727.0
+offset_top = -1198.0
+offset_right = 322.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_871ru")
+stretch_mode = 1
 
 [editable path="spawnpoints/Portal2"]
 [editable path="Portal_recep"]
