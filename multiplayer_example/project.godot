@@ -41,4 +41,4 @@ test={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.278431, 0.54902, 0.74902, 1)
+environment/defaults/default_clear_color=Color(0.801241, 0.33768594, 0.52117836, 1)
