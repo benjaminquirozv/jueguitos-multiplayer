@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://svvdascujnro"]
+
+[ext_resource type="Script" uid="uid://ddbh13nvm547j" path="res://color_rect.gd" id="1_1hu1m"]
+[ext_resource type="Shader" uid="uid://bvj7i1c4cw2xd" path="res://fondo.gdshader" id="1_l5324"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ytsh8"]
+shader = ExtResource("1_l5324")
+shader_parameter/bg_color = Color(0.07905648, 0.023169855, 0.14980963, 1)
+shader_parameter/star_density = 0.002000000095
+shader_parameter/resolution = 1024.0
+shader_parameter/parpadeo_velocidad = 4.2250002006875
+shader_parameter/parpadeo_intensidad = 0.49600002356
+
+[node name="CanvasLayer" type="ParallaxBackground" unique_id=445928147]
+layer = -1
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="." unique_id=903078703]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxLayer" unique_id=1340540494]
+material = SubResource("ShaderMaterial_ytsh8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1hu1m")
