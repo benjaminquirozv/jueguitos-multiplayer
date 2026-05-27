@@ -1,5 +1,7 @@
 extends Node2D
 
+const PAUSE_SCENE := preload("res://ui/pause.tscn")
+
 @onready var spawner = $MultiplayerSpawner
 @onready var contenedor = $Contenedor
 @onready var puntos_aparicion = $spawnpoints.get_children()
@@ -11,6 +13,7 @@ var velocidad_niebla := 15.0
 
 
 func _ready():
+	add_child(PAUSE_SCENE.instantiate())
 	# 1. Ambos (Servidor y Cliente) configuran la función
 	spawner.set_spawn_function(crear_jugador_personalizado)
 	niebla.modulate = Color(1, 1, 1, 0.25)

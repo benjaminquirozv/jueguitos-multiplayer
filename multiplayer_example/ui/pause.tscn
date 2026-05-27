@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://c3421res7pgce"]
+
+[ext_resource type="Script" uid="uid://clv8oi7k646hx" path="res://ui/pause.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bq71ube2tqy4e" path="res://ui/main_menu_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://38m5pqgo4c01" path="res://ui/backgrounds/space_bg.jpg" id="3_bg"]
+
+[node name="Pause" type="CanvasLayer" unique_id=214292882]
+process_mode = 3
+layer = 10
+script = ExtResource("1_script")
+
+[node name="PauseButton" type="Button" parent="." unique_id=902529600]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme = ExtResource("2_theme")
+text = "II"
+
+[node name="PauseOverlay" type="Control" parent="." unique_id=1247139655]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+
+[node name="Background" type="TextureRect" parent="PauseOverlay" unique_id=1281590306]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Vignette" type="ColorRect" parent="PauseOverlay" unique_id=273194452]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.01, 0.08, 0.55)
+
+[node name="ButtonsCenter" type="CenterContainer" parent="PauseOverlay" unique_id=399633224]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="VBoxContainer" parent="PauseOverlay/ButtonsCenter" unique_id=264641482]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="Title" type="Label" parent="PauseOverlay/ButtonsCenter/Buttons" unique_id=8515494]
+layout_mode = 2
+theme_type_variation = &"Title"
+text = "PAUSA"
+horizontal_alignment = 1
+
+[node name="PausedBy" type="Label" parent="PauseOverlay/ButtonsCenter/Buttons" unique_id=178988726]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.69, 1, 0.9)
+theme_override_font_sizes/font_size = 22
+text = "Juego en pausa"
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="PauseOverlay/ButtonsCenter/Buttons" unique_id=893573530]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reanudar"
+
+[node name="QuitGame" type="Button" parent="PauseOverlay/ButtonsCenter/Buttons" unique_id=179596415]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Salir"
+
+[node name="Menu" type="Button" parent="PauseOverlay/ButtonsCenter/Buttons" unique_id=2081631085]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Menú"
