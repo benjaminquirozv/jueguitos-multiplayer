@@ -14,7 +14,15 @@ extends Control
 @onready var game_start_container: PanelContainer = %GameStartContainer
 @onready var game_start_counter: Label = %GameStartCounter
 
-
+# ── SABOTAJE ──────────────────────────────────────────────────────────────────
+# En waiting_screen.tscn agrega estos 3 nodos con sus unique names:
+#   SabotajeButton    → Button         (al lado del RoleButton)
+#   SabotajeContainer → PanelContainer (misma estructura que RoleContainer)
+#   SabotajeList      → VBoxContainer  (hijo de SabotajeContainer)
+@onready var sabotaje_button: Button = %SabotajeButton
+@onready var sabotaje_container: PanelContainer = %SabotajeContainer
+@onready var sabotaje_list: VBoxContainer = %SabotajeList
+# ─────────────────────────────────────────────────────────────────────────────
 
 var LOBBY_PLAYER_SCENE = preload("res://lobby/lobby_player.tscn")
 
@@ -33,15 +41,22 @@ func _ready() -> void:
 	role_button.pressed.connect(_handle_role_pressed)
 	role_container.hide()
 	game_start_container.hide()
-	
 	_update_ready_button()
-	
+
 	if Game.use_roles:
 		_fill_role_container()
 		var role = Game.get_current_player().role
 		role_button.text = Statics.get_role_name(role)
 		if role == Statics.Role.NONE:
 			role_button.text = "Role?"
+
+	# ── SABOTAJE ──────────────────────────────────────────────────────────────
+	sabotaje_button.pressed.connect(_handle_sabotaje_pressed)
+	sabotaje_container.hide()
+	_fill_sabotaje_container()
+	var sab = Game.get_current_player().sabotaje
+	sabotaje_button.text = Statics.get_sabotaje_name(sab) if sab != Statics.Sabotaje.NINGUNO else "Sabotaje?"
+	# ─────────────────────────────────────────────────────────────────────────
 
 
 func _process(delta: float) -> void:
@@ -57,6 +72,7 @@ func _update_player() -> void:
 	var player_ready = Game.get_current_player().vote
 	player_texture.modulate = Color.GREEN if player_ready else Color.WHITE
 	role_container.hide()
+	sabotaje_container.hide()
 
 
 func _handle_players_updated() -> void:
@@ -82,10 +98,10 @@ func _handle_back_pressed() -> void:
 
 func _handle_role_pressed() -> void:
 	role_container.visible = not role_container.visible
+	sabotaje_container.hide()
 
 
 func _fill_role_container() -> void:
-	# Skip Role.NONE
 	for i in Statics.Role.size() - 1:
 		var button = Button.new()
 		button.text = Statics.get_role_name(i + 1)
@@ -99,6 +115,28 @@ func _update_role(role: Statics.Role) -> void:
 	role_container.hide()
 
 
+# ── SABOTAJE ──────────────────────────────────────────────────────────────────
+func _handle_sabotaje_pressed() -> void:
+	sabotaje_container.visible = not sabotaje_container.visible
+	role_container.hide()
+
+
+func _fill_sabotaje_container() -> void:
+	for i in Statics.Sabotaje.size() - 1:
+		var idx = i + 1
+		var button = Button.new()
+		button.text = Statics.get_sabotaje_name(idx)
+		button.pressed.connect(func(): _update_sabotaje(idx))
+		sabotaje_list.add_child(button)
+
+
+func _update_sabotaje(sabotaje: Statics.Sabotaje) -> void:
+	Game.set_current_player_sabotaje(sabotaje)
+	sabotaje_button.text = Statics.get_sabotaje_name(sabotaje)
+	sabotaje_container.hide()
+# ─────────────────────────────────────────────────────────────────────────────
+
+
 func _handle_vote_updated() -> void:
 	_update_player()
 	if multiplayer and multiplayer.is_server():
@@ -110,11 +148,13 @@ func _handle_vote_updated() -> void:
 		elif not start_timer.is_stopped():
 			_stop_timer.rpc()
 
+
 @rpc("reliable", "call_local")
 func _start_timer() -> void:
 	start_timer.start()
 	game_start_container.show()
 	role_button.disabled = true
+	sabotaje_button.disabled = true
 
 
 @rpc("reliable", "call_local")
@@ -122,7 +162,7 @@ func _stop_timer() -> void:
 	start_timer.stop()
 	game_start_container.hide()
 	role_button.disabled = false
-	
+	sabotaje_button.disabled = false
 
 
 @rpc("reliable", "call_local")
@@ -132,10 +172,10 @@ func _start_game() -> void:
 
 
 func _can_start_game() -> bool:
-	var quantity = Game.players.size() >= Game.min_players
+	var quantity   = Game.players.size() >= Game.min_players
 	var completion = not Game.use_roles or not Game.all_roles or _are_all_roles_selected()
 	var uniqueness = not Game.use_roles or not Game.unique_roles or _are_all_roles_unique()
-	var fullness = not Game.use_roles or _all_players_selected_role()
+	var fullness   = not Game.use_roles or _all_players_selected_role()
 	return quantity and completion and uniqueness and fullness
 
 
@@ -145,7 +185,6 @@ func _update_ready_button() -> void:
 
 func _are_all_roles_selected() -> bool:
 	var roles = Statics.Role.values()
-	# remove NONE
 	roles.pop_front()
 	for player in Game.players:
 		roles.erase(player.role)
@@ -154,7 +193,6 @@ func _are_all_roles_selected() -> bool:
 
 func _are_all_roles_unique() -> bool:
 	var roles = Statics.Role.values()
-	# remove NONE
 	roles.pop_front()
 	for player in Game.players:
 		if roles.has(player.role):
@@ -162,6 +200,7 @@ func _are_all_roles_unique() -> bool:
 		else:
 			return false
 	return true
+
 
 func _all_players_selected_role() -> bool:
 	for player in Game.players:

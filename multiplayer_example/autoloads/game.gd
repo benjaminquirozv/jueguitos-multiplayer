@@ -7,11 +7,11 @@ signal player_index_received()
 
 @export var multiplayer_test = false
 @export var use_roles = true
-@export var unique_roles = true # won't start with repeated roles
-@export var all_roles = true # won't start if all roles aren't selected
-@export var min_players = 2 # won't start if there are at least these players
+@export var unique_roles = true
+@export var all_roles = true
+@export var min_players = 2
 @export var fill_screen = true
-@export var test_players: Array[PlayerDataResource] = [] # first one is server
+@export var test_players: Array[PlayerDataResource] = []
 @export var main_scene: PackedScene
 
 var players: Array[Statics.PlayerData] = []
@@ -34,11 +34,9 @@ var _initial_window_scale_aspect
 func _ready() -> void:
 	_initial_window_scale_mode = get_window().content_scale_mode
 	_initial_window_scale_aspect = get_window().content_scale_aspect
-	
 	get_window().size_changed.connect(_handle_size_changed)
 	_update_window_scale()
 	get_tree().node_added.connect(_handle_node_added)
-	
 	if not OS.is_debug_build():
 		multiplayer_test = false
 		player_id.hide()
@@ -67,7 +65,6 @@ func remove_player(id: int) -> void:
 		if players[i].id == id:
 			players.remove_at(i)
 			break
-	
 	if multiplayer.is_server():
 		var player_indices: Dictionary = {}
 		for i in players.size():
@@ -112,6 +109,21 @@ func set_current_player_role(role: Statics.Role) -> void:
 	set_player_role.rpc(multiplayer.get_unique_id(), role)
 
 
+# ── SABOTAJE elegido en lobby ──────────────────────────────────────────────────
+# Sincroniza el sabotaje que el jugador POSEE (lo elige en el lobby).
+@rpc("any_peer", "reliable", "call_local")
+func set_player_sabotaje(id: int, sabotaje: Statics.Sabotaje) -> void:
+	var player = get_player(id)
+	if player == null:
+		return
+	player.sabotaje = sabotaje
+	player_updated.emit(id)
+
+func set_current_player_sabotaje(sabotaje: Statics.Sabotaje) -> void:
+	set_player_sabotaje.rpc(multiplayer.get_unique_id(), sabotaje)
+# ──────────────────────────────────────────────────────────────────────────────
+
+
 @rpc("any_peer", "reliable", "call_local")
 func set_player_vote(id: int, vote: bool) -> void:
 	var player = get_player(id)
@@ -121,20 +133,16 @@ func set_player_vote(id: int, vote: bool) -> void:
 	player_updated.emit(id)
 	vote_updated.emit(id)
 
-
 func set_current_player_vote(vote: bool) -> void:
 	set_player_vote.rpc(multiplayer.get_unique_id(), vote)
-
 
 func reset_votes() -> void:
 	for player in players:
 		set_player_vote.rpc(player.id, false)
 
-
 func is_online() -> bool:
 	return not multiplayer.multiplayer_peer is OfflineMultiplayerPeer and \
 		multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.CONNECTION_DISCONNECTED
-
 
 func update_player_id() -> void:
 	if not OS.is_debug_build():
@@ -145,25 +153,18 @@ func update_player_id() -> void:
 	else:
 		player_id.hide()
 
-
 func reset_window_scale() -> void:
 	get_window().content_scale_mode = _initial_window_scale_mode
 	get_window().content_scale_aspect = _initial_window_scale_aspect
 
-
 func _handle_size_changed() -> void:
 	if not change_window_scale:
 		return
-	
 	var was_windows_small = _is_window_small
-	#get_window().min_size = Vector2i(1280, 720)
-	_is_window_small =  get_window().size.x < 1280 or get_window().size.y < 720
-
+	_is_window_small = get_window().size.x < 1280 or get_window().size.y < 720
 	if was_windows_small == _is_window_small:
 		return
-	
 	_update_window_scale()
-
 
 func _update_window_scale() -> void:
 	if _is_window_small:
@@ -173,9 +174,7 @@ func _update_window_scale() -> void:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 		get_window().content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 
-
 func _handle_node_added(node: Node) -> void:
 	if node.get_parent() == get_window():
-		# Scene has been changed
 		change_window_scale = node is MainMenu or node is LobbyHostScreen or \
 			node is LobbyJoinScreen or node is LobbyWaitingScreen or node is Credits
