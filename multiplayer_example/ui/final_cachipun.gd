@@ -160,26 +160,19 @@ func _show_game_result(team_choice: Choice, hand_choice: Choice, result: String)
 	await get_tree().create_timer(4.0).timeout
 	_restart_game()
 
-
 func _setup_players_display() -> void:
-	# Limpiar contenedor de jugadores existente
 	for child in _players_container.get_children():
 		child.queue_free()
 	
-	# Añadir etiquetas para cada jugador conectado
 	var player_count = 0
 	for player in Game.players:
 		var player_label = Label.new()
 		player_label.text = "🎮 %s" % player.name
-		player_label.theme = theme
-		player_label.theme_override_font_sizes["font_size"] = 24
-		player_label.theme_override_colors["font_color"] = Color.CYAN
-		
-		# Posicionar jugadores en el "piso" 
+		player_label.add_theme_font_size_override("font_size", 32)  # ✅
+		player_label.add_theme_color_override("font_color", Color.CYAN)  # ✅
 		player_label.position = Vector2(player_count * 100, -30 - (player_count * 25))
 		_players_container.add_child(player_label)
 		player_count += 1
-
 
 func _animate_choices_reveal(team_choice: Choice, hand_choice: Choice) -> void:
 	# Cuenta regresiva dramática
