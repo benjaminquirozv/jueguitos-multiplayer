@@ -31,10 +31,10 @@ enum Sabotaje {
 static func get_sabotaje_name(s: Sabotaje) -> String:
 	match s:
 		Sabotaje.NINGUNO:              return "Sin sabotaje"
-		Sabotaje.VELOCIDAD_LENTA:      return "Velocidad lenta"
-		Sabotaje.PORTAL_TRAMPA:        return "Portal trampa"
-		Sabotaje.CONTROLES_INVERTIDOS: return "Controles invertidos"
-		Sabotaje.PANTALLA_OSCURA:      return "Pantalla oscura"
+		Sabotaje.VELOCIDAD_LENTA:      return "Slow Motion"
+		Sabotaje.PORTAL_TRAMPA:        return "Fake Portal"
+		Sabotaje.CONTROLES_INVERTIDOS: return "Reverse Controls"
+		Sabotaje.PANTALLA_OSCURA:      return "Dark Screen"
 	return "Desconocido"
 # ──────────────────────────────────────────────────────────────────────────────
 
@@ -57,10 +57,10 @@ static func get_team_from_role(role: Role) -> Team:
 static func get_role_name(role: Role) -> String:
 	match role:
 		Role.NONE:   return "None"
-		Role.ROLE_A: return "Role A"
-		Role.ROLE_B: return "Role B"
-		Role.ROLE_C: return "Role C"
-		Role.ROLE_D: return "Role D"
+		Role.ROLE_A: return "Team Black"
+		Role.ROLE_B: return "Team Black"
+		Role.ROLE_C: return "Team White"
+		Role.ROLE_D: return "Team White"
 	return "Unknown"
 
 static func can_see_role(viewer_role: Role, target_role: Role) -> bool:
