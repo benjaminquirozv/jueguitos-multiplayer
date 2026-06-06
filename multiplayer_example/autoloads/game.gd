@@ -123,6 +123,22 @@ func set_current_player_sabotaje(sabotaje: Statics.Sabotaje) -> void:
 	set_player_sabotaje.rpc(multiplayer.get_unique_id(), sabotaje)
 # ──────────────────────────────────────────────────────────────────────────────
 
+@rpc("any_peer", "reliable", "call_local")
+func set_player_team(id: int, team: Statics.Team) -> void:
+	var player = get_player(id)
+	if player == null:
+		return
+	player.team = team
+	# Asignar role automáticamente según team e index
+	match team:
+		Statics.Team.TEAM_BLACK:
+			player.role = Statics.Role.ROLE_A if player.index % 2 == 0 else Statics.Role.ROLE_B
+		Statics.Team.TEAM_WHITE:
+			player.role = Statics.Role.ROLE_C if player.index % 2 == 0 else Statics.Role.ROLE_D
+	player_updated.emit(id)
+
+func set_current_player_team(team: Statics.Team) -> void:
+	set_player_team.rpc(multiplayer.get_unique_id(), team)
 
 @rpc("any_peer", "reliable", "call_local")
 func set_player_vote(id: int, vote: bool) -> void:

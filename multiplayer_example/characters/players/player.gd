@@ -4,6 +4,28 @@ extends CharacterBody2D
 @onready var anim = $AnimatedSprite2D
 @onready var collision = $CollisionShape2D
 
+# Sprite según role (el personaje)
+const SPRITE_FRAMES = {
+	Statics.Role.ROLE_A: preload("res://characters/players/frames_black.tres"),
+	Statics.Role.ROLE_B: preload("res://characters/players/frames_white.tres"),
+	Statics.Role.ROLE_C: preload("res://characters/players/frames_black.tres"),
+	Statics.Role.ROLE_D: preload("res://characters/players/frames_white.tres"),
+}
+
+# Color según team
+const TINTES = {
+	Statics.Team.TEAM_BLACK: Color(0.3, 0.3, 0.3),  # oscuro
+	Statics.Team.TEAM_WHITE: Color(1.0, 1.0, 1.0),  # claro/normal
+}
+
+const SCALES = {
+	Statics.Role.NONE:   Vector2(1.0, 1.0),  # ← agregar esto
+	Statics.Role.ROLE_A: Vector2(0.5, 0.5),
+	Statics.Role.ROLE_B: Vector2(0.5, 0.5),
+	Statics.Role.ROLE_C: Vector2(1.0, 1.0),
+	Statics.Role.ROLE_D: Vector2(1.0, 1.0),
+}
+
 # ── CONFIGURACIÓN SABOTAJE ────────────────────────────────────────────────────
 const RANGO_SABOTAJE    := 500.0  # Distancia máxima para afectar al más cercano
 const DURACION_EFECTO   := 30.0   # Segundos que dura el sabotaje sobre la víctima
@@ -33,6 +55,11 @@ func _ready():
 		_label_ui.z_index = 10
 		_label_ui.add_theme_font_size_override("font_size", 12)
 		add_child(_label_ui)
+	var my_data = Game.get_player(name.to_int())
+	if my_data != null and my_data.team == Statics.Team.TEAM_BLACK:
+		scale = Vector2(0.5, 0.5)
+	else:
+		scale = Vector2(1.0, 1.0)
 
 
 func _enter_tree():
@@ -82,8 +109,6 @@ func _physics_process(delta: float) -> void:
 
 	if direccion != Vector2.ZERO:
 		anim.play("walk")
-	else:
-		anim.play("idle")
 
 	# EFECTO: Velocidad lenta
 	var vel_actual = velocidad
@@ -205,12 +230,22 @@ func _on_player_updated(id: int) -> void:
 func _update_visual() -> void:
 	var this_player  = Game.get_player(name.to_int())
 	var local_player = Game.get_current_player()
+	scale = SCALES.get(this_player.role, Vector2(1.0, 1.0))
 
 	if this_player == null or local_player == null:
 		return
 
+	# Sprite según role
+	if SPRITE_FRAMES.has(this_player.role):
+		anim.sprite_frames = SPRITE_FRAMES[this_player.role]
+
+	# Tinte según team
+	if TINTES.has(this_player.team):
+		anim.modulate = TINTES[this_player.team]
+
+	# ── Visibilidad para jugadores remotos ──
 	if is_multiplayer_authority():
-		set_normal_visual()
+		modulate.a = 1.0
 		return
 
 	if not Statics.can_see_role(local_player.role, this_player.role):
@@ -225,9 +260,13 @@ func _update_visual() -> void:
 		set_ghost_visual()
 	else:
 		set_normal_visual()
-
+		
+				
 func set_ghost_visual() -> void:
 	modulate.a = 0.35
 
 func set_normal_visual() -> void:
 	modulate.a = 1.0
+	var this_player = Game.get_player(name.to_int())
+	if this_player and TINTES.has(this_player.role):
+		anim.modulate = TINTES[this_player.role]

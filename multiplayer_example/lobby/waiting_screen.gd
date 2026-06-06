@@ -33,6 +33,7 @@ func _ready() -> void:
 	Game.players_updated.connect(_handle_players_updated)
 	Game.player_updated.connect(func(id): _update_ready_button())
 	Game.vote_updated.connect(func(id): _handle_vote_updated())
+	sabotaje_button.disabled = true
 	if multiplayer.is_server():
 		start_timer.timeout.connect(func(): _start_game.rpc())
 	_handle_players_updated()
@@ -102,17 +103,22 @@ func _handle_role_pressed() -> void:
 
 
 func _fill_role_container() -> void:
-	for i in Statics.Role.size() - 1:
+	for child in role_list.get_children():
+		child.queue_free()
+	for team in [Statics.Team.TEAM_BLACK, Statics.Team.TEAM_WHITE]:
 		var button = Button.new()
-		button.text = Statics.get_role_name(i + 1)
-		button.pressed.connect(func(): _update_role(i + 1))
+		button.text = Statics.get_team_name(team)
+		button.pressed.connect(func(): _update_team(team))
 		role_list.add_child(button)
 
 
-func _update_role(role: Statics.Role) -> void:
-	Game.set_current_player_role(role)
-	role_button.text = Statics.get_role_name(role)
+func _update_team(team: Statics.Team) -> void:
+	Game.set_current_player_team(team)
+	role_button.text = Statics.get_team_name(team)
 	role_container.hide()
+	sabotaje_button.disabled = false  # ← agregar esto
+	sabotaje_container.show()  
+	_update_ready_button()       # ← abre directo el panel de sabotaje
 
 
 # ── SABOTAJE ──────────────────────────────────────────────────────────────────
@@ -134,6 +140,7 @@ func _update_sabotaje(sabotaje: Statics.Sabotaje) -> void:
 	Game.set_current_player_sabotaje(sabotaje)
 	sabotaje_button.text = Statics.get_sabotaje_name(sabotaje)
 	sabotaje_container.hide()
+	_update_ready_button()  
 # ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -172,11 +179,22 @@ func _start_game() -> void:
 
 
 func _can_start_game() -> bool:
-	var quantity   = Game.players.size() >= Game.min_players
-	var completion = not Game.use_roles or not Game.all_roles or _are_all_roles_selected()
-	var uniqueness = not Game.use_roles or not Game.unique_roles or _are_all_roles_unique()
-	var fullness   = not Game.use_roles or _all_players_selected_role()
-	return quantity and completion and uniqueness and fullness
+	var quantity = Game.players.size() >= Game.min_players
+	var all_have_team = _all_players_selected_team()
+	var all_have_sabotaje = _all_players_selected_sabotaje()
+	return quantity and all_have_team and all_have_sabotaje
+
+func _all_players_selected_team() -> bool:
+	for player in Game.players:
+		if player.team == Statics.Team.NONE:
+			return false
+	return true
+
+func _all_players_selected_sabotaje() -> bool:
+	for player in Game.players:
+		if player.sabotaje == Statics.Sabotaje.NINGUNO:
+			return false
+	return true
 
 
 func _update_ready_button() -> void:

@@ -1,0 +1,60 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cl8ndx0aqg55w"]
+
+[ext_resource type="Texture2D" uid="uid://b1gndf38dlfd0" path="res://sprites/Level 2 Sprite Project - Pixel Delivery/Spritesheets/walk_v3-Sheet.png" id="1_secit"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hexi"]
+atlas = ExtResource("1_secit")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3uvf"]
+atlas = ExtResource("1_secit")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnrh8"]
+atlas = ExtResource("1_secit")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1aqt"]
+atlas = ExtResource("1_secit")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3lh8"]
+atlas = ExtResource("1_secit")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5i6v2"]
+atlas = ExtResource("1_secit")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05hoj"]
+atlas = ExtResource("1_secit")
+region = Rect2(384, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hexi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3uvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnrh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1aqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3lh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5i6v2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05hoj")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

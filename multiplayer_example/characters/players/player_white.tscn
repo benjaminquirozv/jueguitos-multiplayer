@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bo0juwcydwgov"]
+
+[ext_resource type="Script" uid="uid://vyg8ohissl2i" path="res://characters/players/player.gd" id="1_gwj61"]
+[ext_resource type="SpriteFrames" uid="uid://dlku15isp7f4t" path="res://characters/players/frames_white.tres" id="2_6fwh8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yalo1"]
+size = Vector2(29.999996, 32)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yalo1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody2D" unique_id=896926701 groups=["Player"]]
+z_index = 1
+script = ExtResource("1_gwj61")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=770839033]
+position = Vector2(0, -4)
+sprite_frames = ExtResource("2_6fwh8")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1556221297]
+position = Vector2(1.7881393e-07, 0)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_yalo1")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=411332487]
+zoom = Vector2(2.5, 2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=140381022]
+replication_config = SubResource("SceneReplicationConfig_yalo1")
