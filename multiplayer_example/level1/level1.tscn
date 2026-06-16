@@ -451,6 +451,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jq2b3")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_27rla"]
+size = Vector2(115.5, 98.5)
 
 [node name="Level1" type="Node2D" unique_id=1025003611]
 script = ExtResource("1_ol5kc")
@@ -473,37 +474,16 @@ spawn_path = NodePath("../Contenedor")
 [node name="spawnpoints" type="Node2D" parent="." unique_id=1502115925]
 
 [node name="spawn1" type="Marker2D" parent="spawnpoints" unique_id=1952654866]
-position = Vector2(166, -16)
+position = Vector2(7513, -68)
 
 [node name="spawn2" type="Marker2D" parent="spawnpoints" unique_id=991804121]
-position = Vector2(68, -15)
+position = Vector2(65, -57)
 
 [node name="spawn3" type="Marker2D" parent="spawnpoints" unique_id=46451652]
-position = Vector2(161, -113)
+position = Vector2(6215, -4417)
 
 [node name="spawn4" type="Marker2D" parent="spawnpoints" unique_id=1860255870]
-position = Vector2(177, -286)
-
-[node name="Portal2" parent="spawnpoints" unique_id=749887293 instance=ExtResource("3_ol5kc")]
-position = Vector2(161, -109.99999)
-scale = Vector2(0.18, 0.18)
-es_trampa = true
-
-[node name="Destino" parent="spawnpoints/Portal2" index="2" unique_id=1648487353]
-position = Vector2(-5.5555315, -1077.7777)
-
-[node name="Portal_recep" parent="." unique_id=122591662 instance=ExtResource("3_ol5kc")]
-position = Vector2(178, -287)
-scale = Vector2(0.13, 0.13)
-script = ExtResource("4_ctxqh")
-es_trampa = true
-
-[node name="CollisionShape2D" parent="Portal_recep" index="1" unique_id=1931517953]
-position = Vector2(-6.0577393, -10.713867)
-scale = Vector2(0.7498025, 2.3740978)
-
-[node name="Destino" parent="Portal_recep" index="2" unique_id=1648487353]
-position = Vector2(-692.30774, 207.69234)
+position = Vector2(-2921, -4432)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=269410076]
 
@@ -543,11 +523,523 @@ texture = ExtResource("5_871ru")
 stretch_mode = 1
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1033419312]
+position = Vector2(-474, -194)
 script = ExtResource("7_b3yy5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=625086448]
-position = Vector2(77, 15)
+position = Vector2(-12, -1)
 shape = SubResource("RectangleShape2D_27rla")
 
-[editable path="spawnpoints/Portal2"]
-[editable path="Portal_recep"]
+[node name="portals" type="Node" parent="." unique_id=1821532709]
+
+[node name="Portal8" parent="portals" unique_id=1386598376 instance=ExtResource("3_ol5kc")]
+position = Vector2(645, -168)
+scale = Vector2(0.13, 0.13)
+
+[node name="Destino" parent="portals/Portal8" index="2" unique_id=1648487353]
+position = Vector2(28400.002, -18369.232)
+
+[node name="Portal7" parent="portals" unique_id=1935643682 instance=ExtResource("3_ol5kc")]
+position = Vector2(342.00012, -4158)
+scale = Vector2(0.13, 0.13)
+
+[node name="Destino" parent="portals/Portal7" index="2" unique_id=1648487353]
+position = Vector2(4269.23, 30615.387)
+
+[node name="Portal6" parent="portals" unique_id=785488712 instance=ExtResource("3_ol5kc")]
+position = Vector2(-2087, -3507)
+scale = Vector2(0.13, 0.13)
+
+[node name="Destino" parent="portals/Portal6" index="2" unique_id=1648487353]
+position = Vector2(15676.924, -7953.846)
+
+[node name="Portal5" parent="portals" unique_id=991272795 instance=ExtResource("3_ol5kc")]
+position = Vector2(-3517, -3580)
+scale = Vector2(0.13, 0.13)
+
+[node name="Destino" parent="portals/Portal5" index="2" unique_id=1648487353]
+position = Vector2(10353.847, -1423.0765)
+
+[node name="Portal4" parent="portals" unique_id=1600234563 instance=ExtResource("3_ol5kc")]
+position = Vector2(-2922, -3778)
+scale = Vector2(0.13, 0.13)
+
+[node name="Destino" parent="portals/Portal4" index="2" unique_id=1648487353]
+position = Vector2(15215.386, 19123.078)
+
+[node name="Portal3" parent="portals" unique_id=434394897 instance=ExtResource("3_ol5kc")]
+position = Vector2(-2109, -2613)
+scale = Vector2(0.13, 0.13)
+
+[node name="Destino" parent="portals/Portal3" index="2" unique_id=1648487353]
+position = Vector2(-4338.4614, -2846.1545)
+
+[node name="Portal2" parent="portals" unique_id=749887293 instance=ExtResource("3_ol5kc")]
+position = Vector2(255, -957.0001)
+scale = Vector2(0.18, 0.18)
+es_trampa = true
+
+[node name="AnimatedSprite2D" parent="portals/Portal2" index="0" unique_id=366981712]
+position = Vector2(77.77777, 5.5555553)
+
+[node name="CollisionShape2D" parent="portals/Portal2" index="1" unique_id=1931517953]
+position = Vector2(70.77777, -2.453364)
+
+[node name="Destino" parent="portals/Portal2" index="2" unique_id=1648487353]
+position = Vector2(-1744.4446, -611.11035)
+
+[node name="Portal_recep" parent="portals" unique_id=122591662 instance=ExtResource("3_ol5kc")]
+position = Vector2(-879, -1737.9999)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep" index="2" unique_id=1648487353]
+position = Vector2(-3723.0771, -2115.3857)
+
+[node name="Portal_recep2" parent="portals" unique_id=769578130 instance=ExtResource("3_ol5kc")]
+position = Vector2(-1706, -3440)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep2" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep2" index="2" unique_id=1648487353]
+position = Vector2(2946.1538, 6953.8457)
+
+[node name="Portal_recep3" parent="portals" unique_id=1048748143 instance=ExtResource("3_ol5kc")]
+position = Vector2(-1204, -3352)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep3" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep3" index="2" unique_id=1648487353]
+position = Vector2(4515.385, 4730.7686)
+
+[node name="Portal_recep4" parent="portals" unique_id=1879388655 instance=ExtResource("3_ol5kc")]
+position = Vector2(-634, -3058)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep4" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep4" index="2" unique_id=1648487353]
+position = Vector2(8523.077, -1823.0773)
+
+[node name="Portal_recep5" parent="portals" unique_id=1402521336 instance=ExtResource("3_ol5kc")]
+position = Vector2(-496, -3680)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep5" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep5" index="2" unique_id=1648487353]
+position = Vector2(10653.847, 976.92285)
+
+[node name="Portal_recep6" parent="portals" unique_id=232597148 instance=ExtResource("3_ol5kc")]
+position = Vector2(389, -3503)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep6" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep6" index="2" unique_id=1648487353]
+position = Vector2(14515.385, -2084.6157)
+
+[node name="Portal_recep7" parent="portals" unique_id=864975386 instance=ExtResource("3_ol5kc")]
+position = Vector2(623, -2074)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep7" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep7" index="2" unique_id=1648487353]
+position = Vector2(553.8463, 5492.3076)
+
+[node name="Portal_recep8" parent="portals" unique_id=1089122861 instance=ExtResource("3_ol5kc")]
+position = Vector2(528.99994, -1294)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep8" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep8" index="2" unique_id=1648487353]
+position = Vector2(13800.001, -2892.3076)
+
+[node name="Portal_recep9" parent="portals" unique_id=1903816641 instance=ExtResource("3_ol5kc")]
+position = Vector2(3543, -1926)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep9" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep9" index="2" unique_id=1648487353]
+position = Vector2(6969.2314, 676.92334)
+
+[node name="Portal_recep10" parent="portals" unique_id=280761840 instance=ExtResource("3_ol5kc")]
+position = Vector2(-748, -2403)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep10" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep10" index="2" unique_id=1648487353]
+position = Vector2(9700, -3015.3845)
+
+[node name="Portal_recep11" parent="portals" unique_id=1356875296 instance=ExtResource("3_ol5kc")]
+position = Vector2(-120, -2475)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep11" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep11" index="2" unique_id=1648487353]
+position = Vector2(-1384.6152, -8107.6924)
+
+[node name="Portal_recep12" parent="portals" unique_id=235973219 instance=ExtResource("3_ol5kc")]
+position = Vector2(-101, -3117)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep12" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep12" index="2" unique_id=1648487353]
+position = Vector2(17453.848, -13338.462)
+
+[node name="Portal_recep13" parent="portals" unique_id=2057921695 instance=ExtResource("3_ol5kc")]
+position = Vector2(-701, -4612)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep13" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep13" index="2" unique_id=1648487353]
+position = Vector2(5076.924, 14161.538)
+
+[node name="Portal_recep14" parent="portals" unique_id=383217848 instance=ExtResource("3_ol5kc")]
+position = Vector2(1410, -3082)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep14" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep14" index="2" unique_id=1648487353]
+position = Vector2(11415.385, -4338.4614)
+
+[node name="Portal_recep15" parent="portals" unique_id=2025893052 instance=ExtResource("3_ol5kc")]
+position = Vector2(1548, -3014)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep15" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep15" index="2" unique_id=1648487353]
+position = Vector2(27223.076, -11061.539)
+
+[node name="Portal_recep16" parent="portals" unique_id=465929402 instance=ExtResource("3_ol5kc")]
+position = Vector2(1568, -2765.9998)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep16" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep16" index="2" unique_id=1648487353]
+position = Vector2(31084.615, -53.84668)
+
+[node name="Portal_recep17" parent="portals" unique_id=760653931 instance=ExtResource("3_ol5kc")]
+position = Vector2(2954, -5006)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep17" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep17" index="2" unique_id=1648487353]
+position = Vector2(-14300.002, 4884.615)
+
+[node name="Portal_recep18" parent="portals" unique_id=1052473997 instance=ExtResource("3_ol5kc")]
+position = Vector2(4501, -4176)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep18" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep18" index="2" unique_id=1648487353]
+position = Vector2(-11230.77, 8953.846)
+
+[node name="Portal_recep19" parent="portals" unique_id=748989692 instance=ExtResource("3_ol5kc")]
+position = Vector2(3166, -2540)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep19" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep19" index="2" unique_id=1648487353]
+position = Vector2(21707.691, 8830.77)
+
+[node name="Portal_recep20" parent="portals" unique_id=778483970 instance=ExtResource("3_ol5kc")]
+position = Vector2(4937, -1902)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep20" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep20" index="2" unique_id=1648487353]
+position = Vector2(9738.46, -792.3076)
+
+[node name="Portal_recep21" parent="portals" unique_id=790708040 instance=ExtResource("3_ol5kc")]
+position = Vector2(3812, -1107)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep21" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep21" index="2" unique_id=1648487353]
+position = Vector2(19715.383, -14246.154)
+
+[node name="Portal_recep22" parent="portals" unique_id=1133366282 instance=ExtResource("3_ol5kc")]
+position = Vector2(4371, 411)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep22" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep22" index="2" unique_id=1648487353]
+position = Vector2(-7384.615, -2638.4617)
+
+[node name="Portal_recep23" parent="portals" unique_id=1207965465 instance=ExtResource("3_ol5kc")]
+position = Vector2(1811, -26)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep23" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep23" index="2" unique_id=1648487353]
+position = Vector2(31546.156, -130.76926)
+
+[node name="Portal_recep24" parent="portals" unique_id=1461781880 instance=ExtResource("3_ol5kc")]
+position = Vector2(5622, -271)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep24" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep24" index="2" unique_id=1648487353]
+position = Vector2(7146.1563, -1569.2308)
+
+[node name="Portal_recep25" parent="portals" unique_id=601376647 instance=ExtResource("3_ol5kc")]
+position = Vector2(6182, 234)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep25" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep25" index="2" unique_id=1648487353]
+position = Vector2(12276.922, -17538.463)
+
+[node name="Portal_recep26" parent="portals" unique_id=1643886412 instance=ExtResource("3_ol5kc")]
+position = Vector2(7558, -1728)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep26" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep26" index="2" unique_id=1648487353]
+position = Vector2(-2246.1553, -15953.848)
+
+[node name="Portal_recep27" parent="portals" unique_id=764169431 instance=ExtResource("3_ol5kc")]
+position = Vector2(7030, -3089)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep27" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep27" index="2" unique_id=1648487353]
+position = Vector2(2576.9219, 24269.23)
+
+[node name="Portal_recep28" parent="portals" unique_id=1257483731 instance=ExtResource("3_ol5kc")]
+position = Vector2(7128, -933)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep28" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep28" index="2" unique_id=1648487353]
+position = Vector2(-32930.773, 1330.7695)
+
+[node name="Portal_recep29" parent="portals" unique_id=986298403 instance=ExtResource("3_ol5kc")]
+position = Vector2(4540, -557)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep29" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep29" index="2" unique_id=1648487353]
+position = Vector2(-33615.387, 3930.7693)
+
+[node name="Portal_recep30" parent="portals" unique_id=220579886 instance=ExtResource("3_ol5kc")]
+position = Vector2(2333, -3049)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep30" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep30" index="2" unique_id=1648487353]
+position = Vector2(-24446.154, 20015.385)
+
+[node name="Portal_recep31" parent="portals" unique_id=838569238 instance=ExtResource("3_ol5kc")]
+position = Vector2(-1665, -546)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep31" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep31" index="2" unique_id=1648487353]
+position = Vector2(61023.08, -27138.463)
+
+[node name="Portal_recep32" parent="portals" unique_id=1260591746 instance=ExtResource("3_ol5kc")]
+position = Vector2(-2674, -4569)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+es_trampa = true
+
+[node name="CollisionShape2D" parent="portals/Portal_recep32" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/Portal_recep32" index="2" unique_id=1648487353]
+position = Vector2(40453.848, 25638.463)
+
+[editable path="portals/Portal8"]
+[editable path="portals/Portal7"]
+[editable path="portals/Portal6"]
+[editable path="portals/Portal5"]
+[editable path="portals/Portal4"]
+[editable path="portals/Portal3"]
+[editable path="portals/Portal2"]
+[editable path="portals/Portal_recep"]
+[editable path="portals/Portal_recep2"]
+[editable path="portals/Portal_recep3"]
+[editable path="portals/Portal_recep4"]
+[editable path="portals/Portal_recep5"]
+[editable path="portals/Portal_recep6"]
+[editable path="portals/Portal_recep7"]
+[editable path="portals/Portal_recep8"]
+[editable path="portals/Portal_recep9"]
+[editable path="portals/Portal_recep10"]
+[editable path="portals/Portal_recep11"]
+[editable path="portals/Portal_recep12"]
+[editable path="portals/Portal_recep13"]
+[editable path="portals/Portal_recep14"]
+[editable path="portals/Portal_recep15"]
+[editable path="portals/Portal_recep16"]
+[editable path="portals/Portal_recep17"]
+[editable path="portals/Portal_recep18"]
+[editable path="portals/Portal_recep19"]
+[editable path="portals/Portal_recep20"]
+[editable path="portals/Portal_recep21"]
+[editable path="portals/Portal_recep22"]
+[editable path="portals/Portal_recep23"]
+[editable path="portals/Portal_recep24"]
+[editable path="portals/Portal_recep25"]
+[editable path="portals/Portal_recep26"]
+[editable path="portals/Portal_recep27"]
+[editable path="portals/Portal_recep28"]
+[editable path="portals/Portal_recep29"]
+[editable path="portals/Portal_recep30"]
+[editable path="portals/Portal_recep31"]
+[editable path="portals/Portal_recep32"]
