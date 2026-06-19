@@ -184,14 +184,16 @@ func _setup_stage() -> void:
 func _setup_players_display() -> void:
 	for child in _players_container.get_children():
 		child.queue_free()
-	
-	var player_count = 0
+
+	var player_count := 0
 	for player in Game.players:
-		var player_label = Label.new()
-		player_label.text = "🎮 %s" % player.name
-		player_label.add_theme_font_size_override("font_size", 32)  # ✅
-		player_label.add_theme_color_override("font_color", Color.CYAN)  # ✅
-		player_label.position = Vector2(player_count * 100, -30 - (player_count * 25))
+		var player_label := Label.new()
+		player_label.text = "%s" % player.name
+		player_label.add_theme_font_size_override("font_size", 28)
+		var color := Color.CYAN if Statics.get_team_from_role(player.role) == Statics.Team.TEAM_BLACK else Color.WHITE
+		player_label.add_theme_color_override("font_color", color)
+		# Stack labels horizontally above the floor
+		player_label.position = Vector2(player_count * 160, 0)
 		_players_container.add_child(player_label)
 		player_count += 1
 
