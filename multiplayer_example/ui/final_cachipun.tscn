@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://cfakba78q4fci"]
 
 [ext_resource type="Script" uid="uid://ctt8o10k4rdhc" path="res://ui/final_cachipun.gd" id="1_script"]
-[ext_resource type="Theme" uid="uid://bq71ube2tqy4e" path="res://ui/main_menu_theme.tres" id="2_theme"]
-[ext_resource type="Texture2D" uid="uid://cmei0xf2uvxxr" path="res://sprites/hand_rock.png" id="3_hand"]
+[ext_resource type="Theme" uid="uid://jiye2gu1yp3w" path="res://ui/main_menu_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://biefnqh051dqq" path="res://sprites/hand_rock.png" id="3_hand"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="4_eq14l"]
+[ext_resource type="AudioStream" uid="uid://dus522ali80hl" path="res://sprites/sounds/freesound_community-monk-chant-fantasy-23137.mp3" id="5_06fox"]
 
 [node name="FinalCachipun" type="Control" unique_id=398009615]
 layout_mode = 3
@@ -150,3 +151,8 @@ vertical_alignment = 1
 [node name="Icon" type="Sprite2D" parent="." unique_id=500508890]
 position = Vector2(235, 562)
 texture = ExtResource("4_eq14l")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1463905124]
+stream = ExtResource("5_06fox")
+autoplay = true
+parameters/looping = true

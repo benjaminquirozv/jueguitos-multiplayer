@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dr6jjvgfl1on0" path="res://portals/portal_rec.gd" id="4_ctxqh"]
 [ext_resource type="Texture2D" uid="uid://soh1ifon3xa4" path="res://level1/n8CNl_.png" id="5_871ru"]
 [ext_resource type="Script" uid="uid://bwl04fiutfqjn" path="res://level1/area_2d.gd" id="7_b3yy5"]
+[ext_resource type="AudioStream" uid="uid://deixwlqjc3sv2" path="res://sprites/sounds/fanchisanchez-arthur-c-clark-142109.mp3" id="8_27rla"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq2b3"]
 texture = ExtResource("1_lklfg")
@@ -549,6 +550,12 @@ script = ExtResource("7_b3yy5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=625086448]
 position = Vector2(77, 15)
 shape = SubResource("RectangleShape2D_27rla")
+
+[node name="background" type="AudioStreamPlayer2D" parent="." unique_id=1631795931]
+stream = ExtResource("8_27rla")
+volume_db = -19.479
+autoplay = true
+parameters/looping = true
 
 [editable path="spawnpoints/Portal2"]
 [editable path="Portal_recep"]
