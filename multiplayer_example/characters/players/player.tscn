@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://vyg8ohissl2i" path="res://characters/players/player.gd" id="1_yalo1"]
 [ext_resource type="Texture2D" uid="uid://j8bss1pb8kkt" path="res://sprites/AnimationSheet.png" id="2_yalo1"]
+[ext_resource type="AudioStream" uid="uid://cr0n8acah6bcb" path="res://sprites/sounds/jjbinx-walking-on-gravel-313017.mp3" id="3_rod7k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rod7k"]
 atlas = ExtResource("2_yalo1")
@@ -93,3 +94,8 @@ zoom = Vector2(2.5, 2.5)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=140381022]
 replication_config = SubResource("SceneReplicationConfig_yalo1")
+
+[node name="footsteps" type="AudioStreamPlayer2D" parent="." unique_id=779667663]
+stream = ExtResource("3_rod7k")
+volume_db = 1.384
+parameters/looping = true
