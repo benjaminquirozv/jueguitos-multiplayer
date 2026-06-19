@@ -9,22 +9,50 @@ var _current_requester := 0
 @onready var _overlay: Control = %PauseOverlay
 @onready var _paused_by: Label = %PausedBy
 @onready var _resume: Button = %Resume
+@onready var _volume: Button = %volume
+@onready var _back: Button = $PauseOverlay/volumenContainer/VolumeMenu/BackButton
 @onready var _quit_game: Button = %QuitGame
 @onready var _menu: Button = %Menu
-
-
+@onready var music_slider: HSlider = $PauseOverlay/volumenContainer/VolumeMenu/volumeSlider
+@onready var VolumeMenu: VBoxContainer = $PauseOverlay/volumenContainer/VolumeMenu
+@onready var MainButtons: VBoxContainer = $PauseOverlay/ButtonsCenter/Buttons
+@onready var VolumeContainer: Control = $PauseOverlay/volumenContainer
 func _ready() -> void:
+	
+	MainButtons.visible = true
+	VolumeContainer.visible = false
 	_update_ui()
 	_pause_button.pressed.connect(_toggle_pause)
 	_resume.pressed.connect(_toggle_pause)
 	_quit_game.pressed.connect(_on_quit_game)
 	_menu.pressed.connect(_on_menu)
-	
+	_volume.pressed.connect(_on_volume_pressed)
+	_back.pressed.connect(_on_back_pressed)
 	# Conectar eventos de multiplayer para sincronización
 	if multiplayer:
 		multiplayer.peer_disconnected.connect(_on_peer_disconnected)
-
-
+		
+	##Agregamos valores default para el slider de volumen
+	var music_bus := AudioServer.get_bus_index("Music")
+	music_slider.min_value= 0
+	music_slider.max_value = 1
+	music_slider.step = 0.01
+	music_slider.value  = db_to_linear(AudioServer.get_bus_volume_db(music_bus)) 
+	music_slider.value_changed.connect(_on_music_volume_changed)
+	
+func _on_volume_pressed():
+	MainButtons.visible = false
+	VolumeContainer.visible = true
+func _on_back_pressed():
+	VolumeContainer.visible = false
+	MainButtons.visible = true
+##función para manejar volumen
+func _on_music_volume_changed(value: float):
+	var music_bus := AudioServer.get_bus_index("Music")
+	if value <= 0:
+		AudioServer.set_bus_volume_db(music_bus, -80)
+	else:
+		AudioServer.set_bus_volume_db(music_bus,linear_to_db(value))
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		_toggle_pause()

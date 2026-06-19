@@ -54,8 +54,8 @@ wait_time = 3.0
 text = "Lobby"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" parent_id_path=PackedInt32Array(268787292) index="0" unique_id=316652335]
-clip_contents = true
 custom_minimum_size = Vector2(629, 375)
+clip_contents = true
 offset_left = -110.0
 offset_right = 519.0
 offset_bottom = 375.0
