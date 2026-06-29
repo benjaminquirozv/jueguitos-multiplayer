@@ -42,9 +42,11 @@ func _enter_tree():
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
+	if Input.is_key_pressed(KEY_P):
+		print("PLAYER POS: ", global_position)
 
 	var my_data = Game.get_current_player()
-
+	
 	# ── Actualizar timers ─────────────────────────────────────────────────────
 	if _cooldown_restante > 0.0:
 		_cooldown_restante -= delta

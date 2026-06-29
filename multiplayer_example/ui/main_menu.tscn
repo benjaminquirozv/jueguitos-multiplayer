@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cnbk17iq1x68f" path="res://ui/main_menu.gd" id="2_script"]
 [ext_resource type="Texture2D" uid="uid://38m5pqgo4c01" path="res://ui/backgrounds/space_bg.jpg" id="3_bg"]
 [ext_resource type="Texture2D" uid="uid://d2gj8lrw0jhe5" path="res://ui/backgrounds/title_logo.png" id="4_logo"]
+[ext_resource type="AudioStream" uid="uid://dfuwuml2jemr4" path="res://sprites/sounds/Cinematic-Epicness(chosic.com).mp3" id="5_8uxxo"]
 
 [node name="MainMenu" type="Control" unique_id=171015534]
 layout_mode = 3
@@ -42,10 +43,10 @@ custom_minimum_size = Vector2(380, 380)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = -9.0
-offset_top = -27.0
-offset_right = -9.0
-offset_bottom = 353.0
+offset_left = -6.0
+offset_top = -56.0
+offset_right = -6.0
+offset_bottom = 324.0
 grow_horizontal = 2
 mouse_filter = 2
 texture = ExtResource("4_logo")
@@ -57,10 +58,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -5.0
-offset_top = 308.0
+offset_left = -2.0
+offset_top = 258.0
 offset_right = -5.0
-offset_bottom = -78.0
+offset_bottom = -33.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -78,6 +79,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Join"
 
+[node name="volume" type="Button" parent="ButtonsCenter/Buttons" unique_id=721956337]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sound"
+
 [node name="Credits" type="Button" parent="ButtonsCenter/Buttons" unique_id=375073590]
 unique_name_in_owner = true
 layout_mode = 2
@@ -88,17 +94,42 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
 
+[node name="volumenContainer" type="CenterContainer" parent="ButtonsCenter" unique_id=1923936478]
+visible = false
+layout_mode = 2
+
+[node name="VolumeMenu" type="VBoxContainer" parent="ButtonsCenter/volumenContainer" unique_id=489561382]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ButtonsCenter/volumenContainer/VolumeMenu" unique_id=1221807259]
+layout_mode = 2
+text = "Slider Volumen"
+
+[node name="volumeSlider" type="HSlider" parent="ButtonsCenter/volumenContainer/VolumeMenu" unique_id=473160301]
+process_mode = 3
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="ButtonsCenter/volumenContainer/VolumeMenu" unique_id=124786229]
+layout_mode = 2
+text = "Volver"
+
 [node name="Footer" type="Label" parent="." unique_id=1770381118]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -56.0
-offset_bottom = -24.0
+offset_top = -29.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.7, 0.6, 0.95, 0.7)
 theme_override_font_sizes/font_size = 16
 text = "Twin Dimension · v0.1"
 horizontal_alignment = 1
+
+[node name="waitingMusic" type="AudioStreamPlayer2D" parent="." unique_id=1202803464]
+process_mode = 3
+stream = ExtResource("5_8uxxo")
+autoplay = true
+bus = &"Music"

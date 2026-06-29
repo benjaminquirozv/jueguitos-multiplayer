@@ -8,7 +8,8 @@ const PAUSE_SCENE := preload("res://ui/pause.tscn")
 @onready var filtro_dimension  = $CanvasLayer/Control/FiltroDimension
 @onready var niebla            = $CanvasLayer/Control/Niebla
 @onready var niebla2           = $CanvasLayer/Control/Niebla2
-
+@onready var minimap = $CanvasLayer2/MinimapRoot/MiniMapa
+@export var map_size_world := Vector2(2000, 2000)
 var velocidad_niebla := 15.0
 
 
@@ -26,7 +27,9 @@ func _ready():
 			var punto_actual = puntos_aparicion[indice_spawn % puntos_aparicion.size()]
 			spawner.spawn({"id": id, "pos": punto_actual.global_position})
 			indice_spawn += 1
-
+			await get_tree().process_frame
+	await get_tree().process_frame
+	setup_minimap()
 
 func crear_jugador_personalizado(datos):
 	var nuevo_jugador = preload("res://characters/players/player.tscn").instantiate()
@@ -73,3 +76,28 @@ func _process(delta: float) -> void:
 	niebla.position.x += velocidad_niebla * delta
 	if niebla.position.x > 100:
 		niebla.position.x = 0
+		
+		
+		
+# Función para el minimapa
+func setup_minimap() -> void:
+	var local_data = Game.get_current_player()
+	if local_data == null:
+		return
+
+	var local_node = contenedor.get_node_or_null(str(local_data.id))
+	if local_node == null:
+		return
+
+	var teammate_node: Node2D = null
+
+	for other_data in Game.players:
+		if other_data.id == local_data.id:
+			continue
+
+		if Statics.are_teammates(local_data.role, other_data.role):
+			teammate_node = contenedor.get_node_or_null(str(other_data.id))
+			break
+
+	minimap.player = local_node
+	minimap.teammate = teammate_node

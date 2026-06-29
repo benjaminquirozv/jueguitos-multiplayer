@@ -6,6 +6,13 @@ extends Control
 @onready var join: Button = %Join
 @onready var credits: Button = %Credits
 @onready var quit: Button = %Quit
+@onready var _volume: Button = %volume
+@onready var music_slider: HSlider = $ButtonsCenter/volumenContainer/VolumeMenu/volumeSlider
+@onready var VolumeMenu: VBoxContainer = $ButtonsCenter/volumenContainer/VolumeMenu
+@onready var MainButtons: VBoxContainer = $ButtonsCenter/Buttons
+@onready var VolumeContainer: Control = $ButtonsCenter/volumenContainer
+@onready var _back: Button = $ButtonsCenter/volumenContainer/VolumeMenu/BackButton
+
 
 
 func _ready() -> void:
@@ -17,5 +24,26 @@ func _ready() -> void:
 	host.pressed.connect(func(): get_tree().change_scene_to_file("res://lobby/host_screen.tscn"))
 	join.pressed.connect(func(): get_tree().change_scene_to_file("res://lobby/join_screen.tscn"))
 	credits.pressed.connect(func(): get_tree().change_scene_to_file("res://ui/credits.tscn"))
+	_volume.pressed.connect(_on_volume_pressed)
+	_back.pressed.connect(_on_back_pressed)
+	var music_bus := AudioServer.get_bus_index("Music")
+	music_slider.min_value= 0
+	music_slider.max_value = 1
+	music_slider.step = 0.01
+	music_slider.value  = db_to_linear(AudioServer.get_bus_volume_db(music_bus)) 
+	music_slider.value_changed.connect(_on_music_volume_changed)
 	
 	host.grab_focus()
+func _on_volume_pressed():
+	MainButtons.visible = false
+	VolumeContainer.visible = true
+func _on_back_pressed():
+	VolumeContainer.visible = false
+	MainButtons.visible = true
+##función para manejar volumen
+func _on_music_volume_changed(value: float):
+	var music_bus := AudioServer.get_bus_index("Master")
+	if value <= 0:
+		AudioServer.set_bus_volume_db(music_bus, -80)
+	else:
+		AudioServer.set_bus_volume_db(music_bus,linear_to_db(value))

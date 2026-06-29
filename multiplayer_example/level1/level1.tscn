@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://soh1ifon3xa4" path="res://level1/n8CNl_.png" id="5_871ru"]
 [ext_resource type="Script" uid="uid://bwl04fiutfqjn" path="res://level1/area_2d.gd" id="7_b3yy5"]
 [ext_resource type="AudioStream" uid="uid://deixwlqjc3sv2" path="res://sprites/sounds/fanchisanchez-arthur-c-clark-142109.mp3" id="8_27rla"]
+[ext_resource type="PackedScene" uid="uid://bbqjdad47aamc" path="res://mini_mapa.tscn" id="9_wa5th"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq2b3"]
 texture = ExtResource("1_lklfg")
@@ -552,10 +553,37 @@ position = Vector2(77, 15)
 shape = SubResource("RectangleShape2D_27rla")
 
 [node name="background" type="AudioStreamPlayer2D" parent="." unique_id=1631795931]
+process_mode = 3
 stream = ExtResource("8_27rla")
-volume_db = -19.479
 autoplay = true
+bus = &"Music"
 parameters/looping = true
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1838160819]
+
+[node name="MinimapRoot" type="Control" parent="CanvasLayer2" unique_id=727470876]
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MiniMapa" parent="CanvasLayer2/MinimapRoot" unique_id=312793490 instance=ExtResource("9_wa5th")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+offset_left = -249.0
+offset_top = -145.0
+offset_right = 4.0
+offset_bottom = 3.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(-220, -170)
+pivot_offset_ratio = Vector2(-20, -20)
 
 [editable path="spawnpoints/Portal2"]
 [editable path="Portal_recep"]
+[editable path="CanvasLayer2/MinimapRoot/MiniMapa"]
