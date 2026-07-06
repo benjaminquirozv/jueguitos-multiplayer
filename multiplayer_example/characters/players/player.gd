@@ -46,6 +46,10 @@ func _ready():
 		Game.player_updated.connect(_on_player_updated)
 	if not Game.players_updated.is_connected(_update_visual):
 		Game.players_updated.connect(_update_visual)
+	#Outline	
+	var mat = ShaderMaterial.new()
+	mat.shader = preload("res://player/player.gdshader")
+	anim.material = mat
 	_update_visual()
 
 	# Crear label de HUD solo para el jugador local
@@ -226,14 +230,18 @@ func ir_al_inicio() -> void:
 func _on_player_updated(id: int) -> void:
 	if id == name.to_int() or id == multiplayer.get_unique_id():
 		_update_visual()
-
+const OUTLINE_COLORS = {
+	Statics.Team.TEAM_BLACK: Color(0, 0, 0, 1),
+	Statics.Team.TEAM_WHITE: Color(1, 1, 1, 1),
+}
 func _update_visual() -> void:
 	var this_player  = Game.get_player(name.to_int())
 	var local_player = Game.get_current_player()
-	scale = SCALES.get(this_player.role, Vector2(1.0, 1.0))
+	
 
 	if this_player == null or local_player == null:
 		return
+	scale = SCALES.get(this_player.role, Vector2(1.0, 1.0))
 
 	# Sprite según role
 	if SPRITE_FRAMES.has(this_player.role):
@@ -242,6 +250,10 @@ func _update_visual() -> void:
 	# Tinte según team
 	if TINTES.has(this_player.team):
 		anim.modulate = TINTES[this_player.team]
+	#outline según el equipo
+	if OUTLINE_COLORS.has(this_player.team):
+		anim.material.set_shader_parameter("outline_color", OUTLINE_COLORS[this_player.team])
+		anim.material.set_shader_parameter("outline_width", 3)
 
 	# ── Visibilidad para jugadores remotos ──
 	if is_multiplayer_authority():
