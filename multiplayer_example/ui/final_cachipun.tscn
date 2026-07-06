@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ctt8o10k4rdhc" path="res://ui/final_cachipun.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://jiye2gu1yp3w" path="res://ui/main_menu_theme.tres" id="2_theme"]
 [ext_resource type="Texture2D" uid="uid://biefnqh051dqq" path="res://sprites/hand_rock.png" id="3_hand"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="4_eq14l"]
+[ext_resource type="Texture2D" uid="uid://i6qogchod2wc" path="res://sprites/The Female Adventurer - Free/Idle/Idle_Down.png" id="4_eq14l"]
 [ext_resource type="AudioStream" uid="uid://dus522ali80hl" path="res://sprites/sounds/freesound_community-monk-chant-fantasy-23137.mp3" id="5_06fox"]
 
 [node name="FinalCachipun" type="Control" unique_id=398009615]
@@ -148,9 +148,12 @@ text = "RESULTADO"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Icon" type="Sprite2D" parent="." unique_id=500508890]
-position = Vector2(235, 562)
+[node name="IdleDown" type="Sprite2D" parent="." unique_id=1249130732]
+texture_filter = 1
+position = Vector2(313, 504)
+scale = Vector2(5.375, 5.390625)
 texture = ExtResource("4_eq14l")
+hframes = 8
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1463905124]
 stream = ExtResource("5_06fox")

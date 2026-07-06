@@ -260,7 +260,7 @@ func _animate_hand_entrance() -> void:
 	tween.tween_property(_hand_sprite, "position:x", screen_width - 500, 1.2)
 
 	# Pequeño rebote al final
-	tween.tween_property(_hand_sprite, "position:x", screen_width - 450, 0.1)
-	tween.tween_property(_hand_sprite, "position:x", screen_width - 500, 0.1)
+	tween.tween_property(_hand_sprite, "position:x", screen_width - 550, 0.1)
+	tween.tween_property(_hand_sprite, "position:x", screen_width - 600, 0.1)
 	
 	tween.tween_callback(_start_game)
