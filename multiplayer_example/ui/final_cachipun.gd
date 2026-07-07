@@ -28,6 +28,11 @@ var game_result := ""
 @onready var _result_label: Label = %ResultLabel
 @onready var _countdown_label: Label = %CountdownLabel
 @onready var _players_container: Control = %PlayersContainer
+@onready var _idle_sprite: Sprite2D = %IdleDown
+@onready var _floor: TileMapLayer = %Floor
+
+const FLOOR_TILE := Vector2i(3, 0)
+const TILE_SIZE := 16
 
 # Texturas para cada elección
 var hand_textures := {
@@ -48,7 +53,9 @@ func _setup_ui() -> void:
 	_result_label.hide()
 	_countdown_label.hide()
 	_hand_sprite.texture = hand_textures[Choice.ROCK]
-	
+
+	_setup_stage()
+
 	# Mostrar jugadores en el piso
 	_setup_players_display()
 	
@@ -159,6 +166,20 @@ func _show_game_result(team_choice: Choice, hand_choice: Choice, result: String)
 	# Auto-reiniciar después de unos segundos
 	await get_tree().create_timer(4.0).timeout
 	_restart_game()
+
+func _setup_stage() -> void:
+	var viewport_size := get_viewport().get_visible_rect().size
+	var floor_row := int(viewport_size.y / TILE_SIZE) - 4
+	var tiles_x := int(ceil(viewport_size.x / float(TILE_SIZE))) + 2
+
+	for x in range(tiles_x):
+		for y in range(floor_row, floor_row + 3):
+			_floor.set_cell(Vector2i(x, y), 0, FLOOR_TILE)
+
+	var floor_y := floor_row * TILE_SIZE
+	var sprite_height := _idle_sprite.get_rect().size.y * _idle_sprite.scale.y
+	_idle_sprite.position = Vector2(viewport_size.x * 0.27, floor_y - sprite_height * 0.45)
+
 
 func _setup_players_display() -> void:
 	for child in _players_container.get_children():

@@ -5,6 +5,18 @@
 [ext_resource type="Texture2D" uid="uid://biefnqh051dqq" path="res://sprites/hand_rock.png" id="3_hand"]
 [ext_resource type="Texture2D" uid="uid://i6qogchod2wc" path="res://sprites/The Female Adventurer - Free/Idle/Idle_Down.png" id="4_eq14l"]
 [ext_resource type="AudioStream" uid="uid://dus522ali80hl" path="res://sprites/sounds/freesound_community-monk-chant-fantasy-23137.mp3" id="5_06fox"]
+[ext_resource type="PackedScene" uid="uid://svvdascujnro" path="res://fondo.tscn" id="6_fondo"]
+[ext_resource type="Texture2D" uid="uid://to4b4vdrpi4p" path="res://textures/Textures-16.png" id="7_tiles"]
+[ext_resource type="Texture2D" uid="uid://owlj1ibwjtsy" path="res://sprites/Level 2 Sprite Project - Pixel Delivery/Tileset & Backgrounds/ParallaxBG_Layers (resizeable)/parallaxBg_skyClouds_v1.png" id="8_sky"]
+[ext_resource type="Texture2D" uid="uid://b6ap1q44hk4px" path="res://sprites/Level 2 Sprite Project - Pixel Delivery/Tileset & Backgrounds/ParallaxBG_Layers (resizeable)/parallaxBg_backHillLayer_v1.png" id="9_back"]
+[ext_resource type="Texture2D" uid="uid://bbumxqj2qpdox" path="res://sprites/Level 2 Sprite Project - Pixel Delivery/Tileset & Backgrounds/ParallaxBG_Layers (resizeable)/parallaxBg_frontHillLayer_v1.png" id="10_front"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_floor"]
+texture = ExtResource("7_tiles")
+3:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_floor"]
+sources/0 = SubResource("TileSetAtlasSource_floor")
 
 [node name="FinalCachipun" type="Control" unique_id=398009615]
 layout_mode = 3
@@ -16,17 +28,60 @@ grow_vertical = 2
 theme = ExtResource("2_theme")
 script = ExtResource("1_script")
 
-[node name="Background" type="ColorRect" parent="." unique_id=1556046697]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.1, 0.1, 0.15, 1)
+[node name="WorldBackground" type="CanvasLayer" parent="." unique_id=1982736451]
+layer = -10
+
+[node name="Fondo" parent="WorldBackground" unique_id=445928147 instance=ExtResource("6_fondo")]
+
+[node name="HillsParallax" type="ParallaxBackground" parent="WorldBackground" unique_id=1293847562]
+layer = -9
+
+[node name="SkyLayer" type="ParallaxLayer" parent="WorldBackground/HillsParallax" unique_id=2134567890]
+motion_scale = Vector2(0.05, 0.05)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="Sky" type="Sprite2D" parent="WorldBackground/HillsParallax/SkyLayer" unique_id=1987654321]
+position = Vector2(576, 120)
+texture = ExtResource("8_sky")
+
+[node name="BackHillsLayer" type="ParallaxLayer" parent="WorldBackground/HillsParallax" unique_id=-2060399405]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="BackHills" type="Sprite2D" parent="WorldBackground/HillsParallax/BackHillsLayer" unique_id=2087654322]
+position = Vector2(576, 360)
+texture = ExtResource("9_back")
+
+[node name="FrontHillsLayer" type="ParallaxLayer" parent="WorldBackground/HillsParallax" unique_id=-1960399404]
+motion_scale = Vector2(0.35, 0.35)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="FrontHills" type="Sprite2D" parent="WorldBackground/HillsParallax/FrontHillsLayer" unique_id=-2107312973]
+position = Vector2(576, 460)
+texture = ExtResource("10_front")
+
+[node name="StageLayer" type="CanvasLayer" parent="." unique_id=1873645290]
+layer = -1
+
+[node name="Stage" type="Node2D" parent="StageLayer" unique_id=1762534180]
+
+[node name="Floor" type="TileMapLayer" parent="StageLayer/Stage" unique_id=1651423070]
+unique_name_in_owner = true
+z_index = 1
+tile_set = SubResource("TileSet_floor")
+
+[node name="IdleDown" type="Sprite2D" parent="StageLayer/Stage" unique_id=1249130732]
+unique_name_in_owner = true
+z_index = 2
+texture_filter = 1
+position = Vector2(313, 504)
+scale = Vector2(5.375, 5.390625)
+texture = ExtResource("4_eq14l")
+hframes = 8
 
 [node name="HandSprite" type="TextureRect" parent="." unique_id=500180258]
 unique_name_in_owner = true
+z_index = 1
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -53,10 +108,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1270.0
-offset_top = -400.0
-offset_right = -870.0
-offset_bottom = -11.0
+offset_left = -1212.0
+offset_top = -385.0
+offset_right = -812.0
+offset_bottom = 4.0
 grow_horizontal = 0
 grow_vertical = 0
 
@@ -147,13 +202,6 @@ grow_vertical = 2
 text = "RESULTADO"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="IdleDown" type="Sprite2D" parent="." unique_id=1249130732]
-texture_filter = 1
-position = Vector2(313, 504)
-scale = Vector2(5.375, 5.390625)
-texture = ExtResource("4_eq14l")
-hframes = 8
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1463905124]
 stream = ExtResource("5_06fox")

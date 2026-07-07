@@ -76,25 +76,19 @@ func _physics_process(delta: float) -> void:
 
 	# ── Movimiento ────────────────────────────────────────────────────────────
 	var direccion = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	#Si se mueve se escuchan pasos 
-	if direccion != Vector2.ZERO:
-		anim.play("walk")
 
-		if !footsteps.playing:
-			footsteps.play()
-	else:
-		anim.stop()
-
-		if footsteps.playing:
-			footsteps.stop()
 	# EFECTO: Controles invertidos
 	if my_data and my_data.sabotaje_activo == Statics.Sabotaje.CONTROLES_INVERTIDOS:
 		direccion = -direccion
 
 	if direccion != Vector2.ZERO:
 		anim.play("walk")
+		if not footsteps.playing:
+			footsteps.play()
 	else:
-		anim.play("idle")
+		anim.stop()
+		if footsteps.playing:
+			footsteps.stop()
 
 	# EFECTO: Velocidad lenta
 	var vel_actual = velocidad

@@ -78,6 +78,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Join"
 
+[node name="Tutorial" type="Button" parent="ButtonsCenter/Buttons" unique_id=1583350771]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Tutorial"
+
 [node name="Credits" type="Button" parent="ButtonsCenter/Buttons" unique_id=375073590]
 unique_name_in_owner = true
 layout_mode = 2

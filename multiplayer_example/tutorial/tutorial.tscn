@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://6nv83e37xtg"]
+
+[ext_resource type="Script" uid="uid://fojmbfvcawoc" path="res://tutorial/tutorial.gd" id="1_tutorial"]
+[ext_resource type="PackedScene" uid="uid://svvdascujnro" path="res://fondo.tscn" id="2_fondo"]
+[ext_resource type="Theme" uid="uid://jiye2gu1yp3w" path="res://ui/main_menu_theme.tres" id="3_theme"]
+
+[node name="Tutorial" type="Node2D" unique_id=1857314330]
+script = ExtResource("1_tutorial")
+
+[node name="Fondo" parent="." unique_id=1116973113 instance=ExtResource("2_fondo")]
+
+[node name="base" type="TileMapLayer" parent="." unique_id=1366384640]
+
+[node name="barrera" type="TileMapLayer" parent="." unique_id=1891722895]
+
+[node name="Portals" type="Node2D" parent="." unique_id=1557653968]
+
+[node name="Zones" type="Node2D" parent="." unique_id=507733919]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=32745773]
+spawn_path = NodePath("../Contenedor")
+
+[node name="Contenedor" type="Node2D" parent="." unique_id=393764073]
+
+[node name="spawnpoints" type="Node2D" parent="." unique_id=74306832]
+
+[node name="spawn1" type="Marker2D" parent="spawnpoints" unique_id=1580305361]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=150812139]
+layer = 10
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1900549477]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DarkOverlay" type="ColorRect" parent="CanvasLayer/Control" unique_id=2043761196]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.88)
+
+[node name="HintPanel" type="Panel" parent="CanvasLayer/Control" unique_id=512740425]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -309.0
+offset_top = -160.0
+offset_right = 320.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="HintLabel" type="Label" parent="CanvasLayer/Control/HintPanel" unique_id=581985205]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.162
+anchor_right = 1.0
+anchor_bottom = 0.66200006
+offset_left = 19.0
+offset_top = 9.032
+offset_right = -13.0
+offset_bottom = 8.967995
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+text = "Tutorial"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
