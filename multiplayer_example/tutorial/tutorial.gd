@@ -4,7 +4,12 @@ const PAUSE_SCENE := preload("res://ui/pause.tscn")
 const PLAYER_SCENE := preload("res://characters/players/player.tscn")
 const PORTAL_SCENE := preload("res://portals/portal_2.tscn")
 const ZONE_SCENE := preload("res://tutorial/tutorial_zone.tscn")
+const ENEMY_SCENE := preload("res://tutorial/tutorial_enemy.tscn")
 const TILE_TEXTURE := preload("res://textures/Textures-16.png")
+
+# ID ficticio (no puede colisionar con IDs reales de red, que siempre son > 0)
+# para el enemigo de práctica que permite probar los sabotajes en el tutorial.
+const ENEMY_ID := -1
 
 const MAZE := [
 	"###############",
@@ -34,6 +39,7 @@ const SABOTAGE_DEMO_DURATION := 20.0
 @onready var hint_panel: Panel = %HintPanel
 @onready var dark_overlay: ColorRect = $CanvasLayer/Control/DarkOverlay
 @onready var zones_root: Node2D = $Zones
+@onready var contenedor: Node2D = $Contenedor
 
 var _shown_hints: Dictionary = {}
 
@@ -44,6 +50,7 @@ func _ready() -> void:
 	spawn_marker.global_position = _tile_to_world(Vector2i(2, 1))
 	_setup_portals()
 	_setup_zones()
+	_setup_enemy()
 	_show_hint(
 		"Bienvenido al tutorial.\n\nUsa las flechas o WASD para moverte por el laberinto.\nExplora cada zona para aprender las mecánicas."
 	)
@@ -175,16 +182,29 @@ func _setup_zones() -> void:
 	)
 	_add_zone(
 		Vector2i(9, 9),
-		"Usar sabotajes en partida\n\nEn multijugador, presiona ESPACIO cerca de un enemigo\npara aplicar el sabotaje que elegiste en el lobby.\nTienes cooldown entre usos.",
+		"Arena de práctica\n\nEse personaje de otro color es un rival de prueba.\nPresiona ESPACIO cerca de él para aplicarle el sabotaje\nque tengas equipado. Tiene un cooldown de 60 segundos\nentre cada uso, igual que en una partida real.\nCada vez que lo golpees se te equipará otro sabotaje\ndistinto para que puedas probarlos todos.",
 		Statics.Sabotaje.NINGUNO
 	)
 	_add_zone(
-		Vector2i(12, 9),
+		Vector2i(13, 9),
 		"¡Tutorial completado!\n\nYa conoces movimiento, portales y sabotajes.\nVuelve al menú y juega con amigos.",
 		Statics.Sabotaje.NINGUNO,
 		false,
 		true
 	)
+
+
+func _setup_enemy() -> void:
+	# Personaje de otro color (sprite distinto al del jugador) que sirve
+	# como "rival" de práctica para poder aplicar sabotajes de verdad usando
+	# el mismo mecanismo que en una partida real (ESPACIO cerca del rival).
+	var enemy_data := Statics.PlayerData.new(ENEMY_ID, "Enemigo")
+	Game.add_player(enemy_data)
+
+	var enemy := ENEMY_SCENE.instantiate()
+	enemy.name = str(ENEMY_ID)
+	enemy.global_position = _tile_to_world(Vector2i(11, 9))
+	contenedor.add_child(enemy)
 
 
 func _add_zone(
