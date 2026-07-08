@@ -4,6 +4,7 @@ extends Control
 
 @onready var host: Button = %Host
 @onready var join: Button = %Join
+@onready var tutorial: Button = %Tutorial
 @onready var credits: Button = %Credits
 @onready var quit: Button = %Quit
 @onready var _volume: Button = %volume
@@ -23,6 +24,7 @@ func _ready() -> void:
 	quit.pressed.connect(func(): get_tree().quit())
 	host.pressed.connect(func(): get_tree().change_scene_to_file("res://lobby/host_screen.tscn"))
 	join.pressed.connect(func(): get_tree().change_scene_to_file("res://lobby/join_screen.tscn"))
+	tutorial.pressed.connect(_start_tutorial)
 	credits.pressed.connect(func(): get_tree().change_scene_to_file("res://ui/credits.tscn"))
 	_volume.pressed.connect(_on_volume_pressed)
 	_back.pressed.connect(_on_back_pressed)
@@ -42,8 +44,25 @@ func _on_back_pressed():
 	MainButtons.visible = true
 ##función para manejar volumen
 func _on_music_volume_changed(value: float):
-	var music_bus := AudioServer.get_bus_index("Master")
+	var music_bus := AudioServer.get_bus_index("Music")
 	if value <= 0:
 		AudioServer.set_bus_volume_db(music_bus, -80)
 	else:
-		AudioServer.set_bus_volume_db(music_bus,linear_to_db(value))
+		AudioServer.set_bus_volume_db(music_bus, linear_to_db(value))
+
+
+
+func _start_tutorial() -> void:
+	var peer := ENetMultiplayerPeer.new()
+	var err := peer.create_server(Statics.PORT, Statics.MAX_CLIENTS)
+	if err != OK:
+		return
+	multiplayer.multiplayer_peer = peer
+	Game.players.clear()
+	var player := Statics.PlayerData.new(1, "Tutorial", 0)
+	player.role = Statics.Role.ROLE_A
+	player.team = Statics.Team.TEAM_BLACK
+	player.sabotaje = Statics.Sabotaje.PORTAL_TRAMPA
+	Game.add_player(player)
+	Game.update_player_id()
+	get_tree().change_scene_to_file("res://tutorial/tutorial.tscn")

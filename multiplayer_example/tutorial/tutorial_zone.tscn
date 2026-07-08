@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c8tutorialzone01"]
+
+[ext_resource type="Script" path="res://tutorial/tutorial_zone.gd" id="1_zone"]
+
+[node name="TutorialZone" type="Area2D"]
+script = ExtResource("1_zone")

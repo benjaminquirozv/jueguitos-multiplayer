@@ -60,6 +60,8 @@ func _physics_process(delta: float) -> void:
 	# ── UI: mostrar estado al jugador local ───────────────────────────────────
 	if _label_ui:
 		var texto := ""
+		if my_data and my_data.sabotaje != Statics.Sabotaje.NINGUNO:
+			texto += "Equipado: %s\n" % Statics.get_sabotaje_name(my_data.sabotaje)
 		if _cooldown_restante > 0.0:
 			texto += "Sabotaje: %.0fs\n" % _cooldown_restante
 		else:
@@ -95,8 +97,12 @@ func _physics_process(delta: float) -> void:
 
 	if direccion != Vector2.ZERO:
 		anim.play("walk")
+		if not footsteps.playing:
+			footsteps.play()
 	else:
 		anim.play("idle")
+		if footsteps.playing:
+			footsteps.stop()
 
 	# EFECTO: Velocidad lenta
 	var vel_actual = velocidad

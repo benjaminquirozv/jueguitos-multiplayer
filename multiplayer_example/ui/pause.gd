@@ -48,7 +48,7 @@ func _on_back_pressed():
 	MainButtons.visible = true
 ##función para manejar volumen
 func _on_music_volume_changed(value: float):
-	var music_bus := AudioServer.get_bus_index("Master")
+	var music_bus := AudioServer.get_bus_index("Music")
 	if value <= 0:
 		AudioServer.set_bus_volume_db(music_bus, -80)
 	else:

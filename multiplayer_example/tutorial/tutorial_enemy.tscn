@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b3rgvd6acybpi"]
+
+[ext_resource type="Script" path="res://tutorial/tutorial_enemy.gd" id="1_enemy"]
+[ext_resource type="SpriteFrames" uid="uid://cl8ndx0aqg55w" path="res://characters/players/frames_black.tres" id="2_frames"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
+size = Vector2(29.999996, 32)
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+z_index = 1
+motion_mode = 1
+script = ExtResource("1_enemy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.375, 0.375)
+sprite_frames = ExtResource("2_frames")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_enemy")
+
+[node name="EffectLabel" type="Label" parent="."]
+position = Vector2(-60, -46)
+size = Vector2(120, 24)
+theme_override_colors/font_color = Color(1, 0.65, 0.2, 1)
+theme_override_font_sizes/font_size = 13
+horizontal_alignment = 1
