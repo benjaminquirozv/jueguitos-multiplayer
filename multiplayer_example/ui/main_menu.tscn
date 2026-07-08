@@ -139,3 +139,4 @@ horizontal_alignment = 1
 process_mode = 3
 stream = ExtResource("5_8uxxo")
 autoplay = true
+bus = &"Music"

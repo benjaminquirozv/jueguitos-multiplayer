@@ -13,6 +13,7 @@ extends Control
 @onready var start_timer: Timer = $StartTimer
 @onready var game_start_container: PanelContainer = %GameStartContainer
 @onready var game_start_counter: Label = %GameStartCounter
+@onready var elevator_music: AudioStreamPlayer2D = %AudioStreamPlayer2D
 
 # ── SABOTAJE ──────────────────────────────────────────────────────────────────
 # En waiting_screen.tscn agrega estos 3 nodos con sus unique names:
@@ -43,6 +44,10 @@ func _ready() -> void:
 	role_container.hide()
 	game_start_container.hide()
 	_update_ready_button()
+	elevator_music.bus = "Music"
+	elevator_music.stream_paused = false
+	elevator_music.play()
+	print("MUSICA PLAYING: ", elevator_music.playing)
 
 	if Game.use_roles:
 		_fill_role_container()
