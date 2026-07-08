@@ -43,10 +43,10 @@ custom_minimum_size = Vector2(380, 380)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = -6.0
-offset_top = -56.0
-offset_right = -6.0
-offset_bottom = 324.0
+offset_left = -403.0
+offset_top = 70.0
+offset_right = -144.0
+offset_bottom = 664.0
 grow_horizontal = 2
 mouse_filter = 2
 texture = ExtResource("4_logo")
@@ -58,20 +58,22 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -2.0
-offset_top = 258.0
-offset_right = -5.0
-offset_bottom = -33.5
+offset_left = 501.0
+offset_top = 120.0
+offset_right = 222.0
+offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Buttons" type="VBoxContainer" parent="ButtonsCenter" unique_id=1975785965]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="Host" type="Button" parent="ButtonsCenter/Buttons" unique_id=965975809]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/outline_size = 2
 text = "Host"
 
 [node name="Join" type="Button" parent="ButtonsCenter/Buttons" unique_id=1583350770]
@@ -83,6 +85,7 @@ text = "Join"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Sound"
+
 [node name="Tutorial" type="Button" parent="ButtonsCenter/Buttons" unique_id=1583350771]
 unique_name_in_owner = true
 layout_mode = 2
@@ -136,4 +139,3 @@ horizontal_alignment = 1
 process_mode = 3
 stream = ExtResource("5_8uxxo")
 autoplay = true
-bus = &"Music"
