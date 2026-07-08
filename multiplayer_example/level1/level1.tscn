@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://deixwlqjc3sv2" path="res://sprites/sounds/fanchisanchez-arthur-c-clark-142109.mp3" id="8_27rla"]
 [ext_resource type="PackedScene" uid="uid://bbqjdad47aamc" path="res://mini_mapa.tscn" id="9_wa5th"]
 [ext_resource type="PackedScene" uid="uid://dbdeccindqtpx" path="res://scenes/Star.tscn" id="10_star"]
+[ext_resource type="PackedScene" uid="uid://cibwk3qsbmvv0" path="res://portals/portal_final.tscn" id="11_yfn4e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq2b3"]
 texture = ExtResource("1_lklfg")
@@ -453,8 +454,8 @@ texture = ExtResource("1_lklfg")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jq2b3")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_27rla"]
-size = Vector2(115.5, 98.5)
+[sub_resource type="CircleShape2D" id="CircleShape2D_tw5w1"]
+radius = 32.984844
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 11.661903
@@ -534,12 +535,11 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="winner" type="Area2D" parent="." unique_id=1033419312]
-position = Vector2(-474, -194)
+position = Vector2(523, -2798)
 script = ExtResource("7_b3yy5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="winner" unique_id=625086448]
-position = Vector2(-12, -1)
-shape = SubResource("RectangleShape2D_27rla")
+shape = SubResource("CircleShape2D_tw5w1")
 
 [node name="background" type="AudioStreamPlayer2D" parent="." unique_id=1631795931]
 process_mode = 3
@@ -968,25 +968,14 @@ scale = Vector2(0.7498025, 2.3740978)
 [node name="Destino" parent="portals/17a16" index="2" unique_id=1648487353]
 position = Vector2(9700.002, 3946.1538)
 
-[node name="extremo2" parent="portals" unique_id=838569238 instance=ExtResource("3_ol5kc")]
-position = Vector2(-1881, -735)
-scale = Vector2(0.13, 0.13)
-script = ExtResource("4_ctxqh")
-
-[node name="AnimatedSprite2D" parent="portals/extremo2" index="0" unique_id=366981712]
-position = Vector2(-1753.8462, -761.5385)
-
-[node name="CollisionShape2D" parent="portals/extremo2" index="1" unique_id=1931517953]
-position = Vector2(-1759.9039, -772.2524)
-scale = Vector2(0.7498025, 2.3740978)
-
-[node name="Destino" parent="portals/extremo2" index="2" unique_id=1648487353]
-position = Vector2(61723.08, -28100.002)
-
 [node name="Portal_final" parent="portals" unique_id=577802051 instance=ExtResource("3_ol5kc")]
+visible = false
 position = Vector2(480, -2880)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
+
+[node name="portal_final_final" parent="portals" unique_id=1002086659 instance=ExtResource("11_yfn4e")]
+position = Vector2(523, -2798)
 
 [node name="stars" type="Node2D" parent="." unique_id=1474618659]
 
@@ -1132,7 +1121,6 @@ scale = Vector2(1.9218727, 1.328121)
 [editable path="portals/15a16"]
 [editable path="portals/16a17"]
 [editable path="portals/17a16"]
-[editable path="portals/extremo2"]
 [editable path="stars/Star"]
 [editable path="stars/Star9"]
 [editable path="stars/Star10"]
