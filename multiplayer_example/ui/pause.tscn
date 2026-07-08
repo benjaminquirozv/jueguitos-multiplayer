@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c3421res7pgce"]
 
 [ext_resource type="Script" uid="uid://clv8oi7k646hx" path="res://ui/pause.gd" id="1_script"]
-[ext_resource type="Theme" uid="uid://bq71ube2tqy4e" path="res://ui/main_menu_theme.tres" id="2_theme"]
+[ext_resource type="Theme" uid="uid://jiye2gu1yp3w" path="res://ui/main_menu_theme.tres" id="2_theme"]
 [ext_resource type="Texture2D" uid="uid://38m5pqgo4c01" path="res://ui/backgrounds/space_bg.jpg" id="3_bg"]
 
 [node name="Pause" type="CanvasLayer" unique_id=214292882]
@@ -86,6 +86,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Reanudar"
 
+[node name="volume" type="Button" parent="PauseOverlay/ButtonsCenter/Buttons" unique_id=726259376]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sonido"
+
 [node name="QuitGame" type="Button" parent="PauseOverlay/ButtonsCenter/Buttons" unique_id=179596415]
 unique_name_in_owner = true
 layout_mode = 2
@@ -95,3 +100,25 @@ text = "Salir"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Menú"
+
+[node name="volumenContainer" type="CenterContainer" parent="PauseOverlay" unique_id=1367508916]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeMenu" type="VBoxContainer" parent="PauseOverlay/volumenContainer" unique_id=2085844855]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseOverlay/volumenContainer/VolumeMenu" unique_id=124001067]
+layout_mode = 2
+text = "Slider Volumen"
+
+[node name="volumeSlider" type="HSlider" parent="PauseOverlay/volumenContainer/VolumeMenu" unique_id=1096921625]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="PauseOverlay/volumenContainer/VolumeMenu" unique_id=1451225883]
+layout_mode = 2
+text = "Volver"

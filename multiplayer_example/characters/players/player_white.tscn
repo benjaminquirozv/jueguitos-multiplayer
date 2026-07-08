@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://vyg8ohissl2i" path="res://characters/players/player.gd" id="1_gwj61"]
 [ext_resource type="SpriteFrames" uid="uid://dlku15isp7f4t" path="res://characters/players/frames_white.tres" id="2_6fwh8"]
+[ext_resource type="AudioStream" uid="uid://cr0n8acah6bcb" path="res://sprites/sounds/jjbinx-walking-on-gravel-313017.mp3" id="3_44ty0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yalo1"]
 size = Vector2(29.999996, 32)
@@ -30,3 +31,8 @@ zoom = Vector2(2.5, 2.5)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=140381022]
 replication_config = SubResource("SceneReplicationConfig_yalo1")
+
+[node name="footsteps" type="AudioStreamPlayer2D" parent="." unique_id=715751697]
+stream = ExtResource("3_44ty0")
+volume_db = 2.175
+parameters/looping = true

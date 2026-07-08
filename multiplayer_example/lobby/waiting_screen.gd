@@ -31,8 +31,8 @@ func _ready() -> void:
 	player_name.text = Game.get_current_player().name
 	ready_button.pressed.connect(_toggle_ready)
 	Game.players_updated.connect(_handle_players_updated)
-	Game.player_updated.connect(func(id): _update_ready_button())
-	Game.vote_updated.connect(func(id): _handle_vote_updated())
+	Game.player_updated.connect(func(_id): _update_ready_button())
+	Game.vote_updated.connect(func(_id): _handle_vote_updated())
 	sabotaje_button.disabled = true
 	if multiplayer.is_server():
 		start_timer.timeout.connect(func(): _start_game.rpc())
@@ -60,7 +60,7 @@ func _ready() -> void:
 	# ─────────────────────────────────────────────────────────────────────────
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	game_start_counter.text = str(int(ceil(start_timer.time_left)))
 
 
