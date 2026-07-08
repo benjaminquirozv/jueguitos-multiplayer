@@ -68,9 +68,11 @@ func _enter_tree():
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
+	if Input.is_key_pressed(KEY_P):
+		print("PLAYER POS: ", global_position)
 
 	var my_data = Game.get_current_player()
-
+	
 	# ── Actualizar timers ─────────────────────────────────────────────────────
 	if _cooldown_restante > 0.0:
 		_cooldown_restante -= delta
@@ -104,7 +106,17 @@ func _physics_process(delta: float) -> void:
 
 	# ── Movimiento ────────────────────────────────────────────────────────────
 	var direccion = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	#Si se mueve se escuchan pasos 
+	if direccion != Vector2.ZERO:
+		anim.play("walk")
 
+		if !footsteps.playing:
+			footsteps.play()
+	else:
+		anim.stop()
+
+		if footsteps.playing:
+			footsteps.stop()
 	# EFECTO: Controles invertidos
 	if my_data and my_data.sabotaje_activo == Statics.Sabotaje.CONTROLES_INVERTIDOS:
 		direccion = -direccion
@@ -114,7 +126,7 @@ func _physics_process(delta: float) -> void:
 		if not footsteps.playing:
 			footsteps.play()
 	else:
-		anim.stop()
+		anim.play("idle")
 		if footsteps.playing:
 			footsteps.stop()
 

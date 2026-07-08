@@ -117,6 +117,7 @@ layout_mode = 2
 text = "Slider Volumen"
 
 [node name="volumeSlider" type="HSlider" parent="PauseOverlay/volumenContainer/VolumeMenu" unique_id=1096921625]
+process_mode = 3
 layout_mode = 2
 
 [node name="BackButton" type="Button" parent="PauseOverlay/volumenContainer/VolumeMenu" unique_id=1451225883]
