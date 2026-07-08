@@ -7,8 +7,9 @@
 [ext_resource type="Script" uid="uid://dr6jjvgfl1on0" path="res://portals/portal_rec.gd" id="4_ctxqh"]
 [ext_resource type="Texture2D" uid="uid://soh1ifon3xa4" path="res://level1/n8CNl_.png" id="5_871ru"]
 [ext_resource type="Script" uid="uid://bwl04fiutfqjn" path="res://level1/area_2d.gd" id="7_b3yy5"]
-[ext_resource type="PackedScene" uid="uid://dbdeccindqtpx" path="res://scenes/Star.tscn" id="8_27rla"]
-
+[ext_resource type="AudioStream" uid="uid://deixwlqjc3sv2" path="res://sprites/sounds/fanchisanchez-arthur-c-clark-142109.mp3" id="8_27rla"]
+[ext_resource type="PackedScene" uid="uid://bbqjdad47aamc" path="res://mini_mapa.tscn" id="9_wa5th"]
+[ext_resource type="PackedScene" uid="uid://dbdeccindqtpx" path="res://scenes/Star.tscn" id="10_star"]
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq2b3"]
 texture = ExtResource("1_lklfg")
 0:0/0 = 0
@@ -539,6 +540,41 @@ script = ExtResource("7_b3yy5")
 position = Vector2(-12, -1)
 shape = SubResource("RectangleShape2D_27rla")
 
+[node name="background" type="AudioStreamPlayer2D" parent="." unique_id=1631795931]
+process_mode = 3
+stream = ExtResource("8_27rla")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1838160819]
+
+[node name="MinimapRoot" type="Control" parent="CanvasLayer2" unique_id=727470876]
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MiniMapa" parent="CanvasLayer2/MinimapRoot" unique_id=312793490 instance=ExtResource("9_wa5th")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+offset_left = -249.0
+offset_top = -145.0
+offset_right = 4.0
+offset_bottom = 3.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(-220, -170)
+pivot_offset_ratio = Vector2(-20, -20)
+
+[editable path="spawnpoints/Portal2"]
+[editable path="Portal_recep"]
+[editable path="CanvasLayer2/MinimapRoot/MiniMapa"]
 [node name="portals" type="Node" parent="." unique_id=1821532709]
 
 [node name="20a1" parent="portals" unique_id=1386598376 instance=ExtResource("3_ol5kc")]
@@ -944,7 +980,7 @@ script = ExtResource("4_ctxqh")
 
 [node name="stars" type="Node2D" parent="." unique_id=1474618659]
 
-[node name="Star" parent="stars" unique_id=1073734781 instance=ExtResource("8_27rla")]
+[node name="Star" parent="stars" unique_id=1073734781 instance=ExtResource("10_star")]
 position = Vector2(2995, -1042)
 
 [node name="CollisionShape2D" parent="stars/Star" index="0" unique_id=1466392902]
@@ -954,7 +990,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 [node name="AnimatedSprite2D" parent="stars/Star" index="1" unique_id=1320474851]
 position = Vector2(64, -21)
 
-[node name="Star9" parent="stars" unique_id=1969991661 instance=ExtResource("8_27rla")]
+[node name="Star9" parent="stars" unique_id=1969991661 instance=ExtResource("10_star")]
 position = Vector2(2266, -2635)
 
 [node name="CollisionShape2D" parent="stars/Star9" index="0" unique_id=1466392902]
@@ -964,7 +1000,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 [node name="AnimatedSprite2D" parent="stars/Star9" index="1" unique_id=1320474851]
 position = Vector2(64, -21)
 
-[node name="Star10" parent="stars" unique_id=1198139031 instance=ExtResource("8_27rla")]
+[node name="Star10" parent="stars" unique_id=1198139031 instance=ExtResource("10_star")]
 position = Vector2(1265, -2219)
 
 [node name="CollisionShape2D" parent="stars/Star10" index="0" unique_id=1466392902]
@@ -974,7 +1010,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 [node name="AnimatedSprite2D" parent="stars/Star10" index="1" unique_id=1320474851]
 position = Vector2(63, -21)
 
-[node name="Star8" parent="stars" unique_id=1125279888 instance=ExtResource("8_27rla")]
+[node name="Star8" parent="stars" unique_id=1125279888 instance=ExtResource("10_star")]
 position = Vector2(-1031, -556)
 
 [node name="CollisionShape2D" parent="stars/Star8" index="0" unique_id=1466392902]
@@ -984,7 +1020,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 [node name="AnimatedSprite2D" parent="stars/Star8" index="1" unique_id=1320474851]
 position = Vector2(64, -21)
 
-[node name="Star2" parent="stars" unique_id=443241232 instance=ExtResource("8_27rla")]
+[node name="Star2" parent="stars" unique_id=443241232 instance=ExtResource("10_star")]
 
 [node name="CollisionShape2D" parent="stars/Star2" index="0" unique_id=1466392902]
 position = Vector2(1892, -741)
@@ -994,7 +1030,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 position = Vector2(1893, -743)
 scale = Vector2(1.1484348, 1.1328107)
 
-[node name="Star3" parent="stars" unique_id=1273499887 instance=ExtResource("8_27rla")]
+[node name="Star3" parent="stars" unique_id=1273499887 instance=ExtResource("10_star")]
 position = Vector2(1980, -1879)
 
 [node name="CollisionShape2D" parent="stars/Star3" index="0" unique_id=1466392902]
@@ -1005,7 +1041,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 position = Vector2(1893.0001, -741.00006)
 scale = Vector2(1.296875, 1.203121)
 
-[node name="Star4" parent="stars" unique_id=76716199 instance=ExtResource("8_27rla")]
+[node name="Star4" parent="stars" unique_id=76716199 instance=ExtResource("10_star")]
 position = Vector2(-4135, -1638)
 
 [node name="CollisionShape2D" parent="stars/Star4" index="0" unique_id=1466392902]
@@ -1027,7 +1063,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 position = Vector2(1894, -740.99994)
 scale = Vector2(1.2656219, 1.1718805)
 
-[node name="Star6" parent="stars" unique_id=487487630 instance=ExtResource("8_27rla")]
+[node name="Star6" parent="stars" unique_id=487487630 instance=ExtResource("10_star")]
 position = Vector2(463, -4049)
 
 [node name="CollisionShape2D" parent="stars/Star6" index="0" unique_id=1466392902]
@@ -1037,7 +1073,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 [node name="AnimatedSprite2D" parent="stars/Star6" index="1" unique_id=1320474851]
 position = Vector2(1893.0001, -736)
 
-[node name="Star7" parent="stars" unique_id=1796343211 instance=ExtResource("8_27rla")]
+[node name="Star7" parent="stars" unique_id=1796343211 instance=ExtResource("10_star")]
 position = Vector2(2728, -3530)
 
 [node name="CollisionShape2D" parent="stars/Star7" index="0" unique_id=1466392902]
