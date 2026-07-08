@@ -5,6 +5,28 @@ extends CharacterBody2D
 @onready var collision = $CollisionShape2D
 @onready var footsteps = $footsteps
 
+
+# Sprite según role (el personaje)
+const SPRITE_FRAMES = {
+	Statics.Role.ROLE_A: preload("res://characters/players/frames_black.tres"),
+	Statics.Role.ROLE_B: preload("res://characters/players/frames_white.tres"),
+	Statics.Role.ROLE_C: preload("res://characters/players/frames_black.tres"),
+	Statics.Role.ROLE_D: preload("res://characters/players/frames_white.tres"),
+}
+
+# Color según team
+const TINTES = {
+	Statics.Team.TEAM_BLACK: Color(0.3, 0.3, 0.3),  # oscuro
+	Statics.Team.TEAM_WHITE: Color(1.0, 1.0, 1.0),  # claro/normal
+}
+
+const SCALES = {
+	Statics.Role.NONE:   Vector2(1.0, 1.0),
+	Statics.Role.ROLE_A: Vector2(0.5, 0.5),
+	Statics.Role.ROLE_B: Vector2(0.5, 0.5),
+	Statics.Role.ROLE_C: Vector2(1.0, 1.0),
+	Statics.Role.ROLE_D: Vector2(1.0, 1.0),
+}
 # ── CONFIGURACIÓN SABOTAJE ────────────────────────────────────────────────────
 const RANGO_SABOTAJE    := 500.0  # Distancia máxima para afectar al más cercano
 const DURACION_EFECTO   := 30.0   # Segundos que dura el sabotaje sobre la víctima
