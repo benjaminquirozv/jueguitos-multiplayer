@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dr6jjvgfl1on0" path="res://portals/portal_rec.gd" id="4_ctxqh"]
 [ext_resource type="Texture2D" uid="uid://soh1ifon3xa4" path="res://level1/n8CNl_.png" id="5_871ru"]
 [ext_resource type="Script" uid="uid://bwl04fiutfqjn" path="res://level1/area_2d.gd" id="7_b3yy5"]
+[ext_resource type="PackedScene" uid="uid://dbdeccindqtpx" path="res://scenes/Star.tscn" id="8_27rla"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq2b3"]
 texture = ExtResource("1_lklfg")
@@ -453,6 +454,9 @@ sources/0 = SubResource("TileSetAtlasSource_jq2b3")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_27rla"]
 size = Vector2(115.5, 98.5)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 11.661903
+
 [node name="Level1" type="Node2D" unique_id=1025003611]
 script = ExtResource("1_ol5kc")
 
@@ -521,6 +525,11 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("5_871ru")
 stretch_mode = 1
+
+[node name="LabelEstrellas" type="Label" parent="CanvasLayer/Control" unique_id=2131285086]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1033419312]
 position = Vector2(-474, -194)
@@ -592,7 +601,6 @@ position = Vector2(-1744.4446, -611.11035)
 position = Vector2(-879, -1737.9999)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -605,7 +613,6 @@ position = Vector2(-3723.0771, -2115.3857)
 position = Vector2(-1706, -3440)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep2" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -618,7 +625,6 @@ position = Vector2(2946.1538, 6953.8457)
 position = Vector2(-1204, -3352)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep3" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -631,7 +637,6 @@ position = Vector2(4515.385, 4730.7686)
 position = Vector2(-634, -3058)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep4" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -644,7 +649,6 @@ position = Vector2(8523.077, -1823.0773)
 position = Vector2(-496, -3680)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep5" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -657,7 +661,6 @@ position = Vector2(10653.847, 976.92285)
 position = Vector2(389, -3503)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep6" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -670,7 +673,6 @@ position = Vector2(14515.385, -2084.6157)
 position = Vector2(623, -2074)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep7" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -683,7 +685,6 @@ position = Vector2(553.8463, 5492.3076)
 position = Vector2(528.99994, -1294)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep8" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -696,7 +697,6 @@ position = Vector2(13800.001, -2892.3076)
 position = Vector2(3543, -1926)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep9" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -709,7 +709,6 @@ position = Vector2(6969.2314, 676.92334)
 position = Vector2(-748, -2403)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep10" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -722,7 +721,6 @@ position = Vector2(9700, -3015.3845)
 position = Vector2(-120, -2475)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep11" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -735,7 +733,6 @@ position = Vector2(-1384.6152, -8107.6924)
 position = Vector2(-101, -3117)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep12" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -748,7 +745,6 @@ position = Vector2(17453.848, -13338.462)
 position = Vector2(-701, -4612)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep13" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -761,7 +757,6 @@ position = Vector2(5076.924, 14161.538)
 position = Vector2(1410, -3082)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep14" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -774,7 +769,6 @@ position = Vector2(11415.385, -4338.4614)
 position = Vector2(1548, -3014)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep15" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -787,7 +781,6 @@ position = Vector2(27223.076, -11061.539)
 position = Vector2(1568, -2765.9998)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep16" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -800,7 +793,6 @@ position = Vector2(31084.615, -53.84668)
 position = Vector2(2954, -5006)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep17" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -813,7 +805,6 @@ position = Vector2(-14300.002, 4884.615)
 position = Vector2(4501, -4176)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep18" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -826,7 +817,6 @@ position = Vector2(-11230.77, 8953.846)
 position = Vector2(3166, -2540)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep19" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -839,7 +829,6 @@ position = Vector2(21707.691, 8830.77)
 position = Vector2(4937, -1902)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep20" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -852,7 +841,6 @@ position = Vector2(9738.46, -792.3076)
 position = Vector2(3812, -1107)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep21" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -865,7 +853,6 @@ position = Vector2(19715.383, -14246.154)
 position = Vector2(4371, 411)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep22" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -878,7 +865,6 @@ position = Vector2(-7384.615, -2638.4617)
 position = Vector2(1811, -26)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep23" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -891,7 +877,6 @@ position = Vector2(31546.156, -130.76926)
 position = Vector2(5622, -271)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep24" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -904,7 +889,6 @@ position = Vector2(7146.1563, -1569.2308)
 position = Vector2(6182, 234)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep25" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -917,7 +901,6 @@ position = Vector2(12276.922, -17538.463)
 position = Vector2(7558, -1728)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep26" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -930,7 +913,6 @@ position = Vector2(-2246.1553, -15953.848)
 position = Vector2(7030, -3089)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep27" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -943,7 +925,6 @@ position = Vector2(2576.9219, 24269.23)
 position = Vector2(7128, -933)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep28" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -956,7 +937,6 @@ position = Vector2(-32930.773, 1330.7695)
 position = Vector2(4540, -557)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep29" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -969,7 +949,6 @@ position = Vector2(-33615.387, 3930.7693)
 position = Vector2(2333, -3049)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep30" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -982,7 +961,6 @@ position = Vector2(-24446.154, 20015.385)
 position = Vector2(-1665, -546)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep31" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -995,7 +973,6 @@ position = Vector2(61023.08, -27138.463)
 position = Vector2(-2674, -4569)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("4_ctxqh")
-es_trampa = true
 
 [node name="CollisionShape2D" parent="portals/Portal_recep32" index="1" unique_id=1931517953]
 position = Vector2(-6.0577393, -10.713867)
@@ -1003,6 +980,118 @@ scale = Vector2(0.7498025, 2.3740978)
 
 [node name="Destino" parent="portals/Portal_recep32" index="2" unique_id=1648487353]
 position = Vector2(40453.848, 25638.463)
+
+[node name="Portal_final" parent="portals" unique_id=577802051 instance=ExtResource("3_ol5kc")]
+position = Vector2(480, -2880)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+
+[node name="stars" type="Node2D" parent="." unique_id=1474618659]
+
+[node name="Star" parent="stars" unique_id=1073734781 instance=ExtResource("8_27rla")]
+position = Vector2(2995, -1042)
+
+[node name="CollisionShape2D" parent="stars/Star" index="0" unique_id=1466392902]
+position = Vector2(63, -21)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" parent="stars/Star" index="1" unique_id=1320474851]
+position = Vector2(64, -21)
+
+[node name="Star9" parent="stars" unique_id=1969991661 instance=ExtResource("8_27rla")]
+position = Vector2(2266, -2635)
+
+[node name="CollisionShape2D" parent="stars/Star9" index="0" unique_id=1466392902]
+position = Vector2(63, -21)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" parent="stars/Star9" index="1" unique_id=1320474851]
+position = Vector2(64, -21)
+
+[node name="Star10" parent="stars" unique_id=1198139031 instance=ExtResource("8_27rla")]
+position = Vector2(1265, -2219)
+
+[node name="CollisionShape2D" parent="stars/Star10" index="0" unique_id=1466392902]
+position = Vector2(63, -21)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" parent="stars/Star10" index="1" unique_id=1320474851]
+position = Vector2(63, -21)
+
+[node name="Star8" parent="stars" unique_id=1125279888 instance=ExtResource("8_27rla")]
+position = Vector2(-1031, -556)
+
+[node name="CollisionShape2D" parent="stars/Star8" index="0" unique_id=1466392902]
+position = Vector2(63, -21)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" parent="stars/Star8" index="1" unique_id=1320474851]
+position = Vector2(64, -21)
+
+[node name="Star2" parent="stars" unique_id=443241232 instance=ExtResource("8_27rla")]
+
+[node name="CollisionShape2D" parent="stars/Star2" index="0" unique_id=1466392902]
+position = Vector2(1892, -741)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" parent="stars/Star2" index="1" unique_id=1320474851]
+position = Vector2(1893, -743)
+scale = Vector2(1.1484348, 1.1328107)
+
+[node name="Star3" parent="stars" unique_id=1273499887 instance=ExtResource("8_27rla")]
+position = Vector2(1980, -1879)
+
+[node name="CollisionShape2D" parent="stars/Star3" index="0" unique_id=1466392902]
+position = Vector2(1892, -741)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" parent="stars/Star3" index="1" unique_id=1320474851]
+position = Vector2(1893.0001, -741.00006)
+scale = Vector2(1.296875, 1.203121)
+
+[node name="Star4" parent="stars" unique_id=76716199 instance=ExtResource("8_27rla")]
+position = Vector2(-4135, -1638)
+
+[node name="CollisionShape2D" parent="stars/Star4" index="0" unique_id=1466392902]
+position = Vector2(1892, -741)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" parent="stars/Star4" index="1" unique_id=1320474851]
+position = Vector2(1892.9999, -739)
+scale = Vector2(0.98829085, 1.1289067)
+
+[node name="Star5" parent="stars" unique_id=869030493 instance=ExtResource("8_27rla")]
+position = Vector2(-2551, -2986)
+
+[node name="CollisionShape2D" parent="stars/Star5" index="0" unique_id=1466392902]
+position = Vector2(1892, -741)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" parent="stars/Star5" index="1" unique_id=1320474851]
+position = Vector2(1894, -740.99994)
+scale = Vector2(1.2656219, 1.1718805)
+
+[node name="Star6" parent="stars" unique_id=487487630 instance=ExtResource("8_27rla")]
+position = Vector2(463, -4049)
+
+[node name="CollisionShape2D" parent="stars/Star6" index="0" unique_id=1466392902]
+position = Vector2(1892, -741)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" parent="stars/Star6" index="1" unique_id=1320474851]
+position = Vector2(1893.0001, -736)
+scale = Vector2(4.2187505, 4.0312505)
+
+[node name="Star7" parent="stars" unique_id=1796343211 instance=ExtResource("8_27rla")]
+position = Vector2(2728, -3530)
+
+[node name="CollisionShape2D" parent="stars/Star7" index="0" unique_id=1466392902]
+position = Vector2(1892, -741)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" parent="stars/Star7" index="1" unique_id=1320474851]
+position = Vector2(1893.0001, -745.00006)
+scale = Vector2(1.9218727, 1.328121)
 
 [editable path="portals/Portal8"]
 [editable path="portals/Portal7"]
@@ -1043,3 +1132,13 @@ position = Vector2(40453.848, 25638.463)
 [editable path="portals/Portal_recep30"]
 [editable path="portals/Portal_recep31"]
 [editable path="portals/Portal_recep32"]
+[editable path="stars/Star"]
+[editable path="stars/Star9"]
+[editable path="stars/Star10"]
+[editable path="stars/Star8"]
+[editable path="stars/Star2"]
+[editable path="stars/Star3"]
+[editable path="stars/Star4"]
+[editable path="stars/Star5"]
+[editable path="stars/Star6"]
+[editable path="stars/Star7"]

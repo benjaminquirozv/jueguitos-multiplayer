@@ -5,6 +5,28 @@ extends CharacterBody2D
 @onready var collision = $CollisionShape2D
 @onready var footsteps = $footsteps
 
+
+# Sprite según role (el personaje)
+const SPRITE_FRAMES = {
+	Statics.Role.ROLE_A: preload("res://characters/players/frames_black.tres"),
+	Statics.Role.ROLE_B: preload("res://characters/players/frames_white.tres"),
+	Statics.Role.ROLE_C: preload("res://characters/players/frames_black.tres"),
+	Statics.Role.ROLE_D: preload("res://characters/players/frames_white.tres"),
+}
+
+# Color según team
+const TINTES = {
+	Statics.Team.TEAM_BLACK: Color(0.3, 0.3, 0.3),  # oscuro
+	Statics.Team.TEAM_WHITE: Color(1.0, 1.0, 1.0),  # claro/normal
+}
+
+const SCALES = {
+	Statics.Role.NONE:   Vector2(1.0, 1.0),
+	Statics.Role.ROLE_A: Vector2(0.5, 0.5),
+	Statics.Role.ROLE_B: Vector2(0.5, 0.5),
+	Statics.Role.ROLE_C: Vector2(1.0, 1.0),
+	Statics.Role.ROLE_D: Vector2(1.0, 1.0),
+}
 # ── CONFIGURACIÓN SABOTAJE ────────────────────────────────────────────────────
 const RANGO_SABOTAJE    := 500.0  # Distancia máxima para afectar al más cercano
 const DURACION_EFECTO   := 30.0   # Segundos que dura el sabotaje sobre la víctima
@@ -25,6 +47,10 @@ func _ready():
 		Game.player_updated.connect(_on_player_updated)
 	if not Game.players_updated.is_connected(_update_visual):
 		Game.players_updated.connect(_update_visual)
+	#Outline	
+	var mat = ShaderMaterial.new()
+	mat.shader = preload("res://player/player.gdshader")
+	anim.material = mat
 	_update_visual()
 
 	# Crear label de HUD solo para el jugador local
@@ -208,14 +234,31 @@ func ir_al_inicio() -> void:
 func _on_player_updated(id: int) -> void:
 	if id == name.to_int() or id == multiplayer.get_unique_id():
 		_update_visual()
-
+const OUTLINE_COLORS = {
+	Statics.Team.TEAM_BLACK: Color(0, 0, 0, 1),
+	Statics.Team.TEAM_WHITE: Color(1, 1, 1, 1),
+}
 func _update_visual() -> void:
 	var this_player  = Game.get_player(name.to_int())
 	var local_player = Game.get_current_player()
 
 	if this_player == null or local_player == null:
 		return
+	scale = SCALES.get(this_player.role, Vector2(1.0, 1.0))
 
+	# Sprite según role
+	if SPRITE_FRAMES.has(this_player.role):
+		anim.sprite_frames = SPRITE_FRAMES[this_player.role]
+
+	# Tinte según team
+	if TINTES.has(this_player.team):
+		anim.modulate = TINTES[this_player.team]
+	#outline según el equipo
+	if OUTLINE_COLORS.has(this_player.team):
+		anim.material.set_shader_parameter("outline_color", OUTLINE_COLORS[this_player.team])
+		anim.material.set_shader_parameter("outline_width", 3)
+
+	# ── Visibilidad para jugadores remotos ──
 	if is_multiplayer_authority():
 		set_normal_visual()
 		return

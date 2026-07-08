@@ -3,6 +3,14 @@ extends Node
 signal players_updated
 signal player_updated(id)
 signal vote_updated(id)
+signal player_index_received()
+signal stars_updated(team)
+
+var team_stars: Dictionary = {
+	Statics.Team.TEAM_BLACK: 0,
+	Statics.Team.TEAM_WHITE: 0,
+}
+
 
 @export var multiplayer_test = false
 @export var use_roles = true
@@ -12,6 +20,10 @@ signal vote_updated(id)
 @export var fill_screen = true
 @export var test_players: Array[PlayerDataResource] = []
 @export var main_scene: PackedScene
+const STARS_PARA_GANAR := 4
+
+func team_has_all_stars(team: Statics.Team) -> bool:
+	return team_stars.get(team, 0) >= STARS_PARA_GANAR
 
 var players: Array[Statics.PlayerData] = []
 var change_window_scale := true :
@@ -193,3 +205,39 @@ func _handle_node_added(node: Node) -> void:
 	if node.get_parent() == get_window():
 		change_window_scale = node is MainMenu or node is LobbyHostScreen or \
 			node is LobbyJoinScreen or node is LobbyWaitingScreen or node is Credits
+			
+			
+##----Lógica de estrellas 
+@rpc("any_peer", "reliable", "call_local")
+func collect_star(star_name: String, team: Statics.Team) -> void:
+	var stars_container = get_tree().current_scene.get_node_or_null("stars")
+	if stars_container == null:
+		return
+
+	var star = stars_container.get_node_or_null(star_name)
+	if star == null:
+		return  # ya la recolectaron (evita doble conteo)
+
+	star.queue_free()
+	team_stars[team] = team_stars.get(team, 0) + 1
+	stars_updated.emit(team)
+
+
+func get_team_stars(team: Statics.Team) -> int:
+	return team_stars.get(team, 0)
+
+
+func reset_stars() -> void:
+	team_stars[Statics.Team.TEAM_BLACK] = 0
+	team_stars[Statics.Team.TEAM_WHITE] = 0
+
+
+
+#-----------------Final de la partida----------------------------------------------------------
+@rpc("any_peer", "reliable", "call_local")
+func finalizar_partida(equipo_ganador: Statics.Team) -> void:
+	var mi_data = get_current_player()
+	if mi_data != null and mi_data.team == equipo_ganador:
+		get_tree().change_scene_to_file("res://ui/final_cachipun.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/you_lose.tscn")
