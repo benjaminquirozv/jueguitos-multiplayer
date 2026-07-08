@@ -10,6 +10,9 @@ const PAUSE_SCENE := preload("res://ui/pause.tscn")
 @onready var niebla2           = $CanvasLayer/Control/Niebla2
 @onready var minimap = $CanvasLayer2/MinimapRoot/MiniMapa
 @export var map_size_world := Vector2(2000, 2000)
+@onready var label_estrellas = $CanvasLayer/Control/LabelEstrellas
+@onready var portal_final = $portals/Portal_final
+
 var velocidad_niebla := 15.0
 
 
@@ -18,8 +21,12 @@ func _ready():
 	spawner.set_spawn_function(crear_jugador_personalizado)
 	niebla.modulate = Color(1, 1, 1, 0.25)
 	aplicar_filtro_segun_rol()
-
+	Game.stars_updated.connect(_on_stars_updated)
+	_actualizar_label_estrellas()
+	portal_final.visible = false
+	portal_final.monitoring = false
 	if multiplayer.is_server():
+		Game.reset_stars()
 		var indice_spawn = 0
 		spawner.spawn({"id": 1, "pos": puntos_aparicion[indice_spawn].global_position})
 		indice_spawn += 1
@@ -30,6 +37,7 @@ func _ready():
 			await get_tree().process_frame
 	await get_tree().process_frame
 	setup_minimap()
+
 
 func crear_jugador_personalizado(datos):
 	var nuevo_jugador = preload("res://characters/players/player.tscn").instantiate()
@@ -101,3 +109,25 @@ func setup_minimap() -> void:
 
 	minimap.player = local_node
 	minimap.teammate = teammate_node
+#-------------------L+ogica de estrellas e inventario por equipo 
+func _on_stars_updated(team) -> void:
+	var mi_team = Game.get_current_player().team
+	if team == mi_team:
+		_actualizar_label_estrellas()
+		_actualizar_portal_final()
+
+
+func _actualizar_label_estrellas() -> void:
+	var mi_data = Game.get_current_player()
+	if mi_data == null:
+		return
+	label_estrellas.text = "Estrellas: %d" % Game.get_team_stars(mi_data.team)
+	
+func _actualizar_portal_final() -> void:
+	var mi_data = Game.get_current_player()
+	if mi_data == null:
+		return
+
+	var habilitado = Game.team_has_all_stars(mi_data.team)
+	portal_final.visible = habilitado
+	portal_final.monitoring = habilitado
