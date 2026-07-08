@@ -82,7 +82,7 @@ func _process(delta: float) -> void:
 	if not niebla.visible:
 		return
 	niebla.position.x += velocidad_niebla * delta
-	if niebla.position.x > 100:
+	if niebla.position.x > 30:
 		niebla.position.x = 0
 		
 		

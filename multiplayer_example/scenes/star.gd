@@ -1,6 +1,7 @@
 extends Area2D
 
 @onready var anim = $AnimatedSprite2D
+@onready var sfx = $AudioStreamPlayer2D
 
 func _ready() -> void:
 	anim.play("estrellas")
@@ -19,4 +20,9 @@ func _on_body_entered(body: Node) -> void:
 		return
 
 	monitoring = false
+	# Reproducir sonido
+	sfx.play()
+
+	# Esperar que termine
+	await sfx.finished
 	Game.collect_star.rpc(name, my_data.team)

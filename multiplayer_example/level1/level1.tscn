@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://deixwlqjc3sv2" path="res://sprites/sounds/fanchisanchez-arthur-c-clark-142109.mp3" id="8_27rla"]
 [ext_resource type="PackedScene" uid="uid://bbqjdad47aamc" path="res://mini_mapa.tscn" id="9_wa5th"]
 [ext_resource type="PackedScene" uid="uid://dbdeccindqtpx" path="res://scenes/Star.tscn" id="10_star"]
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq2b3"]
 texture = ExtResource("1_lklfg")
 0:0/0 = 0
@@ -572,9 +573,6 @@ grow_vertical = 0
 pivot_offset = Vector2(-220, -170)
 pivot_offset_ratio = Vector2(-20, -20)
 
-[editable path="spawnpoints/Portal2"]
-[editable path="Portal_recep"]
-[editable path="CanvasLayer2/MinimapRoot/MiniMapa"]
 [node name="portals" type="Node" parent="." unique_id=1821532709]
 
 [node name="Portal8" parent="portals" unique_id=1386598376 instance=ExtResource("3_ol5kc")]
@@ -1129,6 +1127,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 position = Vector2(1893.0001, -745.00006)
 scale = Vector2(1.9218727, 1.328121)
 
+[editable path="CanvasLayer2/MinimapRoot/MiniMapa"]
 [editable path="portals/Portal8"]
 [editable path="portals/Portal7"]
 [editable path="portals/Portal6"]
