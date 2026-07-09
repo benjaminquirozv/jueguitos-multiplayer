@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cibwk3qsbmvv0"]
 
+[ext_resource type="Script" uid="uid://c5riw7a6c01ma" path="res://portals/portal_final.gd" id="1_emkua"]
 [ext_resource type="Texture2D" uid="uid://cww47lyorxmcd" path="res://sprites/portalfinal/6/Portal 1.png" id="1_u274a"]
 [ext_resource type="Texture2D" uid="uid://3s5l58rn4lfd" path="res://sprites/portalfinal/6/Portal 2.png" id="2_4snv5"]
 [ext_resource type="Texture2D" uid="uid://b65ae0i1niq2f" path="res://sprites/portalfinal/6/Portal 3.png" id="3_c2sts"]
@@ -164,8 +165,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_liimr"]
+radius = 42.047592
 
 [node name="Node2D" type="Area2D" unique_id=1821827227]
+script = ExtResource("1_emkua")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1247132171]
 sprite_frames = SubResource("SpriteFrames_7bm4e")
@@ -184,3 +187,11 @@ frame_progress = 0.7613473
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=464082582]
 shape = SubResource("CircleShape2D_liimr")
+
+[node name="LabelFinal" type="Label" parent="." unique_id=901491783]
+offset_left = -19.0
+offset_top = -59.0
+offset_right = 21.0
+offset_bottom = -36.0
+horizontal_alignment = 1
+vertical_alignment = 1

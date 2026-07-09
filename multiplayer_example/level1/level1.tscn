@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://8xpcmyaxp028" path="res://portals/portal_2.tscn" id="3_ol5kc"]
 [ext_resource type="Script" uid="uid://dr6jjvgfl1on0" path="res://portals/portal_rec.gd" id="4_ctxqh"]
 [ext_resource type="Texture2D" uid="uid://soh1ifon3xa4" path="res://level1/n8CNl_.png" id="5_871ru"]
-[ext_resource type="Script" uid="uid://bwl04fiutfqjn" path="res://level1/area_2d.gd" id="7_b3yy5"]
 [ext_resource type="AudioStream" uid="uid://deixwlqjc3sv2" path="res://sprites/sounds/fanchisanchez-arthur-c-clark-142109.mp3" id="8_27rla"]
 [ext_resource type="PackedScene" uid="uid://bbqjdad47aamc" path="res://mini_mapa.tscn" id="9_wa5th"]
 [ext_resource type="PackedScene" uid="uid://dbdeccindqtpx" path="res://scenes/Star.tscn" id="10_star"]
@@ -454,9 +453,6 @@ texture = ExtResource("1_lklfg")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jq2b3")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tw5w1"]
-radius = 32.984844
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 11.661903
 
@@ -534,12 +530,23 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="winner" type="Area2D" parent="." unique_id=1033419312]
-position = Vector2(523, -2798)
-script = ExtResource("7_b3yy5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="winner" unique_id=625086448]
-shape = SubResource("CircleShape2D_tw5w1")
+[node name="LabelVortice" type="Label" parent="CanvasLayer/Control" unique_id=781384127]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -205.0
+offset_top = -178.0
+offset_right = 208.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(3.1756527, 2.364047, 3.500427, 1)
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="background" type="AudioStreamPlayer2D" parent="." unique_id=1631795931]
 process_mode = 3
@@ -980,14 +987,8 @@ scale = Vector2(0.7498025, 2.3740978)
 [node name="Destino" parent="portals/17a16" index="2" unique_id=1648487353]
 position = Vector2(9700.002, 3946.1538)
 
-[node name="Portal_final" parent="portals" unique_id=577802051 instance=ExtResource("3_ol5kc")]
-visible = false
-position = Vector2(480, -2880)
-scale = Vector2(0.13, 0.13)
-script = ExtResource("4_ctxqh")
-
 [node name="portal_final_final" parent="portals" unique_id=1002086659 instance=ExtResource("11_yfn4e")]
-position = Vector2(523, -2798)
+position = Vector2(513, -2796)
 
 [node name="stars" type="Node2D" parent="." unique_id=1474618659]
 
