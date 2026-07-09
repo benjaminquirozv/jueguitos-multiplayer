@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cn2xifxwumvkf" path="res://portals/portal_lvl.gd" id="1_jv4ie"]
 [ext_resource type="Texture2D" uid="uid://dp6ummeo3e1y5" path="res://sprites/Portal_100x100px.png" id="1_lqbf1"]
+[ext_resource type="AudioStream" uid="uid://ck3mnlq558o3b" path="res://portals/dragon-studio-sci-fi-portal-jump-01-416163.mp3" id="3_qae01"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jv4ie"]
 atlas = ExtResource("1_lqbf1")
@@ -321,5 +322,10 @@ shape = SubResource("RectangleShape2D_lqbf1")
 
 [node name="Destino" type="Marker2D" parent="." unique_id=1648487353]
 position = Vector2(-133, -7)
+
+[node name="Teleport" type="AudioStreamPlayer" parent="." unique_id=928068682]
+stream = ExtResource("3_qae01")
+pitch_scale = 2.08
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

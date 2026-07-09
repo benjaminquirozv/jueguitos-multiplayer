@@ -36,7 +36,7 @@ func _ready():
 			indice_spawn += 1
 			await get_tree().process_frame
 	await get_tree().process_frame
-	setup_minimap()
+	_configurar_minimapa_con_retry()
 
 
 func crear_jugador_personalizado(datos):
@@ -44,7 +44,21 @@ func crear_jugador_personalizado(datos):
 	nuevo_jugador.name = str(datos.id)
 	nuevo_jugador.global_position = datos.pos
 	return nuevo_jugador
+	
+	
+	
+func _configurar_minimapa_con_retry() -> void:
+	for i in range(30):
+		setup_minimap()
 
+		if minimap.player != null and minimap.teammate != null:
+			print("MINIMAPA OK player:", minimap.player.name, " teammate:", minimap.teammate.name)
+			return
+
+		print("Esperando players minimapa... intento ", i)
+		await get_tree().create_timer(0.2).timeout
+
+	print("MINIMAPA incompleto player:", minimap.player, " teammate:", minimap.teammate)
 
 func aplicar_filtro_segun_rol() -> void:
 	var local_player = Game.get_current_player()

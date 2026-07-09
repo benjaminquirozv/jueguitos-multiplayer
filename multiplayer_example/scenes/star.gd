@@ -1,7 +1,7 @@
 extends Area2D
 
 @onready var anim = $AnimatedSprite2D
-@onready var sfx = $AudioStreamPlayer2D
+@onready var sfx = $soundstar
 
 func _ready() -> void:
 	anim.play("estrellas")
@@ -20,9 +20,28 @@ func _on_body_entered(body: Node) -> void:
 		return
 
 	monitoring = false
-	# Reproducir sonido
-	sfx.play()
 
-	# Esperar que termine
-	await sfx.finished
-	Game.collect_star.rpc(name, my_data.team)
+	# Sonido: puramente local, solo lo escucha quien la agarró.
+	call_deferred("_reproducir_sonido_local")
+
+	# Recolección real: se sincroniza con todos vía el servidor.
+	if multiplayer.is_server():
+		Game.collect_star.rpc(name, my_data.team)
+	else:
+		Game._request_collect_star.rpc_id(1, name, my_data.team)
+
+func _reproducir_sonido_local() -> void:
+	if sfx.stream == null:
+		return
+
+	var sonido := AudioStreamPlayer.new()
+	sonido.stream = sfx.stream
+	sonido.bus = "SFX"
+	sonido.pitch_scale = sfx.pitch_scale
+	sonido.volume_db = sfx.volume_db
+
+	get_tree().root.add_child(sonido)
+	sonido.play()
+
+	await sonido.finished
+	sonido.queue_free()

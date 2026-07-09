@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://bbqjdad47aamc"]
 
 [ext_resource type="Script" uid="uid://daec8nmiqsyq3" path="res://mini_mapa.gd" id="1_v2lsq"]
+[ext_resource type="Texture2D" uid="uid://csqleghnv0nn6" path="res://sprites/frames-32-4.png" id="2_sl6ub"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yf5fn"]
+atlas = ExtResource("2_sl6ub")
+region = Rect2(1.8437386, 145.19997, 108.079575, 37.50685)
 
 [node name="MiniMapa" type="Control" unique_id=312793490]
 layout_mode = 3
@@ -10,13 +15,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v2lsq")
-map_origin = Vector2(-1000, -300)
-map_size_world = Vector2(6500, 2200)
 
 [node name="Panel" type="Panel" parent="." unique_id=1156274850]
 layout_mode = 0
 offset_right = 251.0
 offset_bottom = 92.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel" unique_id=419488631]
+layout_mode = 0
+offset_left = -19.0
+offset_top = -24.0
+offset_right = 269.0
+offset_bottom = 112.0
+texture = SubResource("AtlasTexture_yf5fn")
 
 [node name="Background" type="ColorRect" parent="Panel" unique_id=1319348324]
 custom_minimum_size = Vector2(250, 0)
@@ -24,7 +35,7 @@ layout_mode = 0
 offset_top = 1.0
 offset_right = 250.0
 offset_bottom = 91.0
-color = Color(0.13714087, 0.08359193, 0.22479606, 1)
+color = Color(5.26062e-05, 6.687857e-05, 5.1523828e-05, 1)
 
 [node name="Player" type="ColorRect" parent="Panel" unique_id=395787492]
 layout_mode = 1
@@ -33,7 +44,7 @@ offset_left = 14.0
 offset_top = 11.0
 offset_right = 22.0
 offset_bottom = 17.0
-color = Color(0.23921569, 1, 1, 1)
+color = Color(0.8138703, 0, 0.110631235, 1)
 
 [node name="Teammate" type="ColorRect" parent="Panel" unique_id=1467590050]
 layout_mode = 0
@@ -41,4 +52,3 @@ offset_left = 40.0
 offset_top = 11.0
 offset_right = 47.0
 offset_bottom = 17.0
-color = Color(1, 0.1764706, 1, 1)

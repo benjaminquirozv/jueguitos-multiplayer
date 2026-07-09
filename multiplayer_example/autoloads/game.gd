@@ -208,16 +208,20 @@ func _handle_node_added(node: Node) -> void:
 			
 			
 ##----Lógica de estrellas 
+@rpc("any_peer", "call_remote", "reliable")
+func _request_collect_star(star_name: String, team: Statics.Team) -> void:
+	if multiplayer.is_server():
+		collect_star.rpc(star_name, team)
+
+
 @rpc("any_peer", "reliable", "call_local")
 func collect_star(star_name: String, team: Statics.Team) -> void:
 	var stars_container = get_tree().current_scene.get_node_or_null("stars")
 	if stars_container == null:
 		return
-
 	var star = stars_container.get_node_or_null(star_name)
 	if star == null:
 		return  # ya la recolectaron (evita doble conteo)
-
 	star.queue_free()
 	team_stars[team] = team_stars.get(team, 0) + 1
 	stars_updated.emit(team)

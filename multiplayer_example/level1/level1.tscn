@@ -548,9 +548,10 @@ theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="background" type="AudioStreamPlayer2D" parent="." unique_id=1631795931]
+[node name="background" type="AudioStreamPlayer" parent="." unique_id=1020458609]
 process_mode = 3
 stream = ExtResource("8_27rla")
+volume_db = -17.415
 autoplay = true
 bus = &"Music"
 parameters/looping = true
@@ -579,6 +580,12 @@ grow_horizontal = 0
 grow_vertical = 0
 pivot_offset = Vector2(-220, -170)
 pivot_offset_ratio = Vector2(-20, -20)
+
+[node name="Panel" parent="CanvasLayer2/MinimapRoot/MiniMapa" index="0" unique_id=1156274850]
+offset_left = -59.0
+offset_top = 3.0
+offset_right = 192.0
+offset_bottom = 95.0
 
 [node name="portals" type="Node" parent="." unique_id=1821532709]
 
