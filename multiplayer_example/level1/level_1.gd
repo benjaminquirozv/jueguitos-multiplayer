@@ -14,12 +14,15 @@ const PAUSE_SCENE := preload("res://ui/pause.tscn")
 @onready var portal_final = $portals/portal_final_final
 @onready var label_vortice = $CanvasLayer/Control/LabelVortice
 var velocidad_niebla := 15.0
-
+var direccion_niebla := 1
+var limite_niebla := 30.0
 
 func _ready():
 	add_child(PAUSE_SCENE.instantiate())
 	spawner.set_spawn_function(crear_jugador_personalizado)
 	niebla.modulate = Color(1, 1, 1, 0.25)
+	niebla2.modulate = Color(1, 1, 1, 0.25)
+	niebla2.position.x = niebla.position.x - niebla.size.x
 	aplicar_filtro_segun_rol()
 	Game.stars_updated.connect(_on_stars_updated)
 	_actualizar_label_estrellas()
@@ -95,10 +98,17 @@ func desactivar_pantalla_oscura() -> void:
 func _process(delta: float) -> void:
 	if not niebla.visible:
 		return
-	niebla.position.x += velocidad_niebla * delta
-	if niebla.position.x > 30:
-		niebla.position.x = 0
-		
+
+	var movimiento := velocidad_niebla * direccion_niebla * delta
+
+	niebla.position.x += movimiento
+	niebla2.position.x += movimiento
+
+	if niebla.position.x >= limite_niebla:
+		direccion_niebla = -1
+
+	if niebla.position.x <= -limite_niebla:
+		direccion_niebla = 1
 		
 		
 # Función para el minimapa
