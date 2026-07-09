@@ -2,6 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://j8bss1pb8kkt" path="res://sprites/AnimationSheet.png" id="1_i8r1u"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8r1u"]
+atlas = ExtResource("1_i8r1u")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bmux"]
+atlas = ExtResource("1_i8r1u")
+region = Rect2(24, 0, 24, 24)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_rod7k"]
 atlas = ExtResource("1_i8r1u")
 region = Rect2(0, 24, 24, 24)
@@ -38,6 +46,17 @@ region = Rect2(168, 24, 24, 24)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_i8r1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bmux")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_rod7k")
 }, {
 "duration": 1.0,
@@ -61,7 +80,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ocv32")
 }],
-"loop": 1,
+"loop": true,
 "name": &"walk",
 "speed": 5.0
 }]

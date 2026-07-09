@@ -146,8 +146,8 @@ func _setup_zones() -> void:
 	)
 	_add_zone(
 		Vector2i(5, 1),
-		"Portal trampa\n\nAhora tienes activo el sabotaje Portal Trampa.\nEntra al portal que sigue: como está marcado,\nte devolverá al inicio en vez de teletransportarte.",
-		Statics.Sabotaje.PORTAL_TRAMPA,
+		"Freeze\n\nAhora tienes activo el sabotaje Freeze.\nÚsalo sobre un jugador para congelarlo.\nMientras dure el efecto, no podrá\nmoverse ni activar su sabotaje.",		
+		Statics.Sabotaje.FREEZE,
 		true
 	)
 	_add_zone(

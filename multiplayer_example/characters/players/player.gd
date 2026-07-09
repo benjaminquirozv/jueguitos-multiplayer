@@ -6,11 +6,11 @@ extends CharacterBody2D
 @onready var footsteps = $footsteps
 
 
-# Sprite según role (el personaje)
+# Sprite según EQUIPO (ambos roles del mismo equipo comparten sprite)
 const SPRITE_FRAMES = {
 	Statics.Role.ROLE_A: preload("res://characters/players/frames_black.tres"),
-	Statics.Role.ROLE_B: preload("res://characters/players/frames_white.tres"),
-	Statics.Role.ROLE_C: preload("res://characters/players/frames_black.tres"),
+	Statics.Role.ROLE_B: preload("res://characters/players/frames_black.tres"),
+	Statics.Role.ROLE_C: preload("res://characters/players/frames_white.tres"),
 	Statics.Role.ROLE_D: preload("res://characters/players/frames_white.tres"),
 }
 
@@ -20,15 +20,18 @@ const TINTES = {
 	Statics.Team.TEAM_WHITE: Color(1.0, 1.0, 1.0),  # claro/normal
 }
 
-const SCALES = {
+# Escala SOLO del sprite (no del cuerpo) para compensar que las hojas de
+# animación tienen tamaños nativos distintos (black = 64px, white = 24px)
+# y así se vean todos del mismo tamaño en pantalla, sin tocar cámara ni colisión.
+const SPRITE_SCALES = {
 	Statics.Role.NONE:   Vector2(1.0, 1.0),
-	Statics.Role.ROLE_A: Vector2(0.5, 0.5),
-	Statics.Role.ROLE_B: Vector2(0.5, 0.5),
-	Statics.Role.ROLE_C: Vector2(1.0, 1.0),
-	Statics.Role.ROLE_D: Vector2(1.0, 1.0),
+	Statics.Role.ROLE_A: Vector2(0.46875, 0.46875), # 64px -> ~30px
+	Statics.Role.ROLE_B: Vector2(0.46875, 0.46875),
+	Statics.Role.ROLE_C: Vector2(1.25, 1.25),       # 24px -> 30px
+	Statics.Role.ROLE_D: Vector2(1.25, 1.25),
 }
+
 # ── CONFIGURACIÓN SABOTAJE ────────────────────────────────────────────────────
-const RANGO_SABOTAJE    := 500.0  # Distancia máxima para afectar al más cercano
 const DURACION_EFECTO   := 30.0   # Segundos que dura el sabotaje sobre la víctima
 const COOLDOWN_SABOTAJE := 60.0   # Segundos de espera antes de poder usar de nuevo
 # ─────────────────────────────────────────────────────────────────────────────
@@ -100,7 +103,8 @@ func _physics_process(delta: float) -> void:
 		_label_ui.text = texto
 
 	# ── ESPACIO: lanzar sabotaje ──────────────────────────────────────────────
-	if Input.is_action_just_pressed("ui_accept"):  # ui_accept = barra espaciadora
+	var congelado : bool = my_data and my_data.sabotaje_activo == Statics.Sabotaje.FREEZE
+	if Input.is_action_just_pressed("ui_accept") and not congelado:
 		_intentar_sabotaje()
 	# ─────────────────────────────────────────────────────────────────────────
 
@@ -129,6 +133,10 @@ func _physics_process(delta: float) -> void:
 		anim.play("idle")
 		if footsteps.playing:
 			footsteps.stop()
+			
+	# EFECTO: Freeze
+	if my_data and my_data.sabotaje_activo == Statics.Sabotaje.FREEZE:
+		direccion = Vector2.ZERO
 
 	# EFECTO: Velocidad lenta
 	var vel_actual = velocidad
@@ -154,7 +162,7 @@ func _intentar_sabotaje() -> void:
 		return
 
 	# Buscar al jugador más cercano dentro del rango
-	var victima = _buscar_victima_mas_cercana()
+	var victima = _buscar_victima_al_azar()
 	if victima == null:
 		return  # Nadie en rango
 
@@ -168,27 +176,25 @@ func _intentar_sabotaje() -> void:
 	_cooldown_restante = COOLDOWN_SABOTAJE
 
 
-func _buscar_victima_mas_cercana() -> Statics.PlayerData:
-	var mi_id    = multiplayer.get_unique_id()
-	var mi_pos   = global_position
-	var mas_cerca: Statics.PlayerData = null
-	var dist_min := INF
+func _buscar_victima_al_azar() -> Statics.PlayerData:
+	var mi_id   = multiplayer.get_unique_id()
+	var mi_data = Game.get_current_player()
+	if mi_data == null:
+		return null
 
+	var candidatos: Array[Statics.PlayerData] = []
 	for player_data in Game.players:
 		if player_data.id == mi_id:
 			continue  # No me saboteo a mí mismo
+		if player_data.team == mi_data.team:
+			continue  # Es de mi equipo, no es un objetivo válido
 
-		# Buscar el nodo del jugador en la escena
-		var nodo = get_parent().get_node_or_null(str(player_data.id))
-		if nodo == null:
-			continue
+		candidatos.append(player_data)
 
-		var dist = mi_pos.distance_to(nodo.global_position)
-		if dist < dist_min and dist <= RANGO_SABOTAJE:
-			dist_min  = dist
-			mas_cerca = player_data
+	if candidatos.is_empty():
+		return null
 
-	return mas_cerca
+	return candidatos[randi() % candidatos.size()]
 # ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -233,16 +239,6 @@ func _quitar_efecto_local() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 
 
-# ── PORTAL TRAMPA: llamado desde portal_lvl.gd / portal_rec.gd ───────────────
-# Teletransporta al jugador al inicio. Solo lo llama la víctima (authority).
-func ir_al_inicio() -> void:
-	var nivel = get_tree().current_scene
-	var spawnpoints = nivel.get_node_or_null("spawnpoints")
-	if spawnpoints and spawnpoints.get_child_count() > 0:
-		global_position = spawnpoints.get_child(0).global_position
-# ─────────────────────────────────────────────────────────────────────────────
-
-
 func _on_player_updated(id: int) -> void:
 	if id == name.to_int() or id == multiplayer.get_unique_id():
 		_update_visual()
@@ -256,12 +252,13 @@ func _update_visual() -> void:
 
 	if this_player == null or local_player == null:
 		return
-	scale = SCALES.get(this_player.role, Vector2(1.0, 1.0))
+	# El cuerpo (CharacterBody2D) NO se escala: eso afectaba la cámara y el hitbox real.
+	scale = Vector2(1.0, 1.0)
 
-	# Sprite según role
+	# Sprite según equipo, escalado solo visualmente para que todos midan igual
 	if SPRITE_FRAMES.has(this_player.role):
 		anim.sprite_frames = SPRITE_FRAMES[this_player.role]
-
+	anim.scale = SPRITE_SCALES.get(this_player.role, Vector2(1.0, 1.0))
 	# Tinte según team
 	if TINTES.has(this_player.team):
 		anim.modulate = TINTES[this_player.team]

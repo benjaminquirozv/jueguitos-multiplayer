@@ -23,7 +23,7 @@ enum Team {
 enum Sabotaje {
 	NINGUNO,
 	VELOCIDAD_LENTA,      # Se mueve al 40% de velocidad
-	PORTAL_TRAMPA,        # Un portal marcado lo manda al inicio
+	FREEZE,       # Se congela
 	CONTROLES_INVERTIDOS, # Las flechas van al revés
 	PANTALLA_OSCURA       # La pantalla se llena de niebla por 10 segundos
 }
@@ -32,7 +32,7 @@ static func get_sabotaje_name(s: Sabotaje) -> String:
 	match s:
 		Sabotaje.NINGUNO:              return "Sin sabotaje"
 		Sabotaje.VELOCIDAD_LENTA:      return "Slow Motion"
-		Sabotaje.PORTAL_TRAMPA:        return "Fake Portal"
+		Sabotaje.FREEZE:        return "Freeze"
 		Sabotaje.CONTROLES_INVERTIDOS: return "Reverse Controls"
 		Sabotaje.PANTALLA_OSCURA:      return "Dark Screen"
 	return "Desconocido"
