@@ -890,6 +890,18 @@ scale = Vector2(0.7498025, 2.3740978)
 [node name="Destino" parent="portals/extremo1" index="2" unique_id=1648487353]
 position = Vector2(-52992.31, -39146.156)
 
+[node name="extremo2" parent="portals" unique_id=305699613 instance=ExtResource("3_ol5kc")]
+position = Vector2(-2114, -829)
+scale = Vector2(0.13, 0.13)
+script = ExtResource("4_ctxqh")
+
+[node name="CollisionShape2D" parent="portals/extremo2" index="1" unique_id=1931517953]
+position = Vector2(-6.0577393, -10.713867)
+scale = Vector2(0.7498025, 2.3740978)
+
+[node name="Destino" parent="portals/extremo2" index="2" unique_id=1648487353]
+position = Vector2(63538.465, -27353.848)
+
 [node name="16a18" parent="portals" unique_id=1207965465 instance=ExtResource("3_ol5kc")]
 position = Vector2(6628, -518)
 scale = Vector2(0.13, 0.13)
@@ -1114,6 +1126,7 @@ scale = Vector2(1.9218727, 1.328121)
 [editable path="portals/17a20"]
 [editable path="portals/15a17"]
 [editable path="portals/extremo1"]
+[editable path="portals/extremo2"]
 [editable path="portals/16a18"]
 [editable path="portals/18a16"]
 [editable path="portals/18a19"]
