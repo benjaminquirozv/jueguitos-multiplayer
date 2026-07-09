@@ -23,9 +23,9 @@ func _on_body_entered(body: Node2D) -> void:
 	var my_data = Game.get_current_player()
 	call_deferred("_reproducir_sonido_local")
 	# ── SABOTAJE: Portal trampa ───────────────────────────────────────────────
-	if es_trampa and my_data and my_data.sabotaje_activo == Statics.Sabotaje.PORTAL_TRAMPA:
-		body.ir_al_inicio()
-		return
+	#if es_trampa and my_data and my_data.sabotaje_activo == Statics.Sabotaje.PORTAL_TRAMPA:
+	#	body.ir_al_inicio()
+	#	return
 	# ─────────────────────────────────────────────────────────────────────────
 
 	body.global_position = $Destino.global_position

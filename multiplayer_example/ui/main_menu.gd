@@ -62,7 +62,7 @@ func _start_tutorial() -> void:
 	var player := Statics.PlayerData.new(1, "Tutorial", 0)
 	player.role = Statics.Role.ROLE_A
 	player.team = Statics.Team.TEAM_BLACK
-	player.sabotaje = Statics.Sabotaje.PORTAL_TRAMPA
+	player.sabotaje = Statics.Sabotaje.FREEZE
 	Game.add_player(player)
 	Game.update_player_id()
 	get_tree().change_scene_to_file("res://tutorial/tutorial.tscn")

@@ -7,7 +7,7 @@ const SABOTAGE_ORDER := [
 	Statics.Sabotaje.VELOCIDAD_LENTA,
 	Statics.Sabotaje.CONTROLES_INVERTIDOS,
 	Statics.Sabotaje.PANTALLA_OSCURA,
-	Statics.Sabotaje.PORTAL_TRAMPA,
+	Statics.Sabotaje.FREEZE,
 ]
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D

@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://iobnvr8f3tkm" path="res://lobby/lobby_player.tscn" id="2_wjc1o"]
 [ext_resource type="Texture2D" uid="uid://bpyy1burr1wtm" path="res://sprites/The Female Adventurer - Free/Idle/Idle.png" id="4_5sytt"]
 [ext_resource type="AudioStream" uid="uid://pcm1s1iov8rc" path="res://sprites/sounds/Elevator-music(chosic.com).mp3" id="5_ssaso"]
+[ext_resource type="Texture2D" uid="uid://bmk3fq2lteyac" path="res://sprites/portal opening.png" id="6_portal"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ssaso"]
 atlas = ExtResource("4_5sytt")
 region = Rect2(-2.5, 2.75, 53, 57.5)
-
 [node name="WaitingScreen" unique_id=989092073 instance=ExtResource("1_1g6tu")]
 script = ExtResource("2_a2sqk")
 
@@ -55,8 +55,8 @@ wait_time = 3.0
 text = "Lobby"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" parent_id_path=PackedInt32Array(268787292) index="0" unique_id=316652335]
-custom_minimum_size = Vector2(629, 375)
 clip_contents = true
+custom_minimum_size = Vector2(629, 375)
 offset_left = -110.0
 offset_right = 519.0
 offset_bottom = 375.0
@@ -131,7 +131,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = SubResource("AtlasTexture_ssaso")
+texture = ExtResource("6_portal")
 expand_mode = 3
 
 [node name="PlayerName" type="Label" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="1" unique_id=605093980]
