@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://vqiib8esc7d6" path="res://scenes/star.gd" id="1_70vqf"]
 [ext_resource type="Texture2D" uid="uid://1chx51lfltg1" path="res://sprites/S001_nyknck.png" id="2_t7biv"]
+[ext_resource type="AudioStream" uid="uid://dw4pqlrrsbnqg" path="res://scenes/freesound_community-pick-up-sfx-38516.mp3" id="3_xpnm2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xpnm2"]
 atlas = ExtResource("2_t7biv")
@@ -48,3 +49,7 @@ script = ExtResource("1_70vqf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1320474851]
 sprite_frames = SubResource("SpriteFrames_b3yy5")
 animation = &"estrellas"
+
+[node name="soundstar" type="AudioStreamPlayer" parent="." unique_id=1252819537]
+stream = ExtResource("3_xpnm2")
+bus = &"SFX"

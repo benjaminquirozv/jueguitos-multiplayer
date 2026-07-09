@@ -510,15 +510,30 @@ mouse_filter = 2
 color = Color(0.49803922, 0.105882354, 0.7607843, 0.34117648)
 
 [node name="Niebla" type="TextureRect" parent="CanvasLayer/Control" unique_id=1207083040]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2558.0
+offset_top = -1352.0
+offset_right = 2011.0
+offset_bottom = 1341.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_871ru")
+stretch_mode = 1
+
+[node name="Niebla2" type="TextureRect" parent="CanvasLayer/Control" unique_id=2064999252]
 visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1727.0
-offset_top = -1198.0
-offset_right = 322.0
-offset_bottom = 720.0
+offset_left = -1710.0
+offset_top = -560.0
+offset_right = 339.0
+offset_bottom = 1358.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -548,9 +563,10 @@ theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="background" type="AudioStreamPlayer2D" parent="." unique_id=1631795931]
+[node name="background" type="AudioStreamPlayer" parent="." unique_id=1020458609]
 process_mode = 3
 stream = ExtResource("8_27rla")
+volume_db = -17.415
 autoplay = true
 bus = &"Music"
 parameters/looping = true
@@ -579,6 +595,12 @@ grow_horizontal = 0
 grow_vertical = 0
 pivot_offset = Vector2(-220, -170)
 pivot_offset_ratio = Vector2(-20, -20)
+
+[node name="Panel" parent="CanvasLayer2/MinimapRoot/MiniMapa" index="0" unique_id=1156274850]
+offset_left = -59.0
+offset_top = 3.0
+offset_right = 192.0
+offset_bottom = 95.0
 
 [node name="portals" type="Node" parent="." unique_id=1821532709]
 

@@ -14,12 +14,15 @@ const PAUSE_SCENE := preload("res://ui/pause.tscn")
 @onready var portal_final = $portals/portal_final_final
 @onready var label_vortice = $CanvasLayer/Control/LabelVortice
 var velocidad_niebla := 15.0
-
+var direccion_niebla := 1
+var limite_niebla := 30.0
 
 func _ready():
 	add_child(PAUSE_SCENE.instantiate())
 	spawner.set_spawn_function(crear_jugador_personalizado)
 	niebla.modulate = Color(1, 1, 1, 0.25)
+	niebla2.modulate = Color(1, 1, 1, 0.25)
+	niebla2.position.x = niebla.position.x - niebla.size.x
 	aplicar_filtro_segun_rol()
 	Game.stars_updated.connect(_on_stars_updated)
 	_actualizar_label_estrellas()
@@ -36,7 +39,7 @@ func _ready():
 			indice_spawn += 1
 			await get_tree().process_frame
 	await get_tree().process_frame
-	setup_minimap()
+	_configurar_minimapa_con_retry()
 
 
 func crear_jugador_personalizado(datos):
@@ -44,7 +47,21 @@ func crear_jugador_personalizado(datos):
 	nuevo_jugador.name = str(datos.id)
 	nuevo_jugador.global_position = datos.pos
 	return nuevo_jugador
+	
+	
+	
+func _configurar_minimapa_con_retry() -> void:
+	for i in range(30):
+		setup_minimap()
 
+		if minimap.player != null and minimap.teammate != null:
+			print("MINIMAPA OK player:", minimap.player.name, " teammate:", minimap.teammate.name)
+			return
+
+		print("Esperando players minimapa... intento ", i)
+		await get_tree().create_timer(0.2).timeout
+
+	print("MINIMAPA incompleto player:", minimap.player, " teammate:", minimap.teammate)
 
 func aplicar_filtro_segun_rol() -> void:
 	var local_player = Game.get_current_player()
@@ -81,10 +98,17 @@ func desactivar_pantalla_oscura() -> void:
 func _process(delta: float) -> void:
 	if not niebla.visible:
 		return
-	niebla.position.x += velocidad_niebla * delta
-	if niebla.position.x > 100:
-		niebla.position.x = 0
-		
+
+	var movimiento := velocidad_niebla * direccion_niebla * delta
+
+	niebla.position.x += movimiento
+	niebla2.position.x += movimiento
+
+	if niebla.position.x >= limite_niebla:
+		direccion_niebla = -1
+
+	if niebla.position.x <= -limite_niebla:
+		direccion_niebla = 1
 		
 		
 # Función para el minimapa
