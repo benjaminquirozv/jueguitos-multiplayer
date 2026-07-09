@@ -12,8 +12,7 @@ const PAUSE_SCENE := preload("res://ui/pause.tscn")
 @export var map_size_world := Vector2(2000, 2000)
 @onready var label_estrellas = $CanvasLayer/Control/LabelEstrellas
 @onready var portal_final = $portals/portal_final_final
-@onready var areafinal = $winner
-
+@onready var label_vortice = $CanvasLayer/Control/LabelVortice
 var velocidad_niebla := 15.0
 
 
@@ -26,7 +25,6 @@ func _ready():
 	_actualizar_label_estrellas()
 	portal_final.visible = false
 	portal_final.monitoring = false
-	areafinal.monitorable = false
 	if multiplayer.is_server():
 		Game.reset_stars()
 		var indice_spawn = 0
@@ -133,5 +131,9 @@ func _actualizar_portal_final() -> void:
 	var habilitado = Game.team_has_all_stars(mi_data.team)
 	portal_final.visible = habilitado
 	portal_final.monitoring = habilitado
-	areafinal.monitoring = habilitado
 	
+	if habilitado:
+		# Forzamos el texto, lo hacemos visible y lo empujamos al frente de todo
+		label_vortice.text = "¡Un vórtice ha aparecido! Encuentra a tu compañero, e ingresen juntxs al portal"
+		label_vortice.visible = true
+		label_vortice.move_to_front()
