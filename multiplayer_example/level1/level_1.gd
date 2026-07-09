@@ -10,7 +10,7 @@ const PAUSE_SCENE := preload("res://ui/pause.tscn")
 @onready var niebla2           = $CanvasLayer/Control/Niebla2
 @onready var minimap = $CanvasLayer2/MinimapRoot/MiniMapa
 @export var map_size_world := Vector2(2000, 2000)
-@onready var label_estrellas = $CanvasLayer/Control/LabelEstrellas
+@onready var label_estrellas = $CanvasLayer/Control/MarcoEstrellas/LabelEstrellas
 @onready var portal_final = $portals/portal_final_final
 @onready var label_vortice = $CanvasLayer/Control/LabelVortice
 var velocidad_niebla := 15.0
@@ -145,7 +145,7 @@ func _actualizar_label_estrellas() -> void:
 	var mi_data = Game.get_current_player()
 	if mi_data == null:
 		return
-	label_estrellas.text = "Estrellas: %d" % Game.get_team_stars(mi_data.team)
+	label_estrellas.text = "⭐ Estrellas: %d" % Game.get_team_stars(mi_data.team)
 	
 func _actualizar_portal_final() -> void:
 	var mi_data = Game.get_current_player()

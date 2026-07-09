@@ -30,9 +30,18 @@ var game_result := ""
 @onready var _players_container: Control = %PlayersContainer
 @onready var _idle_sprite: Sprite2D = %IdleDown
 @onready var _floor: TileMapLayer = %Floor
+@onready var _end_screen: TextureRect = %EndScreen
+@onready var _end_background: ColorRect = %EndBackground
 
 const FLOOR_TILE := Vector2i(3, 0)
 const TILE_SIZE := 16
+
+const RESULT_TIE := "¡EMPATE!"
+const RESULT_TEAM_WINS := "¡EL EQUIPO GANA!"
+const RESULT_HAND_WINS := "¡LA MANO GANA!"
+
+const WIN_TEXTURE := preload("res://ui/backgrounds/win.jpg")
+const GAMEOVER_TEXTURE := preload("res://ui/backgrounds/gameover.png")
 
 # Texturas para cada elección
 var hand_textures := {
@@ -163,9 +172,17 @@ func _show_game_result(team_choice: Choice, hand_choice: Choice, result: String)
 	_result_label.show()
 	_countdown_label.hide()
 	
-	# Auto-reiniciar después de unos segundos
-	await get_tree().create_timer(4.0).timeout
-	_restart_game()
+	# Solo el empate permite repetir la jugada. Ganar o perder termina la partida.
+	match result:
+		RESULT_TIE:
+			await get_tree().create_timer(4.0).timeout
+			_restart_game()
+		RESULT_TEAM_WINS:
+			await get_tree().create_timer(2.5).timeout
+			_show_end_screen(WIN_TEXTURE)
+		RESULT_HAND_WINS:
+			await get_tree().create_timer(2.5).timeout
+			_show_end_screen(GAMEOVER_TEXTURE)
 
 func _setup_stage() -> void:
 	var viewport_size := get_viewport().get_visible_rect().size
@@ -243,13 +260,13 @@ func _animate_hand_reveal(hand_choice: Choice) -> void:
 
 func _calculate_result(team: Choice, hand: Choice) -> String:
 	if team == hand:
-		return "¡EMPATE!"
+		return RESULT_TIE
 	elif (team == Choice.ROCK and hand == Choice.SCISSORS) or \
 		 (team == Choice.PAPER and hand == Choice.ROCK) or \
 		 (team == Choice.SCISSORS and hand == Choice.PAPER):
-		return "¡EL EQUIPO GANA!"
+		return RESULT_TEAM_WINS
 	else:
-		return "¡LA MANO GANA!"
+		return RESULT_HAND_WINS
 
 
 func _choice_to_string(choice: Choice) -> String:
@@ -267,6 +284,17 @@ func _restart_game() -> void:
 	current_state = GameState.SELECTING
 	_hand_sprite.texture = hand_textures[Choice.ROCK]
 	_show_selection_menu()
+
+
+func _show_end_screen(texture: Texture2D) -> void:
+	current_state = GameState.FINISHED
+	_result_label.hide()
+	_selection_menu.hide()
+	_end_background.show()
+	_end_screen.texture = texture
+	_end_screen.show()
+	await get_tree().create_timer(3.0).timeout
+	Lobby.go_to_menu()
 
 
 func _animate_hand_entrance() -> void:
