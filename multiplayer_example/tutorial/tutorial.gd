@@ -29,7 +29,7 @@ const FLOOR_TILE := Vector2i(3, 0)
 const WALL_TILE := Vector2i(4, 1)
 const MAZE_OFFSET := Vector2(64, 48)
 const TILE_SIZE := 16
-const SABOTAGE_DEMO_DURATION := 20.0
+const SABOTAGE_DEMO_DURATION := 5.0
 
 @onready var spawner: MultiplayerSpawner = $MultiplayerSpawner
 @onready var base_layer: TileMapLayer = $base
@@ -128,15 +128,6 @@ func _setup_portals() -> void:
 	$Portals.add_child(portal_normal)
 	portal_normal.get_node("Destino").global_position = _tile_to_world(Vector2i(9, 9))
 
-	var portal_trap := PORTAL_SCENE.instantiate()
-	portal_trap.name = "PortalTrap"
-	portal_trap.position = _tile_to_world(Vector2i(6, 1))
-	portal_trap.scale = Vector2(0.14, 0.14)
-	portal_trap.es_trampa = true
-	$Portals.add_child(portal_trap)
-	portal_trap.get_node("Destino").global_position = _tile_to_world(Vector2i(2, 9))
-
-
 func _setup_zones() -> void:
 	# ── Pasillo superior (fila 1) ────────────────────────────────────────────
 	_add_zone(
@@ -145,8 +136,8 @@ func _setup_zones() -> void:
 		Statics.Sabotaje.NINGUNO
 	)
 	_add_zone(
-		Vector2i(5, 1),
-		"Freeze\n\nAhora tienes activo el sabotaje Freeze.\nÚsalo sobre un jugador para congelarlo.\nMientras dure el efecto, no podrá\nmoverse ni activar su sabotaje.",		
+		Vector2i(9, 2),
+		"Freeze\n\nTe congela por completo.",		
 		Statics.Sabotaje.FREEZE,
 		true
 	)
@@ -157,13 +148,13 @@ func _setup_zones() -> void:
 		true
 	)
 	_add_zone(
-		Vector2i(9, 1),
+		Vector2i(10, 3),
 		"Reverse Controls\n\nInvierte los controles del rival.\nPrueba cómo se siente moverte al revés.",
 		Statics.Sabotaje.CONTROLES_INVERTIDOS,
 		true
 	)
 	_add_zone(
-		Vector2i(10, 1),
+		Vector2i(5, 2),
 		"Dark Screen\n\nOscurece la pantalla del rival.\nEntra para experimentar la niebla.",
 		Statics.Sabotaje.PANTALLA_OSCURA,
 		true
@@ -175,11 +166,7 @@ func _setup_zones() -> void:
 	)
 
 	# ── Pasillo inferior (fila 9) ────────────────────────────────────────────
-	_add_zone(
-		Vector2i(2, 9),
-		"¡Caíste en la trampa!\n\nEl Portal Trampa te devolvió cerca del inicio\nen vez de teletransportarte. Así funciona\nel sabotaje Portal Trampa en una partida real.",
-		Statics.Sabotaje.NINGUNO
-	)
+
 	_add_zone(
 		Vector2i(9, 9),
 		"Arena de práctica\n\nEse personaje de otro color es un rival de prueba.\nPresiona ESPACIO cerca de él para aplicarle el sabotaje\nque tengas equipado. Tiene un cooldown de 60 segundos\nentre cada uso, igual que en una partida real.\nCada vez que lo golpees se te equipará otro sabotaje\ndistinto para que puedas probarlos todos.",
@@ -238,7 +225,7 @@ func _on_zone_triggered(zone: TutorialZone, body: Node2D) -> void:
 	_show_hint(zone.hint_text)
 
 	if zone.sabotaje_demo != Statics.Sabotaje.NINGUNO:
-		body.recibir_sabotaje.rpc(zone.sabotaje_demo, zone.demo_duration)
+		body.recibir_sabotaje(zone.sabotaje_demo, zone.demo_duration)
 
 	if zone.hint_text.begins_with("¡Tutorial completado"):
 		await get_tree().create_timer(4.0).timeout
