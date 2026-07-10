@@ -17,6 +17,8 @@ script = ExtResource("1_tutorial")
 
 [node name="Zones" type="Node2D" parent="." unique_id=507733919]
 
+[node name="stars" type="Node2D" parent="."]
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=32745773]
 spawn_path = NodePath("../Contenedor")
 

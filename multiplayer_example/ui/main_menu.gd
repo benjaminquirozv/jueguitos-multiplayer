@@ -53,16 +53,21 @@ func _on_music_volume_changed(value: float):
 
 
 func _start_tutorial() -> void:
+	# Cerrar peer previo (p.ej. si el puerto quedó ocupado) y crear servidor local.
+	if multiplayer.multiplayer_peer:
+		multiplayer.multiplayer_peer.close()
 	var peer := ENetMultiplayerPeer.new()
 	var err := peer.create_server(Statics.PORT, Statics.MAX_CLIENTS)
 	if err != OK:
-		return
-	multiplayer.multiplayer_peer = peer
+		# Fallback offline si el puerto está ocupado.
+		multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
+	else:
+		multiplayer.multiplayer_peer = peer
 	Game.players.clear()
 	var player := Statics.PlayerData.new(1, "Tutorial", 0)
 	player.role = Statics.Role.ROLE_A
 	player.team = Statics.Team.TEAM_BLACK
-	player.sabotaje = Statics.Sabotaje.FREEZE
+	player.sabotaje = Statics.Sabotaje.VELOCIDAD_LENTA
 	Game.add_player(player)
 	Game.update_player_id()
 	get_tree().change_scene_to_file("res://tutorial/tutorial.tscn")

@@ -1,37 +1,44 @@
 extends Area2D
 
-# Marca este portal como trampa en el Inspector.
-# Solo los portales con es_trampa = true activarán el sabotaje PORTAL_TRAMPA.
+# Marca este portal como trampa: en el tutorial vuelve al inicio del mapa.
 @export var es_trampa := false
+
 @onready var teleport_sound: AudioStreamPlayer = $Teleport
 
 
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
+	if not body_entered.is_connected(_on_body_entered):
+		body_entered.connect(_on_body_entered)
 
 
 func _on_body_entered(body: Node2D) -> void:
-	print("ENTRÓ AL PORTAL: ", name)
-
 	if not body.is_in_group("Player"):
 		return
-
-	# Solo actúa el jugador local (el que tiene authority sobre su propio body)
 	if not body.is_multiplayer_authority():
 		return
 
-	var my_data = Game.get_current_player()
-	call_deferred("_reproducir_sonido_local")
-	# ── SABOTAJE: Portal trampa ───────────────────────────────────────────────
-	#if es_trampa and my_data and my_data.sabotaje_activo == Statics.Sabotaje.PORTAL_TRAMPA:
-	#	body.ir_al_inicio()
-	#	return
-	# ─────────────────────────────────────────────────────────────────────────
+	_reproducir_sonido_local()
 
-	body.global_position = $Destino.global_position
+	if es_trampa:
+		# En el tutorial el portal falso vuelve al inicio del mapa.
+		# En otros niveles (p.ej. level1) se mantiene el Destino del portal.
+		var escena := get_tree().current_scene
+		if escena and escena.has_method("get_tutorial_start_position"):
+			if escena.has_method("mostrar_aviso_portal_trampa"):
+				escena.mostrar_aviso_portal_trampa()
+			body.global_position = escena.get_tutorial_start_position()
+			return
+
+	var destino := get_node_or_null("Destino")
+	if destino:
+		body.global_position = destino.global_position
+
 
 func _reproducir_sonido_local() -> void:
-	if teleport_sound.stream == null:
+	if teleport_sound == null or teleport_sound.stream == null:
+		return
+	var tree := get_tree()
+	if tree == null:
 		return
 
 	var sonido := AudioStreamPlayer.new()
@@ -40,8 +47,6 @@ func _reproducir_sonido_local() -> void:
 	sonido.pitch_scale = teleport_sound.pitch_scale
 	sonido.volume_db = teleport_sound.volume_db
 
-	get_tree().root.add_child(sonido)
+	tree.root.add_child(sonido)
 	sonido.play()
-
-	await sonido.finished
-	sonido.queue_free()
+	sonido.finished.connect(sonido.queue_free)
