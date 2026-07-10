@@ -172,17 +172,20 @@ script = ExtResource("1_emkua")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1247132171]
 sprite_frames = SubResource("SpriteFrames_7bm4e")
+autoplay = "default"
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=1569602573]
 scale = Vector2(0.52, 0.52)
 sprite_frames = SubResource("SpriteFrames_7bm4e")
 animation = &"new_animation_1"
+autoplay = "new_animation_1"
 frame_progress = 0.20680657
 
 [node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="." unique_id=674996379]
 scale = Vector2(1.205, 1.205)
 sprite_frames = SubResource("SpriteFrames_7bm4e")
 animation = &"new_animation_2"
+autoplay = "new_animation_2"
 frame_progress = 0.7613473
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=464082582]
