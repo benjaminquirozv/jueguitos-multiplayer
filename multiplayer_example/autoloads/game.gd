@@ -5,6 +5,7 @@ signal player_updated(id)
 signal vote_updated(id)
 signal player_index_received()
 signal stars_updated(team)
+signal cachipun_round_result(team_choice: int, hand_choice: int, result: String)
 
 var team_stars: Dictionary = {
 	Statics.Team.TEAM_BLACK: 0,
@@ -252,3 +253,62 @@ func finalizar_partida(equipo_ganador: Statics.Team) -> void:
 		get_tree().change_scene_to_file("res://ui/final_cachipun.tscn")
 	else:
 		get_tree().change_scene_to_file("res://scenes/you_lose.tscn")
+
+
+#-----------------Cachipún final (RPCs en autoload: la escena no existe en perdedores)----------
+const CACHIPUN_TIE := "¡EMPATE!"
+const CACHIPUN_TEAM_WINS := "¡EL EQUIPO GANA!"
+const CACHIPUN_HAND_WINS := "¡LA MANO GANA!"
+
+var _cachipun_choices: Dictionary = {}
+
+
+func reset_cachipun() -> void:
+	_cachipun_choices.clear()
+
+
+func submit_cachipun_choice(choice: int) -> void:
+	_rpc_cachipun_choice.rpc(multiplayer.get_unique_id(), choice)
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _rpc_cachipun_choice(player_id: int, choice: int) -> void:
+	_cachipun_choices[player_id] = choice
+	if not multiplayer.is_server():
+		return
+	if _cachipun_choices.is_empty():
+		return
+	_resolve_cachipun_round()
+
+
+func _resolve_cachipun_round() -> void:
+	var choice_counts := {1: 0, 2: 0, 3: 0}  # ROCK, PAPER, SCISSORS
+	for choice in _cachipun_choices.values():
+		if choice_counts.has(choice):
+			choice_counts[choice] += 1
+
+	var team_choice := 1
+	var max_votes := 0
+	for choice in choice_counts:
+		if choice_counts[choice] > max_votes:
+			max_votes = choice_counts[choice]
+			team_choice = choice
+
+	var hand_choice: int = [1, 2, 3].pick_random()
+	var result := _calculate_cachipun_result(team_choice, hand_choice)
+	_cachipun_choices.clear()
+	_rpc_cachipun_result.rpc(team_choice, hand_choice, result)
+
+
+func _calculate_cachipun_result(team: int, hand: int) -> String:
+	if team == hand:
+		return CACHIPUN_TIE
+	# ROCK=1 beats SCISSORS=3; PAPER=2 beats ROCK=1; SCISSORS=3 beats PAPER=2
+	if (team == 1 and hand == 3) or (team == 2 and hand == 1) or (team == 3 and hand == 2):
+		return CACHIPUN_TEAM_WINS
+	return CACHIPUN_HAND_WINS
+
+
+@rpc("authority", "call_local", "reliable")
+func _rpc_cachipun_result(team_choice: int, hand_choice: int, result: String) -> void:
+	cachipun_round_result.emit(team_choice, hand_choice, result)
