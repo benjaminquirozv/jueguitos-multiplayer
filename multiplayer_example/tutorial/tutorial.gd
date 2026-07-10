@@ -32,7 +32,7 @@ const FLOOR_TILE := Vector2i(3, 0)
 const WALL_TILE := Vector2i(4, 1)
 const MAZE_OFFSET := Vector2(64, 48)
 const TILE_SIZE := 16
-const SABOTAGE_DEMO_DURATION := 20.0
+
 const START_TILE := Vector2i(2, 1)
 # Destino del portal normal: centro de la zona expandida (marca P en el mapa).
 const PORTAL_ZONE_TILE := Vector2i(23, 5)
@@ -40,6 +40,9 @@ const PORTAL_ZONE_TILE := Vector2i(23, 5)
 const RETURN_PORTAL_TILE := Vector2i(27, 7)
 # Estrella final: extremo derecho del pasillo inferior del laberinto principal.
 const STAR_TILE := Vector2i(13, 9)
+
+const SABOTAGE_DEMO_DURATION := 5.0
+
 
 @onready var spawner: MultiplayerSpawner = $MultiplayerSpawner
 @onready var base_layer: TileMapLayer = $base
@@ -160,23 +163,14 @@ func _tile_to_world(tile: Vector2i) -> Vector2:
 
 
 func _setup_portals() -> void:
-	# Portal trampa: te devuelve al inicio del tutorial.
-	var portal_trap := PORTAL_SCENE.instantiate()
-	portal_trap.name = "PortalTrap"
-	portal_trap.position = _tile_to_world(Vector2i(6, 1))
-	portal_trap.scale = Vector2(0.14, 0.14)
-	portal_trap.es_trampa = true
-	$Portals.add_child(portal_trap)
-	_add_portal_label(portal_trap, "¡PORTAL TRAMPA!\nTe lleva al inicio")
 
-	# Portal normal: teletransporta a la zona expandida del mismo mapa.
 	var portal_normal := PORTAL_SCENE.instantiate()
 	portal_normal.name = "PortalNormal"
 	portal_normal.position = _tile_to_world(Vector2i(12, 1))
 	portal_normal.scale = Vector2(0.14, 0.14)
 	portal_normal.es_trampa = false
 	$Portals.add_child(portal_normal)
-	portal_normal.get_node("Destino").global_position = _tile_to_world(PORTAL_ZONE_TILE)
+
 
 	# Un solo portal en la zona expandida: vuelve al inicio del tutorial.
 	var portal_return := PORTAL_SCENE.instantiate()
@@ -203,6 +197,7 @@ func _add_portal_label(portal: Node2D, text: String) -> void:
 	$Portals.add_child(label)
 
 
+
 func _setup_zones() -> void:
 	_add_zone(
 		Vector2i(3, 1),
@@ -211,20 +206,43 @@ func _setup_zones() -> void:
 	)
 	# Aviso justo antes del portal trampa (celda 6), sin que Freeze lo tape.
 	_add_zone(
-		Vector2i(5, 1),
-		"Portal trampa\n\n¡Cuidado! El siguiente portal es una trampa.\nSi entras, te lleva al inicio del camino\nen vez de avanzar.",
-		Statics.Sabotaje.NINGUNO
+
+		Vector2i(9, 2),
+		"Freeze\n\nTe congela por completo.",		
+		Statics.Sabotaje.FREEZE,
+		true
 	)
+	_add_zone(
+		Vector2i(8, 1),
+		"Slow Motion\n\nRalentiza al rival unos segundos.\nCamina aquí para sentir el efecto.",
+		Statics.Sabotaje.VELOCIDAD_LENTA,
+		true
+	)
+	_add_zone(
+		Vector2i(10, 3),
+		"Reverse Controls\n\nInvierte los controles del rival.\nPrueba cómo se siente moverte al revés.",
+		Statics.Sabotaje.CONTROLES_INVERTIDOS,
+		true
+	)
+	_add_zone(
+		Vector2i(5, 2),
+		"Dark Screen\n\nOscurece la pantalla del rival.\nEntra para experimentar la niebla.",
+		Statics.Sabotaje.PANTALLA_OSCURA,
+		true
+	)
+
 	_add_zone(
 		Vector2i(11, 1),
 		"Portal normal\n\nEste portal te lleva a otra zona del mismo mapa\n(la sala de la derecha, con un solo portal).\nEntra para probarlo.",
 		Statics.Sabotaje.NINGUNO
 	)
+
 	_add_zone(
 		Vector2i(7, 9),
 		"Slow Motion\n\nTienes equipado Slow Motion.\nPresiona ESPACIO cerca del rival\npara ralentizarlo mucho.",
 		Statics.Sabotaje.VELOCIDAD_LENTA
 	)
+
 	_add_zone(
 		Vector2i(9, 9),
 		"Arena de práctica\n\nPresiona ESPACIO cerca del rival\npara aplicarle Slow Motion.\nDebería caminar muchísimo más lento.",
@@ -306,9 +324,11 @@ func _on_zone_triggered(zone: TutorialZone, body: Node2D) -> void:
 	_shown_hints[zone.hint_text] = true
 	_show_hint(zone.hint_text)
 
+
 	# En la zona de Slow Motion solo se equipa el sabotaje (no se aplica al jugador).
 	if zone.hint_text.begins_with("Slow Motion"):
 		Game.set_current_player_sabotaje(Statics.Sabotaje.VELOCIDAD_LENTA)
+
 
 	if zone.sabotaje_demo != Statics.Sabotaje.NINGUNO:
 		body.recibir_sabotaje(zone.sabotaje_demo, zone.demo_duration)
