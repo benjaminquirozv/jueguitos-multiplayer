@@ -4,7 +4,15 @@
 [ext_resource type="Script" uid="uid://cr2abnsynvkkq" path="res://lobby/join_screen.gd" id="2_0bjwb"]
 [ext_resource type="Theme" uid="uid://bwgdrcgopd0s1" path="res://lobby/lobby_theme.tres" id="3_i53lg"]
 [ext_resource type="Texture2D" uid="uid://38m5pqgo4c01" path="res://ui/backgrounds/space_bg.jpg" id="3_ylfc3"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="4_q5f0x"]
+[ext_resource type="Texture2D" uid="uid://j8bss1pb8kkt" path="res://sprites/AnimationSheet.png" id="6_r5vx3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpbu6"]
+atlas = ExtResource("6_r5vx3")
+region = Rect2(27.67086, 127.429596, 16.000122, 19.200012)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yf5fn"]
+atlas = ExtResource("6_r5vx3")
+region = Rect2(147.19989, 98.39996, 23.200012, 32)
 
 [sub_resource type="Animation" id="Animation_c2ij0"]
 length = 0.001
@@ -125,10 +133,10 @@ text = "Joinning server"
 horizontal_alignment = 1
 
 [node name="LoadingIcon" type="TextureRect" parent="CanvasLayer/MessageContainer/JoiningServer/VBoxContainer" index="1" unique_id=1437747548]
+custom_minimum_size = Vector2(110, 150)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("4_q5f0x")
-stretch_mode = 2
+texture = SubResource("AtlasTexture_lpbu6")
 
 [node name="CancelButton" type="Button" parent="CanvasLayer/MessageContainer/JoiningServer/VBoxContainer" index="2" unique_id=420285507]
 unique_name_in_owner = true
@@ -158,7 +166,7 @@ horizontal_alignment = 1
 modulate = Color(1, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("4_q5f0x")
+texture = SubResource("AtlasTexture_yf5fn")
 stretch_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" index="1" unique_id=682038309]

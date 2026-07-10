@@ -3,13 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://cgsspji18smle" path="res://lobby/lobby_screen.tscn" id="1_1g6tu"]
 [ext_resource type="Script" uid="uid://d1urh7pr0l6lh" path="res://lobby/waiting_screen.gd" id="2_a2sqk"]
 [ext_resource type="PackedScene" uid="uid://iobnvr8f3tkm" path="res://lobby/lobby_player.tscn" id="2_wjc1o"]
-[ext_resource type="Texture2D" uid="uid://bpyy1burr1wtm" path="res://sprites/The Female Adventurer - Free/Idle/Idle.png" id="4_5sytt"]
+[ext_resource type="Texture2D" uid="uid://dinnrlq2ok34u" path="res://sprites/The Female Adventurer - Free/Dash/Dash.png" id="4_ssaso"]
 [ext_resource type="AudioStream" uid="uid://pcm1s1iov8rc" path="res://sprites/sounds/Elevator-music(chosic.com).mp3" id="5_ssaso"]
-[ext_resource type="Texture2D" uid="uid://bmk3fq2lteyac" path="res://sprites/portal opening.png" id="6_portal"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ssaso"]
-atlas = ExtResource("4_5sytt")
-region = Rect2(-2.5, 2.75, 53, 57.5)
+[sub_resource type="AtlasTexture" id="AtlasTexture_8uxxo"]
+atlas = ExtResource("4_ssaso")
+region = Rect2(0, 0, 46.399963, 63.99996)
+
 [node name="WaitingScreen" unique_id=989092073 instance=ExtResource("1_1g6tu")]
 script = ExtResource("2_a2sqk")
 
@@ -55,8 +55,8 @@ wait_time = 3.0
 text = "Lobby"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" parent_id_path=PackedInt32Array(268787292) index="0" unique_id=316652335]
-clip_contents = true
 custom_minimum_size = Vector2(629, 375)
+clip_contents = true
 offset_left = -110.0
 offset_right = 519.0
 offset_bottom = 375.0
@@ -131,7 +131,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("6_portal")
+texture = SubResource("AtlasTexture_8uxxo")
 expand_mode = 3
 
 [node name="PlayerName" type="Label" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="1" unique_id=605093980]
