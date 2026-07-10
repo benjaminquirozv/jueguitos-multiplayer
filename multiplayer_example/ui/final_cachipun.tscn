@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://owlj1ibwjtsy" path="res://sprites/Level 2 Sprite Project - Pixel Delivery/Tileset & Backgrounds/ParallaxBG_Layers (resizeable)/parallaxBg_skyClouds_v1.png" id="8_sky"]
 [ext_resource type="Texture2D" uid="uid://b6ap1q44hk4px" path="res://sprites/Level 2 Sprite Project - Pixel Delivery/Tileset & Backgrounds/ParallaxBG_Layers (resizeable)/parallaxBg_backHillLayer_v1.png" id="9_back"]
 [ext_resource type="Texture2D" uid="uid://bbumxqj2qpdox" path="res://sprites/Level 2 Sprite Project - Pixel Delivery/Tileset & Backgrounds/ParallaxBG_Layers (resizeable)/parallaxBg_frontHillLayer_v1.png" id="10_front"]
+[ext_resource type="Shader" uid="uid://bvj7i1c4cw2xd" path="res://fondo.gdshader" id="11_shader"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_floor"]
 texture = ExtResource("7_tiles")
@@ -17,6 +18,14 @@ texture = ExtResource("7_tiles")
 
 [sub_resource type="TileSet" id="TileSet_floor"]
 sources/0 = SubResource("TileSetAtlasSource_floor")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_endbg"]
+shader = ExtResource("11_shader")
+shader_parameter/bg_color = Color(0.07905648, 0.023169855, 0.14980963, 1)
+shader_parameter/star_density = 0.002000000095
+shader_parameter/resolution = 1024.0
+shader_parameter/parpadeo_velocidad = 4.2250002006875
+shader_parameter/parpadeo_intensidad = 0.49600002356
 
 [node name="FinalCachipun" type="Control" unique_id=398009615]
 layout_mode = 3
@@ -103,10 +112,8 @@ flip_h = true
 [node name="PlayersContainer" type="Control" parent="." unique_id=1057373881]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -1212.0
 offset_top = -385.0
@@ -207,3 +214,32 @@ vertical_alignment = 1
 stream = ExtResource("5_06fox")
 autoplay = true
 parameters/looping = true
+
+[node name="EndBackground" type="ColorRect" parent="." unique_id=91314844]
+unique_name_in_owner = true
+visible = false
+z_index = 9
+material = SubResource("ShaderMaterial_endbg")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EndScreen" type="TextureRect" parent="." unique_id=79376582]
+unique_name_in_owner = true
+visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = 60.0
+offset_right = -120.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5

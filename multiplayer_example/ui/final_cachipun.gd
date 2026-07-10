@@ -30,9 +30,18 @@ var game_result := ""
 @onready var _players_container: Control = %PlayersContainer
 @onready var _idle_sprite: Sprite2D = %IdleDown
 @onready var _floor: TileMapLayer = %Floor
+@onready var _end_screen: TextureRect = %EndScreen
+@onready var _end_background: ColorRect = %EndBackground
 
 const FLOOR_TILE := Vector2i(3, 0)
 const TILE_SIZE := 16
+
+const RESULT_TIE := "¡EMPATE!"
+const RESULT_TEAM_WINS := "¡EL EQUIPO GANA!"
+const RESULT_HAND_WINS := "¡LA MANO GANA!"
+
+const WIN_TEXTURE := preload("res://ui/backgrounds/winner.png")
+const GAMEOVER_TEXTURE := preload("res://ui/backgrounds/gameover.png")
 
 # Texturas para cada elección
 var hand_textures := {
@@ -45,7 +54,8 @@ var hand_textures := {
 func _ready() -> void:
 	_setup_ui()
 	_connect_signals()
-	_start_game()
+	# _start_game() se dispara solo una vez, al terminar la animación
+	# de entrada de la mano (ver _animate_hand_entrance).
 
 
 func _setup_ui() -> void:
@@ -163,9 +173,17 @@ func _show_game_result(team_choice: Choice, hand_choice: Choice, result: String)
 	_result_label.show()
 	_countdown_label.hide()
 	
-	# Auto-reiniciar después de unos segundos
-	await get_tree().create_timer(4.0).timeout
-	_restart_game()
+	# Solo el empate permite repetir la jugada. Ganar o perder termina la partida.
+	match result:
+		RESULT_TIE:
+			await get_tree().create_timer(4.0).timeout
+			_restart_game()
+		RESULT_TEAM_WINS:
+			await get_tree().create_timer(2.5).timeout
+			_show_end_screen(WIN_TEXTURE)
+		RESULT_HAND_WINS:
+			await get_tree().create_timer(2.5).timeout
+			_show_end_screen(GAMEOVER_TEXTURE)
 
 func _setup_stage() -> void:
 	var viewport_size := get_viewport().get_visible_rect().size
@@ -184,14 +202,16 @@ func _setup_stage() -> void:
 func _setup_players_display() -> void:
 	for child in _players_container.get_children():
 		child.queue_free()
-	
-	var player_count = 0
+
+	var player_count := 0
 	for player in Game.players:
-		var player_label = Label.new()
-		player_label.text = "🎮 %s" % player.name
-		player_label.add_theme_font_size_override("font_size", 32)  # ✅
-		player_label.add_theme_color_override("font_color", Color.CYAN)  # ✅
-		player_label.position = Vector2(player_count * 100, -30 - (player_count * 25))
+		var player_label := Label.new()
+		player_label.text = "%s" % player.name
+		player_label.add_theme_font_size_override("font_size", 28)
+		var color := Color.CYAN if Statics.get_team_from_role(player.role) == Statics.Team.TEAM_BLACK else Color.WHITE
+		player_label.add_theme_color_override("font_color", color)
+		# Stack labels horizontally above the floor
+		player_label.position = Vector2(player_count * 160, 0)
 		_players_container.add_child(player_label)
 		player_count += 1
 
@@ -241,13 +261,13 @@ func _animate_hand_reveal(hand_choice: Choice) -> void:
 
 func _calculate_result(team: Choice, hand: Choice) -> String:
 	if team == hand:
-		return "¡EMPATE!"
+		return RESULT_TIE
 	elif (team == Choice.ROCK and hand == Choice.SCISSORS) or \
 		 (team == Choice.PAPER and hand == Choice.ROCK) or \
 		 (team == Choice.SCISSORS and hand == Choice.PAPER):
-		return "¡EL EQUIPO GANA!"
+		return RESULT_TEAM_WINS
 	else:
-		return "¡LA MANO GANA!"
+		return RESULT_HAND_WINS
 
 
 func _choice_to_string(choice: Choice) -> String:
@@ -265,6 +285,17 @@ func _restart_game() -> void:
 	current_state = GameState.SELECTING
 	_hand_sprite.texture = hand_textures[Choice.ROCK]
 	_show_selection_menu()
+
+
+func _show_end_screen(texture: Texture2D) -> void:
+	current_state = GameState.FINISHED
+	_result_label.hide()
+	_selection_menu.hide()
+	_end_background.show()
+	_end_screen.texture = texture
+	_end_screen.show()
+	await get_tree().create_timer(3.0).timeout
+	Lobby.go_to_menu()
 
 
 func _animate_hand_entrance() -> void:

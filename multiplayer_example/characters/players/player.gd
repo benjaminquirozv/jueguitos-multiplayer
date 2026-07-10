@@ -39,6 +39,7 @@ const COOLDOWN_SABOTAJE := 60.0   # Segundos de espera antes de poder usar de nu
 # Timers propios (solo activos en el jugador local)
 var _cooldown_restante  := 0.0  # Cuánto falta para poder usar el sabotaje de nuevo
 var _efecto_restante    := 0.0  # Cuánto falta para que se te quite el efecto
+var _space_was_up := true  # Para detectar flanco de Espacio físico
 
 # Nodo de UI para mostrar cooldown y efecto activo — se crea en _ready
 var _label_ui: Label
@@ -104,7 +105,10 @@ func _physics_process(delta: float) -> void:
 
 	# ── ESPACIO: lanzar sabotaje ──────────────────────────────────────────────
 	var congelado : bool = my_data and my_data.sabotaje_activo == Statics.Sabotaje.FREEZE
-	if Input.is_action_just_pressed("ui_accept") and not congelado:
+	var space_down := Input.is_physical_key_pressed(KEY_SPACE)
+	var space_just := space_down and _space_was_up
+	_space_was_up = not space_down
+	if (Input.is_action_just_pressed("ui_accept") or space_just) and not congelado:
 		_intentar_sabotaje()
 	# ─────────────────────────────────────────────────────────────────────────
 
@@ -149,33 +153,47 @@ func _physics_process(delta: float) -> void:
 
 # ── LANZAR SABOTAJE ───────────────────────────────────────────────────────────
 func _intentar_sabotaje() -> void:
-	var my_data = Game.get_current_player()
-	if my_data == null:
-		return
-
-	# No tiene sabotaje elegido
-	if my_data.sabotaje == Statics.Sabotaje.NINGUNO:
-		return
-
 	# Todavía en cooldown
 	if _cooldown_restante > 0.0:
 		return
 
-	# Buscar al jugador más cercano dentro del rango
-	var victima = _buscar_victima_al_azar()
-	if victima == null:
-		return  # Nadie en rango
-
-	# Aplicar el sabotaje a la víctima vía RPC (se ejecuta en TODOS los peers)
-	# Llamamos al método del nodo de la víctima directamente usando su nombre (= su ID de red)
-	var victima_node = get_parent().get_node_or_null(str(victima.id))
-	if victima_node == null:
+	# Tutorial: aplicar Slow Motion directo al enemigo (sin Game.players ni RPC).
+	var escena := get_tree().current_scene
+	if escena and escena.has_method("aplicar_slow_al_enemigo"):
+		if escena.aplicar_slow_al_enemigo(DURACION_EFECTO):
+			_cooldown_restante = _cooldown_para_escena()
+			if sabotaje_sfx:
+				sabotaje_sfx.play()
 		return
 
-	victima_node.recibir_sabotaje.rpc(my_data.sabotaje, DURACION_EFECTO)
-	_cooldown_restante = COOLDOWN_SABOTAJE
-	sabotaje_sfx.play()
+	var my_data = Game.get_current_player()
+	if my_data == null:
+		return
+	if my_data.sabotaje == Statics.Sabotaje.NINGUNO:
+		return
 
+	# Partida normal: buscar víctima por equipo y aplicar vía RPC.
+	var victima = _buscar_victima_al_azar()
+	if victima == null:
+		return
+
+	var victima_node = _buscar_nodo_por_id(victima.id)
+	if victima_node == null:
+		push_warning("Sabotaje: no se encontró el nodo de la víctima con id %d" % victima.id)
+		return
+
+	if victima_node.has_method("recibir_sabotaje"):
+		victima_node.recibir_sabotaje.rpc(my_data.sabotaje, DURACION_EFECTO)
+	_cooldown_restante = _cooldown_para_escena()
+	if sabotaje_sfx:
+		sabotaje_sfx.play()
+
+
+func _cooldown_para_escena() -> float:
+	var escena := get_tree().current_scene
+	if escena and str(escena.name).begins_with("Tutorial"):
+		return 2.0
+	return COOLDOWN_SABOTAJE
 
 
 func _buscar_victima_al_azar() -> Statics.PlayerData:
@@ -197,6 +215,18 @@ func _buscar_victima_al_azar() -> Statics.PlayerData:
 		return null
 
 	return candidatos[randi() % candidatos.size()]
+
+
+# Busca el nodo de la víctima por nombre (= id de red) en toda la escena actual.
+# No usa "owned" porque los nodos creados dinámicamente (spawner, enemigo de
+# práctica del tutorial) no tienen owner asignado.
+func _buscar_nodo_por_id(id: int) -> Node:
+	var raiz := get_tree().current_scene
+	if raiz == null:
+		return null
+	if raiz.name == str(id):
+		return raiz
+	return raiz.find_child(str(id), true, false)
 # ─────────────────────────────────────────────────────────────────────────────
 
 
