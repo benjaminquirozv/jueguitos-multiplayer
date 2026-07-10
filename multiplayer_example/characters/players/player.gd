@@ -13,7 +13,6 @@ const SPRITE_FRAMES = {
 	Statics.Role.ROLE_C: preload("res://characters/players/frames_white.tres"),
 	Statics.Role.ROLE_D: preload("res://characters/players/frames_white.tres"),
 }
-
 # Color según team
 const TINTES = {
 	Statics.Team.TEAM_BLACK: Color(0.3, 0.3, 0.3),  # oscuro
