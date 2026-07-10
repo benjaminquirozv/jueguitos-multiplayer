@@ -7,15 +7,51 @@
 script = ExtResource("2_hvxmk")
 
 [node name="Label" parent="MarginContainer2/VBoxContainer/Panel" index="0"]
-text = "Credits"
+text = "Créditos"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="0"]
 theme_type_variation = &"Zero"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" index="0"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.06
+anchor_right = 0.5
+anchor_bottom = 0.06
+offset_left = -390.0
+offset_right = 390.0
+offset_bottom = 490.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/italics_font_size = 18
 bbcode_enabled = true
-text = "[center]
-[b]Lobby[/b]
-Elías Zelada
-[/center]"
+scroll_active = true
+text = "[center][b]Créditos — Twin Dimension[/b][/center]
+
+[b]Desarrollado por[/b]
+Lady Esquivel · Benjamín Quiroz · Maira Rojas · Loonette Villegas
+Basado en [i]multiplayer_example[/i] de Elías Zelada (github.com/elixs)
+
+[b]Arte y sprites[/b]
+• Sprite del equipo negro y fondos de la escena final del cachipún — \"Pixel Delivery Pack 3.0\" por AIKRD (mariiya.itch.io) — CC0
+• Sprite del personaje (animación idle) — \"The Female Adventurer - Free\" por Sscary (sscary.itch.io)
+• Sprite de la estrella coleccionable — NYKNCK (nyknck.itch.io)
+• Pantalla de victoria — \"Pixel art 8-bit You Win\", ilustración de Maderla (123RF)
+• Pantalla de derrota — imagen de licencia libre
+• Fondo espacial del menú y lobby — imagen obtenida de Pinterest
+• Mano de piedra (cachipún) — crédito: Jolygon (licencia estándar)
+• Manos de papel y tijera (cachipún) — generadas con IA a partir de la imagen de referencia de la mano de piedra
+• Sprite del equipo blanco y logo del título — recursos gráficos del proyecto
+
+[b]Música y sonido[/b]
+• \"Cinematic Epicness\" — MaxKoMusic, vía chosic.com (CC BY-SA 3.0)
+• Música de la sala de espera del lobby — chosic.com
+• \"Monk Chant Fantasy\" — Pixabay (freesound_community)
+• \"Walking on Gravel\" (pasos del jugador) — Pixabay (JJBinx)
+• Efecto de recolección de estrella — Pixabay (freesound_community)
+
+[center][i]¡Gracias por jugar![/i][/center]"

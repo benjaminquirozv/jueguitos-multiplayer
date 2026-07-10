@@ -40,7 +40,7 @@ const RESULT_TIE := "¡EMPATE!"
 const RESULT_TEAM_WINS := "¡EL EQUIPO GANA!"
 const RESULT_HAND_WINS := "¡LA MANO GANA!"
 
-const WIN_TEXTURE := preload("res://ui/backgrounds/win.jpg")
+const WIN_TEXTURE := preload("res://ui/backgrounds/winner.png")
 const GAMEOVER_TEXTURE := preload("res://ui/backgrounds/gameover.png")
 
 # Texturas para cada elección
@@ -54,7 +54,8 @@ var hand_textures := {
 func _ready() -> void:
 	_setup_ui()
 	_connect_signals()
-	_start_game()
+	# _start_game() se dispara solo una vez, al terminar la animación
+	# de entrada de la mano (ver _animate_hand_entrance).
 
 
 func _setup_ui() -> void:
