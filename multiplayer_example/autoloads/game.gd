@@ -140,12 +140,19 @@ func set_player_team(id: int, team: Statics.Team) -> void:
 	if player == null:
 		return
 	player.team = team
-	# Asignar role automáticamente según team e index
+
+	# Contar cuántos jugadores ya están en este equipo (sin contarme a mí mismo)
+	var compañeros_en_team := 0
+	for p in players:
+		if p.id != id and p.team == team:
+			compañeros_en_team += 1
+
 	match team:
 		Statics.Team.TEAM_BLACK:
-			player.role = Statics.Role.ROLE_A if player.index % 2 == 0 else Statics.Role.ROLE_B
+			player.role = Statics.Role.ROLE_A if compañeros_en_team == 0 else Statics.Role.ROLE_B
 		Statics.Team.TEAM_WHITE:
-			player.role = Statics.Role.ROLE_C if player.index % 2 == 0 else Statics.Role.ROLE_D
+			player.role = Statics.Role.ROLE_C if compañeros_en_team == 0 else Statics.Role.ROLE_D
+
 	player_updated.emit(id)
 
 func set_current_player_team(team: Statics.Team) -> void:

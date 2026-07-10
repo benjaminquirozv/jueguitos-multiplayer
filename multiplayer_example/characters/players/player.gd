@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var anim = $AnimatedSprite2D
 @onready var collision = $CollisionShape2D
 @onready var footsteps = $footsteps
+@onready var sabotaje_sfx = $sabotajeSFX
 
 
 # Sprite según EQUIPO (ambos roles del mismo equipo comparten sprite)
@@ -13,7 +14,6 @@ const SPRITE_FRAMES = {
 	Statics.Role.ROLE_C: preload("res://characters/players/frames_white.tres"),
 	Statics.Role.ROLE_D: preload("res://characters/players/frames_white.tres"),
 }
-
 # Color según team
 const TINTES = {
 	Statics.Team.TEAM_BLACK: Color(0.3, 0.3, 0.3),  # oscuro
@@ -162,6 +162,8 @@ func _intentar_sabotaje() -> void:
 	if escena and escena.has_method("aplicar_slow_al_enemigo"):
 		if escena.aplicar_slow_al_enemigo(DURACION_EFECTO):
 			_cooldown_restante = _cooldown_para_escena()
+			if sabotaje_sfx:
+				sabotaje_sfx.play()
 		return
 
 	var my_data = Game.get_current_player()
@@ -183,6 +185,8 @@ func _intentar_sabotaje() -> void:
 	if victima_node.has_method("recibir_sabotaje"):
 		victima_node.recibir_sabotaje.rpc(my_data.sabotaje, DURACION_EFECTO)
 	_cooldown_restante = _cooldown_para_escena()
+	if sabotaje_sfx:
+		sabotaje_sfx.play()
 
 
 func _cooldown_para_escena() -> float:
@@ -314,7 +318,7 @@ func _update_visual() -> void:
 		set_normal_visual()
 
 func set_ghost_visual() -> void:
-	modulate.a = 0.35
+	anim.material.set_shader_parameter("alpha_multiplier", 0.35)
 
 func set_normal_visual() -> void:
-	modulate.a = 1.0
+	anim.material.set_shader_parameter("alpha_multiplier", 1.0)
