@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var anim = $AnimatedSprite2D
 @onready var collision = $CollisionShape2D
 @onready var footsteps = $footsteps
+@onready var sabotaje_sfx = $sabotajeSFX
 
 
 # Sprite según EQUIPO (ambos roles del mismo equipo comparten sprite)
@@ -174,6 +175,8 @@ func _intentar_sabotaje() -> void:
 
 	victima_node.recibir_sabotaje.rpc(my_data.sabotaje, DURACION_EFECTO)
 	_cooldown_restante = COOLDOWN_SABOTAJE
+	sabotaje_sfx.play()
+
 
 
 func _buscar_victima_al_azar() -> Statics.PlayerData:
@@ -286,7 +289,7 @@ func _update_visual() -> void:
 		set_normal_visual()
 
 func set_ghost_visual() -> void:
-	modulate.a = 0.35
+	anim.material.set_shader_parameter("alpha_multiplier", 0.35)
 
 func set_normal_visual() -> void:
-	modulate.a = 1.0
+	anim.material.set_shader_parameter("alpha_multiplier", 1.0)

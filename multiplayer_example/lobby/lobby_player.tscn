@@ -1,7 +1,11 @@
 [gd_scene format=3 uid="uid://iobnvr8f3tkm"]
 
 [ext_resource type="Script" uid="uid://eed5mjiac1bg" path="res://lobby/lobby_player.gd" id="1_1jc8v"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="1_dxmoh"]
+[ext_resource type="Texture2D" uid="uid://dinnrlq2ok34u" path="res://sprites/The Female Adventurer - Free/Dash/Dash.png" id="2_wfndr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
+atlas = ExtResource("2_wfndr")
+region = Rect2(300.79993, 0, 24.799988, 67.99996)
 
 [node name="LobbyPlayer" type="HBoxContainer" unique_id=886898767]
 custom_minimum_size = Vector2(200, 0)
@@ -27,7 +31,8 @@ text = "Role"
 
 [node name="ReadyIcon" type="TextureRect" parent="." unique_id=1628450076]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 60)
 layout_mode = 2
 size_flags_horizontal = 8
-texture = ExtResource("1_dxmoh")
+texture = SubResource("AtlasTexture_g4v7s")
 expand_mode = 3

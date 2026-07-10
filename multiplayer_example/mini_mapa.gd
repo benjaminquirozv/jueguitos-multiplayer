@@ -10,7 +10,10 @@ var teammate: Node2D = null
 var map_origin := Vector2.ZERO
 var map_size_world := Vector2(1, 1)
 
+var marcador_portal_final: ColorRect = null
+
 const COLOR_PORTAL := Color(1, 1, 0)
+const COLOR_PORTAL_FINAL := Color(0, 1, 0)
 const MARGEN := 200.0
 
 
@@ -19,6 +22,9 @@ func _ready() -> void:
 	teammate_marker.visible = false
 	_calcular_bounds()
 	_crear_marcadores_portales()
+
+	Game.stars_updated.connect(_on_stars_updated)
+	_actualizar_portal_final_minimapa()
 
 
 func _process(_delta: float) -> void:
@@ -79,11 +85,32 @@ func _crear_marcadores_portales() -> void:
 			continue
 
 		var marcador := ColorRect.new()
-		marcador.color = COLOR_PORTAL
 		marcador.size = Vector2(6, 6)
 		marcador.position = world_to_minimap(portal.global_position) - marcador.size / 2.0
+
+		if portal.name == "portal_final_final":
+			marcador.color = COLOR_PORTAL_FINAL
+			marcador.visible = false
+			marcador_portal_final = marcador
+			print("✅ Encontré Portal_final y creé su marcador")
+		else:
+			marcador.color = COLOR_PORTAL
+
 		$Panel.add_child(marcador)
 
+	print("¿marcador_portal_final quedó asignado? ", marcador_portal_final != null)
+
+
+func _actualizar_portal_final_minimapa() -> void:
+	if marcador_portal_final == null:
+		print("⚠ marcador_portal_final es null, no puedo actualizarlo")
+		return
+	var mi_data = Game.get_current_player()
+	if mi_data == null:
+		return
+	var habilitado = Game.team_has_all_stars(mi_data.team)
+	print("Actualizando portal final del minimapa. Habilitado: ", habilitado)
+	marcador_portal_final.visible = habilitado
 
 func world_to_minimap(world_pos: Vector2) -> Vector2:
 	var relative_pos := world_pos - map_origin
@@ -92,3 +119,10 @@ func world_to_minimap(world_pos: Vector2) -> Vector2:
 	x = clamp(x, 0.0, background.size.x)
 	y = clamp(y, 0.0, background.size.y)
 	return Vector2(x, y)
+	
+func _on_stars_updated(team) -> void:
+	var mi_data = Game.get_current_player()
+	if mi_data == null:
+		return
+	if team == mi_data.team:
+		_actualizar_portal_final_minimapa()

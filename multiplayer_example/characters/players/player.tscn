@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://vyg8ohissl2i" path="res://characters/players/player.gd" id="1_yalo1"]
 [ext_resource type="Texture2D" uid="uid://j8bss1pb8kkt" path="res://sprites/AnimationSheet.png" id="2_yalo1"]
 [ext_resource type="AudioStream" uid="uid://cr0n8acah6bcb" path="res://sprites/sounds/jjbinx-walking-on-gravel-313017.mp3" id="3_rod7k"]
+[ext_resource type="AudioStream" uid="uid://d22pvspju50fw" path="res://player/lumora_studios-pixel-explosion-319166.mp3" id="4_q3y5j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ql65i"]
 atlas = ExtResource("2_yalo1")
@@ -53,7 +54,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xbvuj")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -82,7 +83,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ocv32")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 5.0
 }]
@@ -119,3 +120,7 @@ replication_config = SubResource("SceneReplicationConfig_yalo1")
 stream = ExtResource("3_rod7k")
 volume_db = 1.384
 parameters/looping = true
+
+[node name="sabotajeSFX" type="AudioStreamPlayer2D" parent="." unique_id=611327761]
+stream = ExtResource("4_q3y5j")
+bus = &"SFX"
