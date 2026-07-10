@@ -15,7 +15,6 @@ enum GameState {
 }
 
 var current_state := GameState.WAITING_PLAYERS
-var player_choices: Dictionary = {}
 var final_choice := Choice.NONE
 var enemy_choice := Choice.NONE
 var game_result := ""
@@ -52,10 +51,16 @@ var hand_textures := {
 
 
 func _ready() -> void:
+	Game.reset_cachipun()
 	_setup_ui()
 	_connect_signals()
 	# _start_game() se dispara solo una vez, al terminar la animación
 	# de entrada de la mano (ver _animate_hand_entrance).
+
+
+func _exit_tree() -> void:
+	if Game.cachipun_round_result.is_connected(_on_cachipun_round_result):
+		Game.cachipun_round_result.disconnect(_on_cachipun_round_result)
 
 
 func _setup_ui() -> void:
@@ -77,6 +82,7 @@ func _connect_signals() -> void:
 	_rock_btn.pressed.connect(_on_choice_selected.bind(Choice.ROCK))
 	_paper_btn.pressed.connect(_on_choice_selected.bind(Choice.PAPER))
 	_scissors_btn.pressed.connect(_on_choice_selected.bind(Choice.SCISSORS))
+	Game.cachipun_round_result.connect(_on_cachipun_round_result)
 
 
 func _start_game() -> void:
@@ -95,67 +101,19 @@ func _show_selection_menu() -> void:
 func _on_choice_selected(choice: Choice) -> void:
 	if current_state != GameState.SELECTING:
 		return
-		
-	var player_id = multiplayer.get_unique_id()
-	
-	# Enviar elección a todos los jugadores
-	_register_player_choice.rpc(player_id, choice)
+	# RPCs viven en Game (autoload): los perdedores no tienen esta escena.
+	Game.submit_cachipun_choice(int(choice))
 
 
-@rpc("any_peer", "call_local", "reliable")
-func _register_player_choice(player_id: int, choice: Choice) -> void:
-	player_choices[player_id] = choice
-	
-	# Verificar si todos los jugadores han elegido o si es suficiente
-	_check_if_ready_to_play()
+func _on_cachipun_round_result(team_choice: int, hand_choice: int, result: String) -> void:
+	await _show_game_result(team_choice as Choice, hand_choice as Choice, result)
 
 
-func _check_if_ready_to_play() -> void:
-	# Por simplicidad, cuando al menos 1 jugador elige, se procede
-	# Podrías ajustar esto para esperar a todos los jugadores ganadores
-	if player_choices.size() > 0:
-		_calculate_team_choice()
-		_play_round()
-
-
-func _calculate_team_choice() -> void:
-	# Estrategia: usar la elección más popular del equipo
-	var choice_counts := {Choice.ROCK: 0, Choice.PAPER: 0, Choice.SCISSORS: 0}
-	
-	for choice in player_choices.values():
-		choice_counts[choice] += 1
-	
-	# Encontrar la elección con más votos
-	var max_votes = 0
-	final_choice = Choice.ROCK
-	
-	for choice in choice_counts:
-		if choice_counts[choice] > max_votes:
-			max_votes = choice_counts[choice]
-			final_choice = choice
-
-
-func _play_round() -> void:
-	if not multiplayer.is_server():
-		return
-		
-	current_state = GameState.SHOWING_RESULT
-	
-	# La mano enemiga elige al azar
-	enemy_choice = [Choice.ROCK, Choice.PAPER, Choice.SCISSORS].pick_random()
-	
-	# Calcular resultado
-	var result = _calculate_result(final_choice, enemy_choice)
-	
-	# Enviar resultado a todos
-	_show_game_result.rpc(final_choice, enemy_choice, result)
-
-
-@rpc("authority", "call_local", "reliable")
 func _show_game_result(team_choice: Choice, hand_choice: Choice, result: String) -> void:
 	final_choice = team_choice
 	enemy_choice = hand_choice
 	game_result = result
+	current_state = GameState.SHOWING_RESULT
 	
 	# Ocultar menú de selección
 	_selection_menu.hide()
@@ -175,13 +133,13 @@ func _show_game_result(team_choice: Choice, hand_choice: Choice, result: String)
 	
 	# Solo el empate permite repetir la jugada. Ganar o perder termina la partida.
 	match result:
-		RESULT_TIE:
+		RESULT_TIE, Game.CACHIPUN_TIE:
 			await get_tree().create_timer(4.0).timeout
 			_restart_game()
-		RESULT_TEAM_WINS:
+		RESULT_TEAM_WINS, Game.CACHIPUN_TEAM_WINS:
 			await get_tree().create_timer(2.5).timeout
 			_show_end_screen(WIN_TEXTURE)
-		RESULT_HAND_WINS:
+		RESULT_HAND_WINS, Game.CACHIPUN_HAND_WINS:
 			await get_tree().create_timer(2.5).timeout
 			_show_end_screen(GAMEOVER_TEXTURE)
 
@@ -259,17 +217,6 @@ func _animate_hand_reveal(hand_choice: Choice) -> void:
 	tween.tween_property(_hand_sprite, "position:x", current_x, 0.2)
 
 
-func _calculate_result(team: Choice, hand: Choice) -> String:
-	if team == hand:
-		return RESULT_TIE
-	elif (team == Choice.ROCK and hand == Choice.SCISSORS) or \
-		 (team == Choice.PAPER and hand == Choice.ROCK) or \
-		 (team == Choice.SCISSORS and hand == Choice.PAPER):
-		return RESULT_TEAM_WINS
-	else:
-		return RESULT_HAND_WINS
-
-
 func _choice_to_string(choice: Choice) -> String:
 	match choice:
 		Choice.ROCK: return "Piedra"
@@ -279,7 +226,7 @@ func _choice_to_string(choice: Choice) -> String:
 
 
 func _restart_game() -> void:
-	player_choices.clear()
+	Game.reset_cachipun()
 	final_choice = Choice.NONE
 	enemy_choice = Choice.NONE
 	current_state = GameState.SELECTING
